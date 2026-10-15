@@ -1,4 +1,4 @@
-## TRABAJO DE METODOS ESTADITICOS ##
+## TRABAJO DE METODOS ESTADISTICOS ##
 
 # librerias
 library(tidyverse)
