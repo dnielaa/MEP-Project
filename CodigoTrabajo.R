@@ -24,6 +24,9 @@ ggplot(health_df, aes(x = health_score)) +
        y = "Indice") +
   theme_minimal()
 
+
+
+
 # distribución de frecuencias relativas de los pacientes por sex. 
  #### MIRAR ESTO BIEN ####
 frec_abs=table(health_df$sex)
@@ -43,6 +46,7 @@ ggplot(health_df, aes(x = factor(region), y = health_score)) +
        x = "Region",
        y = "Indice de salud") +
   theme_minimal()
+
 
 # gráfico de dispersión entre bmi y health_score. ¿Qué relación parece observarse? 
 ggplot(health_df, aes(x = bmi, y = health_score)) +

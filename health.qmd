@@ -4,43 +4,139 @@ author: "Paula María Arroyo Botica, Daniela Ioana Iacobita, Nuria Valiente Prie
 format: html
 ---
 
+```{r}
+#| include : false
+
+# librerias
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+library(purrr)
+```
+
 ## Introducción
 
 ## Bloque 1: Exploración inicial
+
+Veamos primero el encabezado de nuestros datos:
+
+```{r}
+#| echo: false
+# leemos los datos
+health_df <- read.csv("data/health_C.csv")
+head(health_df) #mostrar las primeras filas
+```
 
 ### 1.1. Media, mediana y desviación típica
 
 En primer lugar se ha calculado la media, mediana y desviación típica de el índice de salud de los pacientes. Los valores que se han obtenido son:
 
-- Media: En este caso se ha obtenido que los pacientes siguen un indice de salud global promedio a 53.1044.
+```{r}
+#| include: false
 
-- Mediana: En este caso la tendencia central es 5.905.
+## PRIMER BLOQUE ##
+# media, mediana y desviación típica de la variable health_score.
+media=mean(health_df$health_score) 
+mediana=median(health_df$health_score) 
+des_tipica=sd(health_df$health_score) 
 
-- Desviación típica: Los datos presentan una dispersion de 18.6223 con respecto a la media aritmética.
+```
+
+- Media: En este caso se ha obtenido que los pacientes siguen un indice de salud global promedio a `r round(media, 4)`.
+
+- Mediana: En este caso la tendencia central es `r round(mediana, 4)`
+
+- Desviación típica: Los datos presentan una dispersion de `r round(des_tipica, 4)` con respecto a la media aritmética.
 
 ### 1.2. Puntaje de índice de salud.
 
 En este apartado se ha realizado un histograma de los índices de salud de los pacientes en 20 intervalos.
 
-![](images/histograma%20indice%20de%20salud.png)
+```{r}
+#| echo: false
+# histograma de health_score con 20 intervalos.
+ggplot(health_df, aes(x = health_score)) +
+  geom_histogram(bins = 20, fill = "lightblue", color = "blue") +
+  labs(title = "Histograma de indice de salud del paciente",
+       x = "Puntaje",
+       y = "Indice") +
+  theme_minimal()
+```
 
-Como se puede observar en la imagen, los pacientes que presentan un mayor indice de salud tienen en tre 50 a 75 puntos.
+Como se puede observar en la imagen, los pacientes que presentan un mayor indice de salud tienen entre 50 y 75 puntos aproximadamente.
 
 ### 1.3. Distribucion de frecuencias relativas de los pacientes por sexo.
 
+```{r}
+# distribución de frecuencias relativas de los pacientes por sex. 
+ #### MIRAR ESTO BIEN ####
+frec_abs=table(health_df$sex)
+frec_rel=prop.table(frec_abs)
+ptg_rel=frec_rel*100
+tabla_frecuencias <- data.frame(
+  Frecuencia_Absoluta = as.vector(frec_abs),
+  Frecuencia_Relativa = round(as.vector(frec_rel), 4),
+  Porcentaje_Porc = round(as.vector(ptg_rel), 2)
+)
+row.names(tabla_frecuencias) <- names(frec_abs)
+```
+
 ### 1.4. Diagrama de cajas de indice de salud por región
+
+```{r}
+# diagrama de cajas de health_score según region.
+ggplot(health_df, aes(x = factor(region), y = health_score)) +
+  geom_boxplot(fill = "lightblue", color="blue") +
+  labs(title = "Indice de salud por región",
+       x = "Region",
+       y = "Indice de salud") +
+  theme_minimal()
+```
 
 ### 1.5. Diagrama de dispersion entre índice de salud e índice de masa corporal
 
 En este apartado se desea estudiar que relación puede haber entre en índice de masa corporal e indice de salud entre los pacientes. Para ello se ha creado una gráfica de dispersion con los datos:
 
-![](images/dispersion%20mbi%20y%20indice%20salud.png)
+```{r}
+#|echo: false
+
+# gráfico de dispersión entre bmi y health_score. ¿Qué relación parece observarse? 
+ggplot(health_df, aes(x = bmi, y = health_score)) +
+  geom_point(alpha = 0.7) +
+  geom_smooth(method = "lm", se = TRUE, color = "red") +
+  labs(title = "Relación entre índice de salud e índice de masa corporal",
+       x = "indice de masa corporal", y = "indice de salud") +
+  theme_minimal()
+# CUANTO MAS INDICE DE MASA CORPORAL TIENE UNA PERSONA MAS BAJO ES SU INDICE DE SALUD 
+
+```
 
 Como se puede observar, a madida que el indice de masa corporal va aumentando, el indice de salud de los pacientes va disminuyendo. Por lo tanto, podemos suponer que existe una relacion negativa entre ambas variables.
 
 ### 1.6. Matriz de correlaciones entre variables numéricas.
 
+```{r}
+# matriz de correlaciones entre las variables numéricas (ej. bmi, activity_hours, sleep_hours, stress, cholesterol, systolic_bp, diastolic_bp).
+var_num=health_df[,c("age","bmi","activity_hours","sleep_hours","stress","cholesterol","systolic_bp",
+              "diastolic_bp", "alcohol_units","diet_score","med_adherence","comorbidities","income")]
+cor_matrix <- cor(var_num)
+print(round(cor_matrix, 2))
+# TIENE MUCHOS VALORES NA PORQUE LOS DATOS TIENE HUECOS SIN PONER.
+```
+
+
 ### 1.7. Gráfico de dispersión entre horas de actividad e indice de salud
+
+```{r}
+# Representa un gráfico de dispersión entre activity_hours y health_score. ¿Hay indicios de una relación no lineal? 
+ggplot(health_df, aes(x = activity_hours, y = health_score)) +
+  geom_point(alpha = 0.7) +
+  geom_smooth(method = "lm", se = TRUE, color = "red") +
+  labs(title = "Relación entre horas de actividad e índice de masa corporal",
+       x = "horas de actividad", y = "indice de salud") +
+  theme_minimal()
+# NO HAY INDICIOS PORQUE LA LINEA DE REGRESION ES RECTA, NO CURVA
+```
 
 ## Bloque 2: Manejo de valores faltantes
 
