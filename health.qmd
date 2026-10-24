@@ -124,7 +124,6 @@ print(round(cor_matrix, 2))
 # TIENE MUCHOS VALORES NA PORQUE LOS DATOS TIENE HUECOS SIN PONER.
 ```
 
-
 ### 1.7. Gráfico de dispersión entre horas de actividad e indice de salud
 
 ```{r}
@@ -139,6 +138,119 @@ ggplot(health_df, aes(x = activity_hours, y = health_score)) +
 ```
 
 ## Bloque 2: Manejo de valores faltantes
+
+### 2.1. Identifica las variables que contienen valores faltantes y cuántos casos faltan en cada una.
+
+```{r}
+nas_totales = colSums(is.na(health_df))
+nas_totales[nas_totales > 0]
+```
+
+En este caso las variables que tienen valores faltantes son en `bmi`, `activity_hours`, `sleep_hours`, `stress` y `cholesterol`, que tienen nueve valores nulos. 
+
+Al ver este resultado nos ha sorprendido que todas estas variables  tuviesen el mismo número de valores nulos, por lo que hemos hecho una tabla que nos muestras que filas tienen estos valores ausentes por varaible.
+
+```{r}
+# 1. Obtener la matriz de posiciones
+posiciones_na = which(is.na(health_df), arr.ind = TRUE)
+
+# 2. Convertirlo en un data.frame ordenado y bonito
+df_nas = data.frame(
+  Fila = posiciones_na[, "row"],
+  Variable = names(health_df)[posiciones_na[, "col"]]
+)
+
+# 3. Ver los primeros resultados (o todo el objeto)
+head(df_nas, 45)
+```
+
+Como podemos comprobar estos valores nulos no estan en las mismas filas
+
+### 2.2. Calcula la proporción total de valores faltantes sobre el dataset completo.
+
+A continuación hemos calculado el procentaje total de valores nulos. 
+
+```{r}
+# 1. Proporción total de NA (da un valor entre 0 y 1, por ejemplo: 0.02)
+proporcion_nas = mean(is.na(health_df))
+cat("proporcion total de valores nulos:",proporcion_nas*100,"\n")
+```
+
+### 2.3. Construye una tabla resumen con las variables que presentan missing y el porcentaje de datos ausentes en cada una.
+
+```{r}
+tabla_resumen=data.frame(porcentaje=colMeans(is.na(health_df)*100))
+summary(tabla_resumen)
+tabla_resumen
+```
+
+### 2.4. Aplica una imputación por la media en bmi y calcula de nuevo la media de esta variable.
+
+Una de las variables que tienen valores faltantes es `bmi` (índice de masa corporal), por lo que vamos a imputarlos para poder eliminarlos. 
+
+La imputación es un proceso por el cual se sustituyen los valores faltantes de una variable por la media total de ella misma.
+
+```{r}
+health_df_imputado=health_df
+media_calculada=mean(health_df$bmi, na.rm = TRUE)
+health_df_imputado$bmi[is.na(health_df$bmi)]=media_calculada
+```
+
+### 2.5. Representa histogramas de sleep_hours antes y después de la imputación por media. ¿Observas cambios en la distribución?
+
+A continuacíón vamos a ver como han cambiado estos datos tas su imputacion: 
+
+```{r}
+#histograma antes de la imputacion
+ggplot(health_df, aes(x = sleep_hours)) +
+  geom_histogram(fill = "lightblue", color = "blue") +
+  labs(title = "Histograma de horas de sueño antes de la imputación",
+       x = "horas de sueño",
+       y = "media") +
+  theme_minimal()
+
+#histograma despues de la imputacion
+ggplot(health_df_imputado, aes(x = sleep_hours)) +
+  geom_histogram(fill = "lightblue", color = "blue") +
+  labs(title = "Histograma de horas de sueño después de la imputación",
+       x = "horas de sueño",
+       y = "media") +
+  theme_minimal()
+```
+
+Al comparar las dos gráficas, pordemos ver que estas son iguales. Esto es debido a que nuestros datos contiene la información de casi mil pacientes y tenemos un total de $45$ datos n/a, por lo que el cambio no se nota mucho.
+
+### 2.6. Aplica una imputación por la mediana en stress. Compara los resultados con la imputación por la media.
+
+La imputación no solo se puede hacer con la media de la variable, sino tambien con su mediana. En este caso vamos a imputar la variable `stress` mediante su mediana.
+
+```{r}
+health_df_imputado1=health_df
+mediana_calculada=median(health_df$stress, na.rm = TRUE)
+health_df_imputado1$stress[is.na(health_df$stress)]=mediana_calculada
+```
+
+### 2.7. Realiza una imputación condicional: sustituye los valores faltantes de cholesterol por la media de pacientes del mismo grupo de sex.
+
+```{r}
+health_df_imputado2=health_df
+media_calculada_mujeres=mean(health_df$cholesterol[health_df$sex=="Mujer"], na.rm = TRUE,)
+media_calculada_hombres=mean(health_df$cholesterol[health_df$sex=="Hombre"], na.rm = TRUE,)
+health_df_imputado2$cholesterol[is.na(health_df$cholesterol) & health_df$sex=="Mujer" ]=media_calculada_mujeres
+health_df_imputado2$cholesterol[is.na(health_df$cholesterol) & health_df$sex=="Hombre" ]=media_calculada_hombres
+```
+
+### 2.8. Discute si es razonable suponer que los valores faltantes son MCAR, MAR o MNAR en este contexto de salud.
+
+- MCAR: Indica que los valores faltan por puro azar. En el contexto de la salud, esto no puede ser posible, ya que los datos médicos se recogen mediante el historial de los pacientes, sensores de dispositivos de salud, pruebas etc..., por lo tanto son datos protegidos.
+
+- MAR: Indica que los valores faltan debido a la falta de otras variables. 
+
+
+
+### 2.9. Ajusta un modelo lineal simple (health_score \~ bmi) usando solo casos completos. ¿Cuántas observaciones se pierden?
+
+### 2.10. Repite el modelo anterior pero con el dataset imputado. ¿Cambian los coeficientes? Explica por qué.
 
 ## Bloque 3: Regresion lineal simple y multiple
 

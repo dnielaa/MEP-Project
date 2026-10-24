@@ -107,9 +107,6 @@ summary(is.na(health_df))
 # proporción total de valores faltantes sobre el dataset completo. 
 mean(is.na(health_df))*100 #en %
 
-# tabla resumen con las variables que presentan missing y el porcentaje de datos ausentes en cada una. 
-tabla_resumen=data.frame(porcentaje=colMeans(is.na(health_df)*100))
-
 # imputación por la media en bmi y calcula de nuevo la media de esta variable. 
 health_df_imputado=health_df
 media_calculada=mean(health_df$bmi, na.rm = TRUE)

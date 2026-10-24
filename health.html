@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Paula María Arroyo Botica, Daniela Ioana Iacobita, Nuria Valiente Prieto">
+
+<title>Trabajo de estadística de datos sanitarios</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="health_files/libs/clipboard/clipboard.min.js"></script>
+<script src="health_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="health_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="health_files/libs/quarto-html/popper.min.js"></script>
+<script src="health_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="health_files/libs/quarto-html/anchor.min.js"></script>
+<link href="health_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="health_files/libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="health_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="health_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="health_files/libs/bootstrap/bootstrap-215b371544c282197b31c8aa00ce3677.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="fullcontent quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Trabajo de estadística de datos sanitarios</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Paula María Arroyo Botica, Daniela Ioana Iacobita, Nuria Valiente Prieto </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># librerias</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.2.1     ✔ readr     2.2.0
+✔ forcats   1.0.1     ✔ stringr   1.6.0
+✔ ggplot2   4.0.3     ✔ tibble    3.3.1
+✔ lubridate 1.9.5     ✔ tidyr     1.3.2
+✔ purrr     1.2.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggcorrplot)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="introducción" class="level2">
+<h2 class="anchored" data-anchor-id="introducción">Introducción</h2>
+<p>El objetivo de este trabajo es hacer un estudio estadísticos sobre un conjunto datos que contiene informacion sanitaria de una serie da pacientes.</p>
+<p>En este contexto aprenderemos desde como hacer sus primeras observaciones y la trata de elementos faltantes hasta ver las iteracciones de las varaiables en un modelo de inferencia.</p>
+</section>
+<section id="bloque-1-exploración-inicial" class="level2">
+<h2 class="anchored" data-anchor-id="bloque-1-exploración-inicial">Bloque 1: Exploración inicial</h2>
+<p>Para comenzar con el estudio es necesario primero cargar los datos. Par esto usamos la función <code>read.csv</code> y mostramos sus primeras lineas para ver que este es la base de datos correcta.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>  health_score hospital_visits disease_controlled doses_prescribed doses_taken
+1         0.00               0                  0               17          17
+2        55.39               0                  0               27          24
+3        17.74               0                  0               22          20
+4        46.70               0                  0               11          11
+5        25.24               0                  0               17          14
+6        77.31               1                  0                7           7
+  age    sex   bmi activity_hours sleep_hours stress cholesterol systolic_bp
+1  62 Hombre 40.45           4.72        5.60   50.8       150.6       133.5
+2  32  Mujer 26.95           4.26        6.56   30.7       236.2       112.2
+3  67 Hombre 35.01           4.65        8.27   63.5       142.2       137.4
+4  37  Mujer 25.69           0.00        7.62     NA       233.4       138.4
+5  30  Mujer 33.16           3.39        6.98   46.7       137.0       129.0
+6  68  Mujer 21.34           2.68        6.86   48.2       231.5       123.2
+  diastolic_bp smoker alcohol_units diet_score med_adherence comorbidities
+1         71.1      0           6.0        4.0         0.593             3
+2         76.9      0          11.9        3.2         0.711             2
+3         95.9      1          13.3        7.0         0.822             1
+4         81.1      0           0.4        6.8         1.000             2
+5         59.8      0           7.7        6.2         0.822             4
+6         74.3      0           0.0        6.3         0.912             0
+    income region    clinic
+1 21401.85  Norte Clínica A
+2 30205.77 Centro Clínica B
+3 28094.81    Sur Clínica B
+4 18371.49  Norte Clínica A
+5  8761.00    Sur Clínica B
+6 25154.91 Centro Clínica A</code></pre>
+</div>
+</div>
+<section id="media-mediana-y-desviación-típica" class="level3">
+<h3 class="anchored" data-anchor-id="media-mediana-y-desviación-típica">1.1. Media, mediana y desviación típica</h3>
+<p>En este subapartado calcularemos la media, mediana y desviación típica de la variable <code>health_score</code> (índice de salud):</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>                  Índice de Salud
+media                    53.10447
+mediana                  55.90500
+desviación típica        18.62233</code></pre>
+</div>
+</div>
+<p>En este caso los resultado obtenidos son:</p>
+<ul>
+<li><p><strong>Media</strong>: En estadítica la media indica el promedio de todos los valores juntos, se calcula como el sumatorio de todos los valores partido de el número total de elemntos. En este contexto, se ha obtenido que los pacientes siguen un indice de salud global promedio a 53.1045.</p></li>
+<li><p><strong>Mediana</strong>: La mediana es el la posición central cuando todos los datos son ordenados en una escala de menor a mayor. En este caso, la tendencia central es 55.905.</p></li>
+<li><p><strong>Desviación típica</strong>: La desviación típica mide el grado de dispersión de los datos, es decir, indica cuanto se alejan estos en promedio respecto a la media. En nuestro conjunto, los datos presentan una dispersion de 18.6223 con respecto a la media aritmética.</p></li>
+</ul>
+</section>
+<section id="puntaje-de-índice-de-salud." class="level3">
+<h3 class="anchored" data-anchor-id="puntaje-de-índice-de-salud.">1.2. Puntaje de índice de salud.</h3>
+<p>A continuación se ha realizado un histograma de los de la variable <code>health_score</code> en 20 intervalos.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="health_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>A partir de la gráfica obtenida se puede obeservar que, en general, la mayoría de pacientes presentan un índice de salud, de entre los <span class="math inline">\(44\)</span> y <span class="math inline">\(70\)</span> puntos (moda). En particular, el puntaje con un mayor número de pacientes ronda los <span class="math inline">\(68\)</span> puntos mas o menos, con casi <span class="math inline">\(125\)</span> pacientes.</p>
+</section>
+<section id="distribucion-de-frecuencias-relativas-de-los-pacientes-por-sexo." class="level3">
+<h3 class="anchored" data-anchor-id="distribucion-de-frecuencias-relativas-de-los-pacientes-por-sexo.">1.3. Distribucion de frecuencias relativas de los pacientes por sexo.</h3>
+<p>A continuación calcularemos la frecuencia relativas de los pacientes por sexo.</p>
+<p>La frecuencia relativa de un valor se calcula como la división de la frecuencia absoluta de ese valor (número de veces que se repite ese valor en el conjunto de datos) entre el número total de datos.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>       Frecuencia Absoluta Frecuencia Relativa
+Hombre                 451           46.209016
+Mujer                  511           52.356557
+Otro                    14            1.434426</code></pre>
+</div>
+</div>
+<p>Como podemos observar a traves de la tabla, los hombre presentan una frecuencia relativa de <code>round(porcentaje[1],4)</code>%; las mujeres con <code>round(porcentaje[2],4)</code>% y finalmente otros con <code>round(porcentaje[3],4)</code>%.</p>
+</section>
+<section id="diagrama-de-dispersion-entre-índice-de-salud-e-índice-de-masa-corporal" class="level3">
+<h3 class="anchored" data-anchor-id="diagrama-de-dispersion-entre-índice-de-salud-e-índice-de-masa-corporal">1.5. Diagrama de dispersion entre índice de salud e índice de masa corporal</h3>
+<p>En este apartado se desea estudiar que relación puede haber entre en la variable <code>bmi</code> (índice de masa corporal) y <code>health_score</code> entre los pacientes. Para ello se ha creado la siguiente gráfica de dispersión:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#|echo: false</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(health_df, <span class="fu">aes</span>(<span class="at">x =</span> bmi, <span class="at">y =</span> health_score)) <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>,<span class="at">color=</span><span class="st">"lightblue"</span>) <span class="sc">+</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Relación entre índice de salud e índice de masa corporal"</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"indice de masa corporal"</span>, <span class="at">y =</span> <span class="st">"indice de salud"</span>) <span class="sc">+</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 9 rows containing non-finite outside the scale range
+(`stat_smooth()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 9 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="health_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Como se puede observar, a medida que el índice de masa corporal va aumentando, el índice de salud de los pacientes va disminuyendo. Por lo tanto, podemos suponer que existe una relacion negativa entre ambas variables.</p>
+<p>Sin embargo, cabe destacar que los puntos de la gráfica siguen una forma curvilinea y además hay una cola en la gráfica, lo que indica un supuesto de violación en la <strong>linealidad</strong> y <strong>normalidad</strong> de los residuos. Por lo tanto, para poder hacer correctamente un estudio inferencial, se debería hacer una serie de transformaciones, lo que podría cambiar nuestra suposición inicial.</p>
+</section>
+<section id="matriz-de-correlaciones-entre-variables-numéricas." class="level3">
+<h3 class="anchored" data-anchor-id="matriz-de-correlaciones-entre-variables-numéricas.">1.6. Matriz de correlaciones entre variables numéricas.</h3>
+<p>En este apartado se desea calcular la matriz de correlaciones de todos los datos numericos que contiene nuestra base de datos. Esta matriz indicará el nivel de relación existente entre las variables.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#|echo: false</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>var_numericas <span class="ot">&lt;-</span> health_df[, <span class="fu">c</span>(<span class="st">"age"</span>,<span class="st">"bmi"</span>,<span class="st">"activity_hours"</span>,<span class="st">"sleep_hours"</span>,<span class="st">"stress"</span>,                              <span class="st">"cholesterol"</span>,<span class="st">"systolic_bp"</span>,<span class="st">"diastolic_bp"</span>,<span class="st">"alcohol_units"</span>,                              <span class="st">"diet_score"</span>,<span class="st">"med_adherence"</span>,<span class="st">"comorbidities"</span>,<span class="st">"income"</span>)]</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>cor_matrix <span class="ot">&lt;-</span> <span class="fu">cor</span>(var_numericas, <span class="at">use =</span> <span class="st">"pairwise.complete.obs"</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Representación gráfica de la matriz</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggcorrplot</span>(cor_matrix,</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">hc.order =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">type =</span> <span class="st">"lower"</span>,</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">lab =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>           <span class="at">lab_size =</span> <span class="fl">2.2</span>,</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>           <span class="at">colors =</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"white"</span>, <span class="st">"#2166AC"</span>),</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>           <span class="at">title =</span> <span class="st">"Matriz de Correlación de Variables Numéricas"</span>,</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>           <span class="at">ggtheme =</span> <span class="fu">theme_minimal</span>()) <span class="sc">+</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">vjust =</span> <span class="dv">1</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="health_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Las correlaciones se calculan mediante el coeficientes de correlación de Pearson, que se mueve en el intevalo <span class="math inline">\([-1,1]\)</span>.</p>
+<p>A partir del mapa de calor de las variables numéricas, se puede apreciar que la gran mayoría de los coeficientes de correlacion oscilan en valores cercanos al cero (entre (-0.08) y (0.08)), lo que visualmente se traduce en celdas con tonalidades blancas.</p>
+<p>Sin embargo, es posible destacar algunos relaciones dentro de esta baja linealidad:</p>
+<p>• <strong>Asociaciones negativas</strong>: Destaca la relación entre las variables de <code>systolic_bp</code> (presión arterial) con <code>alcohol_units</code> (unidades de alcohol) de (-0.08)) o los niveles de adherencia médica frente a las comorbilidades <code>med_adherence</code> (nivel de adherencia del tratamiento) con <code>comorbidities</code> (número de comorbilidades diagnosticadas) de (-0.07)). Aunque estadísticamente son relaciones muy débiles</p>
+<p>• <strong>Asociaciones positivas</strong>: Variables como la <code>age</code> (edad) muestran una correlación positiva con los niveles de <code>stress</code> de (0.07)).</p>
+<p>En conclusión, dado que prácticamente ninguna variable numérica comparte una relación lineal directa con otra, se verifica que no existen problemas de multicolinealidad en los datos.</p>
+</section>
+<section id="gráfico-de-dispersión-entre-horas-de-actividad-e-indice-de-salud" class="level3">
+<h3 class="anchored" data-anchor-id="gráfico-de-dispersión-entre-horas-de-actividad-e-indice-de-salud">1.7. Gráfico de dispersión entre horas de actividad e indice de salud</h3>
+<p>En este apartado se desea estudiar que relación puede haber entre en la variable <code>activity_hours</code> (horas de actividad) y <code>health_score</code> entre los pacientes. Para ello se ha creado la siguiente gráfica de dispersión:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#|echo: false</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(health_df, <span class="fu">aes</span>(<span class="at">x =</span> activity_hours, <span class="at">y =</span> health_score)) <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">color=</span><span class="st">"lightblue"</span>) <span class="sc">+</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Relación entre horas de actividad e índice de salud"</span>,</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"horas de actividad"</span>, <span class="at">y =</span> <span class="st">"indice de salud"</span>) <span class="sc">+</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 9 rows containing non-finite outside the scale range
+(`stat_smooth()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 9 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="health_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>A partir del gráfico de dispersión se puede evidenciar una tendencia positiva entre ambas variables, es decir, un mayor número de horas de actividad esta asociada con un mayor índice de salud.</p>
+<p>No obsetante, si se hace un un analisis visual se puede deterctar una violacion en el supuesto de linealidad de los parametros.</p>
+<ul>
+<li><strong>Curvatura</strong>: Se puede ver una curvatura en la nube de puntos, donde a partir de las <span class="math inline">\(4,5\)</span> horas de ejercicio, los puntos suben ligeramente y alrededor de la <span class="math inline">\(7,5\)</span> horas se puede ver un descenso en ellos.</li>
+</ul>
+<p>Por otro lado, también se puede ver un problema de <strong>homocedatidad</strong> debido a que la dispesión de los puntos en la nube se va estrechando a medidad que aumentan las horas de ejercicio, lo que indica que la varianza de los errores no es constante.</p>
+</section>
+<section id="boxplot-de-health_score-por-fumador." class="level3">
+<h3 class="anchored" data-anchor-id="boxplot-de-health_score-por-fumador.">1.8. Boxplot de health_score por fumador.</h3>
+<p>A continuación se desea crear una gráfica boxplot por fumadores:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#|echo: false</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(health_df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(smoker), <span class="at">y =</span> health_score)) <span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"lightblue"</span>, <span class="at">color=</span><span class="st">"blue"</span>) <span class="sc">+</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Indice de salud por fumadores"</span>,</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"fumador (0 no es fumador, 1 sí es fumador)"</span>,</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Indice de salud"</span>) <span class="sc">+</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="health_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="identifica-posibles-valores-atípicos-en-cholesterol." class="level3">
+<h3 class="anchored" data-anchor-id="identifica-posibles-valores-atípicos-en-cholesterol.">1.9. Identifica posibles valores atípicos en cholesterol.</h3>
+</section>
+<section id="calcula-la-proporción-de-pacientes-con-enfermedad-controlada" class="level3">
+<h3 class="anchored" data-anchor-id="calcula-la-proporción-de-pacientes-con-enfermedad-controlada">1.10. Calcula la proporción de pacientes con enfermedad controlada</h3>
+</section>
+</section>
+<section id="bloque-2-manejo-de-valores-faltantes" class="level2">
+<h2 class="anchored" data-anchor-id="bloque-2-manejo-de-valores-faltantes">Bloque 2: Manejo de valores faltantes</h2>
+<section id="identifica-las-variables-que-contienen-valores-faltantes-y-cuántos-casos-faltan-en-cada-una." class="level3">
+<h3 class="anchored" data-anchor-id="identifica-las-variables-que-contienen-valores-faltantes-y-cuántos-casos-faltan-en-cada-una.">2.1. Identifica las variables que contienen valores faltantes y cuántos casos faltan en cada una.</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>nas_totales <span class="ot">=</span> <span class="fu">colSums</span>(<span class="fu">is.na</span>(health_df))</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>nas_totales[nas_totales <span class="sc">&gt;</span> <span class="dv">0</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           bmi activity_hours    sleep_hours         stress    cholesterol 
+             9              9              9              9              9 </code></pre>
+</div>
+</div>
+<p>En este caso las variables que tienen valores faltantes son en <code>bmi</code>, <code>activity_hours</code>, <code>sleep_hours</code>, <code>stress</code> y <code>cholesterol</code>, que tienen nueve valores nulos.</p>
+<p>Al ver este resultado nos ha sorprendido que todas estas variables tuviesen el mismo número de valores nulos, por lo que hemos hecho una tabla que nos muestras que filas tienen estos valores ausentes por varaible.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Obtener la matriz de posiciones</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>posiciones_na <span class="ot">=</span> <span class="fu">which</span>(<span class="fu">is.na</span>(health_df), <span class="at">arr.ind =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Convertirlo en un data.frame ordenado y bonito</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>df_nas <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Fila =</span> posiciones_na[, <span class="st">"row"</span>],</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">Variable =</span> <span class="fu">names</span>(health_df)[posiciones_na[, <span class="st">"col"</span>]]</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Ver los primeros resultados (o todo el objeto)</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_nas, <span class="dv">45</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Fila       Variable
+1   146            bmi
+2   284            bmi
+3   288            bmi
+4   456            bmi
+5   458            bmi
+6   477            bmi
+7   578            bmi
+8   845            bmi
+9   868            bmi
+10  172 activity_hours
+11  173 activity_hours
+12  325 activity_hours
+13  337 activity_hours
+14  533 activity_hours
+15  622 activity_hours
+16  663 activity_hours
+17  860 activity_hours
+18  885 activity_hours
+19   92    sleep_hours
+20  220    sleep_hours
+21  346    sleep_hours
+22  444    sleep_hours
+23  609    sleep_hours
+24  695    sleep_hours
+25  772    sleep_hours
+26  788    sleep_hours
+27  819    sleep_hours
+28    4         stress
+29   86         stress
+30  219         stress
+31  271         stress
+32  406         stress
+33  647         stress
+34  723         stress
+35  876         stress
+36  890         stress
+37   50    cholesterol
+38  110    cholesterol
+39  379    cholesterol
+40  389    cholesterol
+41  522    cholesterol
+42  594    cholesterol
+43  603    cholesterol
+44  739    cholesterol
+45  940    cholesterol</code></pre>
+</div>
+</div>
+<p>Como podemos comprobar estos valores nulos no estan en las mismas filas</p>
+</section>
+<section id="calcula-la-proporción-total-de-valores-faltantes-sobre-el-dataset-completo." class="level3">
+<h3 class="anchored" data-anchor-id="calcula-la-proporción-total-de-valores-faltantes-sobre-el-dataset-completo.">2.2. Calcula la proporción total de valores faltantes sobre el dataset completo.</h3>
+<p>A continuación hemos calculado el procentaje total de valores nulos.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Proporción total de NA (da un valor entre 0 y 1, por ejemplo: 0.02)</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>proporcion_nas <span class="ot">=</span> <span class="fu">mean</span>(<span class="fu">is.na</span>(health_df))</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"proporcion total de valores nulos:"</span>,proporcion_nas<span class="sc">*</span><span class="dv">100</span>,<span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>proporcion total de valores nulos: 0.2095753 </code></pre>
+</div>
+</div>
+</section>
+<section id="construye-una-tabla-resumen-con-las-variables-que-presentan-missing-y-el-porcentaje-de-datos-ausentes-en-cada-una." class="level3">
+<h3 class="anchored" data-anchor-id="construye-una-tabla-resumen-con-las-variables-que-presentan-missing-y-el-porcentaje-de-datos-ausentes-en-cada-una.">2.3. Construye una tabla resumen con las variables que presentan missing y el porcentaje de datos ausentes en cada una.</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>tabla_resumen<span class="ot">=</span><span class="fu">data.frame</span>(<span class="at">porcentaje=</span><span class="fu">colMeans</span>(<span class="fu">is.na</span>(health_df)<span class="sc">*</span><span class="dv">100</span>))</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(tabla_resumen)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   porcentaje    
+ Min.   :0.0000  
+ 1st Qu.:0.0000  
+ Median :0.0000  
+ Mean   :0.2096  
+ 3rd Qu.:0.0000  
+ Max.   :0.9221  </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>tabla_resumen</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                   porcentaje
+health_score        0.0000000
+hospital_visits     0.0000000
+disease_controlled  0.0000000
+doses_prescribed    0.0000000
+doses_taken         0.0000000
+age                 0.0000000
+sex                 0.0000000
+bmi                 0.9221311
+activity_hours      0.9221311
+sleep_hours         0.9221311
+stress              0.9221311
+cholesterol         0.9221311
+systolic_bp         0.0000000
+diastolic_bp        0.0000000
+smoker              0.0000000
+alcohol_units       0.0000000
+diet_score          0.0000000
+med_adherence       0.0000000
+comorbidities       0.0000000
+income              0.0000000
+region              0.0000000
+clinic              0.0000000</code></pre>
+</div>
+</div>
+</section>
+<section id="aplica-una-imputación-por-la-media-en-bmi-y-calcula-de-nuevo-la-media-de-esta-variable." class="level3">
+<h3 class="anchored" data-anchor-id="aplica-una-imputación-por-la-media-en-bmi-y-calcula-de-nuevo-la-media-de-esta-variable.">2.4. Aplica una imputación por la media en bmi y calcula de nuevo la media de esta variable.</h3>
+<p>Una de las variables que tienen valores faltantes es <code>bmi</code> (índice de masa corporal), por lo que vamos a imputarlos para poder eliminarlos.</p>
+<p>La imputación es un proceso por el cual se sustituyen los valores faltantes de una variable por la media total de ella misma.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>health_df_imputado<span class="ot">=</span>health_df</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>media_calculada<span class="ot">=</span><span class="fu">mean</span>(health_df<span class="sc">$</span>bmi, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>health_df_imputado<span class="sc">$</span>bmi[<span class="fu">is.na</span>(health_df<span class="sc">$</span>bmi)]<span class="ot">=</span>media_calculada</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="representa-histogramas-de-sleep_hours-antes-y-después-de-la-imputación-por-media.-observas-cambios-en-la-distribución" class="level3">
+<h3 class="anchored" data-anchor-id="representa-histogramas-de-sleep_hours-antes-y-después-de-la-imputación-por-media.-observas-cambios-en-la-distribución">2.5. Representa histogramas de sleep_hours antes y después de la imputación por media. ¿Observas cambios en la distribución?</h3>
+<p>A continuacíón vamos a ver como han cambiado estos datos tas su imputacion:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#histograma antes de la imputacion</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(health_df, <span class="fu">aes</span>(<span class="at">x =</span> sleep_hours)) <span class="sc">+</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">"lightblue"</span>, <span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Histograma de horas de sueño antes de la imputación"</span>,</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"horas de sueño"</span>,</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"media"</span>) <span class="sc">+</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value `binwidth`.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 9 rows containing non-finite outside the scale range
+(`stat_bin()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="health_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#histograma despues de la imputacion</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(health_df_imputado, <span class="fu">aes</span>(<span class="at">x =</span> sleep_hours)) <span class="sc">+</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">"lightblue"</span>, <span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Histograma de horas de sueño después de la imputación"</span>,</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"horas de sueño"</span>,</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"media"</span>) <span class="sc">+</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value `binwidth`.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 9 rows containing non-finite outside the scale range
+(`stat_bin()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="health_files/figure-html/unnamed-chunk-14-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Al comparar las dos gráficas, pordemos ver que estas son iguales. Esto es debido a que nuestros datos contiene la información de casi mil pacientes y tenemos un total de <span class="math inline">\(45\)</span> datos n/a, por lo que el cambio no se nota mucho.</p>
+</section>
+<section id="aplica-una-imputación-por-la-mediana-en-stress.-compara-los-resultados-con-la-imputación-por-la-media." class="level3">
+<h3 class="anchored" data-anchor-id="aplica-una-imputación-por-la-mediana-en-stress.-compara-los-resultados-con-la-imputación-por-la-media.">2.6. Aplica una imputación por la mediana en stress. Compara los resultados con la imputación por la media.</h3>
+<p>La imputación no solo se puede hacer con la media de la variable, sino tambien con su mediana. En este caso vamos a imputar la variable <code>stress</code> mediante su mediana.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>health_df_imputado1<span class="ot">=</span>health_df</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>mediana_calculada<span class="ot">=</span><span class="fu">median</span>(health_df<span class="sc">$</span>stress, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>health_df_imputado1<span class="sc">$</span>stress[<span class="fu">is.na</span>(health_df<span class="sc">$</span>stress)]<span class="ot">=</span>mediana_calculada</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="realiza-una-imputación-condicional-sustituye-los-valores-faltantes-de-cholesterol-por-la-media-de-pacientes-del-mismo-grupo-de-sex." class="level3">
+<h3 class="anchored" data-anchor-id="realiza-una-imputación-condicional-sustituye-los-valores-faltantes-de-cholesterol-por-la-media-de-pacientes-del-mismo-grupo-de-sex.">2.7. Realiza una imputación condicional: sustituye los valores faltantes de cholesterol por la media de pacientes del mismo grupo de sex.</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>health_df_imputado2<span class="ot">=</span>health_df</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>media_calculada_mujeres<span class="ot">=</span><span class="fu">mean</span>(health_df<span class="sc">$</span>cholesterol[health_df<span class="sc">$</span>sex<span class="sc">==</span><span class="st">"Mujer"</span>], <span class="at">na.rm =</span> <span class="cn">TRUE</span>,)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>media_calculada_hombres<span class="ot">=</span><span class="fu">mean</span>(health_df<span class="sc">$</span>cholesterol[health_df<span class="sc">$</span>sex<span class="sc">==</span><span class="st">"Hombre"</span>], <span class="at">na.rm =</span> <span class="cn">TRUE</span>,)</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>health_df_imputado2<span class="sc">$</span>cholesterol[<span class="fu">is.na</span>(health_df<span class="sc">$</span>cholesterol) <span class="sc">&amp;</span> health_df<span class="sc">$</span>sex<span class="sc">==</span><span class="st">"Mujer"</span> ]<span class="ot">=</span>media_calculada_mujeres</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>health_df_imputado2<span class="sc">$</span>cholesterol[<span class="fu">is.na</span>(health_df<span class="sc">$</span>cholesterol) <span class="sc">&amp;</span> health_df<span class="sc">$</span>sex<span class="sc">==</span><span class="st">"Hombre"</span> ]<span class="ot">=</span>media_calculada_hombres</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="discute-si-es-razonable-suponer-que-los-valores-faltantes-son-mcar-mar-o-mnar-en-este-contexto-de-salud." class="level3">
+<h3 class="anchored" data-anchor-id="discute-si-es-razonable-suponer-que-los-valores-faltantes-son-mcar-mar-o-mnar-en-este-contexto-de-salud.">2.8. Discute si es razonable suponer que los valores faltantes son MCAR, MAR o MNAR en este contexto de salud.</h3>
+<ul>
+<li><p>MCAR: Indica que los valores faltan por puro azar. En el contexto de la salud, esto no puede ser posible, ya que los datos médicos se recogen mediante el historial de los pacientes, sensores de dispositivos de salud, pruebas etc…, por lo tanto son datos protegidos.</p></li>
+<li><p>MAR: Indica que los valores faltan debido a la falta de otras variables.</p></li>
+</ul>
+</section>
+<section id="ajusta-un-modelo-lineal-simple-health_score-bmi-usando-solo-casos-completos.-cuántas-observaciones-se-pierden" class="level3">
+<h3 class="anchored" data-anchor-id="ajusta-un-modelo-lineal-simple-health_score-bmi-usando-solo-casos-completos.-cuántas-observaciones-se-pierden">2.9. Ajusta un modelo lineal simple (health_score ~ bmi) usando solo casos completos. ¿Cuántas observaciones se pierden?</h3>
+</section>
+<section id="repite-el-modelo-anterior-pero-con-el-dataset-imputado.-cambian-los-coeficientes-explica-por-qué." class="level3">
+<h3 class="anchored" data-anchor-id="repite-el-modelo-anterior-pero-con-el-dataset-imputado.-cambian-los-coeficientes-explica-por-qué.">2.10. Repite el modelo anterior pero con el dataset imputado. ¿Cambian los coeficientes? Explica por qué.</h3>
+</section>
+</section>
+<section id="bloque-3-regresion-lineal-simple-y-multiple" class="level2">
+<h2 class="anchored" data-anchor-id="bloque-3-regresion-lineal-simple-y-multiple">Bloque 3: Regresion lineal simple y multiple</h2>
+</section>
+<section id="bloque-4-no-linealidades-y-piecewise" class="level2">
+<h2 class="anchored" data-anchor-id="bloque-4-no-linealidades-y-piecewise">Bloque 4: No linealidades y piecewise</h2>
+</section>
+<section id="bloque-5-heterocedastidad" class="level2">
+<h2 class="anchored" data-anchor-id="bloque-5-heterocedastidad">Bloque 5: Heterocedastidad</h2>
+</section>
+<section id="bloque-6-modelos-glm" class="level2">
+<h2 class="anchored" data-anchor-id="bloque-6-modelos-glm">Bloque 6: Modelos GLM</h2>
+</section>
+<section id="bloque-7-iteracciones" class="level2">
+<h2 class="anchored" data-anchor-id="bloque-7-iteracciones">Bloque 7: Iteracciones</h2>
+</section>
+<section id="bloque-8-varibles-cateogóricas" class="level2">
+<h2 class="anchored" data-anchor-id="bloque-8-varibles-cateogóricas">Bloque 8: Varibles cateogóricas</h2>
+</section>
+<section id="bloque-9-evaluación-y-comparación-de-modelos" class="level2">
+<h2 class="anchored" data-anchor-id="bloque-9-evaluación-y-comparación-de-modelos">Bloque 9: Evaluación y comparación de modelos</h2>
+</section>
+<section id="bloque-10-proyecto-integrador" class="level2">
+<h2 class="anchored" data-anchor-id="bloque-10-proyecto-integrador">Bloque 10: Proyecto integrador</h2>
+</section>
+<section id="código" class="level2">
+<h2 class="anchored" data-anchor-id="código">Código</h2>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
