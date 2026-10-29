@@ -51,7 +51,7 @@ proptable <- matrix(
 proptable
 ```
 
-- **Media**: La media mide el promedio de la variablem se calula como la suma de los valores dividido entre la dimensión de la muestra. En este caso se ha obtenido que los pacientes siguen un indice de salud global promedio a `r round(media, 4)`.
+- **Media**: La media mide el promedio de la variable, se calula como la suma de los valores dividido entre la dimensión de la muestra. En este caso se ha obtenido que los pacientes siguen un indice de salud global promedio a `r round(media, 4)`.
 
 - **Mediana**: La media es el valor que ocupa la posición central cuando los ordenamos los datos de menor a mayor.En este caso la tendencia central es `r round(mediana, 4)`
 
