@@ -12,79 +12,95 @@ library(tidyverse)
 library(ggplot2)
 library(dplyr)
 library(purrr)
+library(ggcorrplot)
 ```
 
 ## Introducción
 
-## Bloque 1: Exploración inicial
-
-Veamos primero el encabezado de nuestros datos:
+Para comenzar primero cargamos los datos e imprimimos las primeras cinco instancias para ver que han cargado correctamente.
 
 ```{r}
 #| echo: false
-# leemos los datos
+
 health_df <- read.csv("data/health_C.csv")
-head(health_df) #mostrar las primeras filas
+head(health_df)
 ```
+
+## Bloque 1: Exploración inicial
 
 ### 1.1. Media, mediana y desviación típica
 
-En primer lugar se ha calculado la media, mediana y desviación típica de el índice de salud de los pacientes. Los valores que se han obtenido son:
+Para comenzar con el estudio primero se desea calcular la media, mediana y desviación típica de la variable `health_score` (indice de salud) de los pacientes.
 
 ```{r}
-#| include: false
+#| echo: false
 
-## PRIMER BLOQUE ##
-# media, mediana y desviación típica de la variable health_score.
 media=mean(health_df$health_score) 
 mediana=median(health_df$health_score) 
 des_tipica=sd(health_df$health_score) 
 
+proptable <- matrix(
+  c(media, mediana, des_tipica),
+  ncol = 1,
+  dimnames = list(
+    c("Media", "Mediana", "Desviación típica"),
+    "Valor"
+  )
+)
+
+proptable
 ```
 
-- Media: En este caso se ha obtenido que los pacientes siguen un indice de salud global promedio a `r round(media, 4)`.
+- **Media**: La media mide el promedio de la variablem se calula como la suma de los valores dividido entre la dimensión de la muestra. En este caso se ha obtenido que los pacientes siguen un indice de salud global promedio a `r round(media, 4)`.
 
-- Mediana: En este caso la tendencia central es `r round(mediana, 4)`
+- **Mediana**: La media es el valor que ocupa la posición central cuando los ordenamos los datos de menor a mayor.En este caso la tendencia central es `r round(mediana, 4)`
 
-- Desviación típica: Los datos presentan una dispersion de `r round(des_tipica, 4)` con respecto a la media aritmética.
+- **Desviación típica**: La desviación típica mide cuánto se dispersan los valores respecto a la media.Los datos presentan una dispersion de `r round(des_tipica, 4)` con respecto a la media aritmética.
 
 ### 1.2. Puntaje de índice de salud.
 
-En este apartado se ha realizado un histograma de los índices de salud de los pacientes en 20 intervalos.
+A continuación se desea ver entre que puntajes se mueven los pacientes, para ello hemos realizado un histograma de la varieble índices de salud en 20 intervalos.
 
 ```{r}
 #| echo: false
-# histograma de health_score con 20 intervalos.
+
 ggplot(health_df, aes(x = health_score)) +
   geom_histogram(bins = 20, fill = "lightblue", color = "blue") +
-  labs(title = "Histograma de indice de salud del paciente",
-       x = "Puntaje",
-       y = "Indice") +
+  labs(title = "índices de salud del paciente",
+       x = "puntaje índice de salud",
+       y = "número de pacientes") +
   theme_minimal()
 ```
 
-Como se puede observar en la imagen, los pacientes que presentan un mayor indice de salud tienen entre 50 y 75 puntos aproximadamente.
+Como podemos observar, la mayoría de los valores se concentran entre 45 y 75 puntos, con una mayor frecuencia alrededor de los 65 puntos, seguida de una cola hacia los valores más bajos, donde hay menos observaciones. También se aprecia que existen algunos pacientes con puntuaciones muy bajas, incluso cercanas a 0. 
+
+En general, los valores se concentran en los niveles medios-altos del índice de salud, aunque existe cierta variabilidad entre los pacientes.
 
 ### 1.3. Distribucion de frecuencias relativas de los pacientes por sexo.
 
+En este apartado queremos calcular la frecuencia relativa de los pacientes por sexo.
+
+La frecuencia relativa mide el número total de veces que aparece una categoria (frecuencia absoluta) respecto al número total de observaciones.
+
 ```{r}
-# distribución de frecuencias relativas de los pacientes por sex. 
- #### MIRAR ESTO BIEN ####
+#| echo: false
+
 frec_abs=table(health_df$sex)
 frec_rel=prop.table(frec_abs)
-ptg_rel=frec_rel*100
-tabla_frecuencias <- data.frame(
-  Frecuencia_Absoluta = as.vector(frec_abs),
-  Frecuencia_Relativa = round(as.vector(frec_rel), 4),
-  Porcentaje_Porc = round(as.vector(ptg_rel), 2)
-)
-row.names(tabla_frecuencias) <- names(frec_abs)
-```
 
+proptable <- cbind(
+  "Frecuencia absoluta" = frec_abs,
+  "Frecuencia relativa" = round(frec_rel, 3)
+)
+proptable
+```
 ### 1.4. Diagrama de cajas de indice de salud por región
 
+A continuación deseamos ver la distribución del índice de salud de los pacientes según la zona en la que viven: norte, sur, centro o islas. Para poder estudiarlo correctamente hemos hecho un diagrama de cajas.
+
 ```{r}
-# diagrama de cajas de health_score según region.
+#| echo: false
+
 ggplot(health_df, aes(x = factor(region), y = health_score)) +
   geom_boxplot(fill = "lightblue", color="blue") +
   labs(title = "Indice de salud por región",
@@ -92,50 +108,124 @@ ggplot(health_df, aes(x = factor(region), y = health_score)) +
        y = "Indice de salud") +
   theme_minimal()
 ```
+En el gráfico se observa que las medianas son bastante similares, situándose aproximadamente entre 55 y 58 puntos, por lo que el nivel central del índice de salud es parecido en todas las regiones. Sin embargo, podemos identificar varios valores atípicos inferiores, especialmente en las regiones centro, islas y el norte, correspondientes a pacientes con índices de salud muy bajos.
 
 ### 1.5. Diagrama de dispersion entre índice de salud e índice de masa corporal
 
-En este apartado se desea estudiar que relación puede haber entre en índice de masa corporal e indice de salud entre los pacientes. Para ello se ha creado una gráfica de dispersion con los datos:
+A continuación queremos saber si hay una relación existente entre el índice de salud de los pacuentes y el índice de masa corporal.
 
 ```{r}
 #|echo: false
 
-# gráfico de dispersión entre bmi y health_score. ¿Qué relación parece observarse? 
 ggplot(health_df, aes(x = bmi, y = health_score)) +
-  geom_point(alpha = 0.7) +
-  geom_smooth(method = "lm", se = TRUE, color = "red") +
+  geom_point(alpha = 0.7, color="lightblue") +
+  geom_smooth(method = "lm", se = FALSE, color = "blue") +
   labs(title = "Relación entre índice de salud e índice de masa corporal",
        x = "indice de masa corporal", y = "indice de salud") +
   theme_minimal()
-# CUANTO MAS INDICE DE MASA CORPORAL TIENE UNA PERSONA MAS BAJO ES SU INDICE DE SALUD 
 
 ```
 
-Como se puede observar, a madida que el indice de masa corporal va aumentando, el indice de salud de los pacientes va disminuyendo. Por lo tanto, podemos suponer que existe una relacion negativa entre ambas variables.
+-**Tendencia general**: Como se puede observar, a medida que el índice de masa corporal (`bmi`) va aumentando, el índice de salud de los pacientes tiende a disminuir, lo que la existencia de una relación negativa entre ambas variables.
+
+Sin embargo, la nube de puntos presenta una trayectoria curva, lo que nos puede evidenciar una violación en el supuesto de linealidad del modelo. Para corregir esta falta de linealidad, se tendría que emplear una transformación logarítmica. 
 
 ### 1.6. Matriz de correlaciones entre variables numéricas.
 
+Deseamos calcular la correlación entre las variables numéricas de nuestro modelo, para ello hemos calculado la matriz de correlaciones de Pearson y la hemos representado graficamente mediante un mapa de calor.
+
 ```{r}
-# matriz de correlaciones entre las variables numéricas (ej. bmi, activity_hours, sleep_hours, stress, cholesterol, systolic_bp, diastolic_bp).
-var_num=health_df[,c("age","bmi","activity_hours","sleep_hours","stress","cholesterol","systolic_bp",
-              "diastolic_bp", "alcohol_units","diet_score","med_adherence","comorbidities","income")]
+#|echo: false
+
+var_num=health_df[,c("age","bmi","activity_hours","sleep_hours","stress","cholesterol","systolic_bp","diastolic_bp", "alcohol_units","diet_score","med_adherence","comorbidities","income")]
 cor_matrix <- cor(var_num)
-print(round(cor_matrix, 2))
-# TIENE MUCHOS VALORES NA PORQUE LOS DATOS TIENE HUECOS SIN PONER.
+
+
+
+ggcorrplot(cor_matrix,
+           type       = "upper",
+           colors     = c("red", "white", "blue"), 
+           lab        = TRUE,                              
+           lab_size   = 3,                                 
+           p.mat      = NULL)                               
 ```
+La correlación se mueven entre valores de [-1,1], donde los valores negativos próximos al -1 marcan una relación inversa y los valores positivos cercanos al 1 una directa.
+
+En la gráfica se puede ver como en general la correlación entre las variables es debil y cercana al cero. Sin embargo, podemos destacar la relación entre `systolic_bp` (presión arteriar sistólica) y `alcohol_unites` (unidades de alcohol) con una correlación de -0.08; así como `med_adherence` (nivel de adherencia al tratamiento) con `income` (ingresos anuales) con un valor de -0.07. 
+Por otro lado, también cabe destacar la relación positiva entre la variable `age` con `comorbidities` (número de comordidades diagnosticadas) y `med_adherence` con valores de 0.05 y 0.06 respectivamente.
 
 ### 1.7. Gráfico de dispersión entre horas de actividad e indice de salud
 
+A continuación estudiaremos la relción exitente entre la variable `activity_hours` (horas de actividad) y `health_score`. 
+
 ```{r}
-# Representa un gráfico de dispersión entre activity_hours y health_score. ¿Hay indicios de una relación no lineal? 
+#|echo: false
+
 ggplot(health_df, aes(x = activity_hours, y = health_score)) +
-  geom_point(alpha = 0.7) +
-  geom_smooth(method = "lm", se = TRUE, color = "red") +
-  labs(title = "Relación entre horas de actividad e índice de masa corporal",
+  geom_point(alpha = 0.7, color="lightblue") +
+  geom_smooth(method = "lm", se = FALSE, color = "blue") +
+  labs(title = "Relación entre horas de actividad e índice de salud",
        x = "horas de actividad", y = "indice de salud") +
   theme_minimal()
-# NO HAY INDICIOS PORQUE LA LINEA DE REGRESION ES RECTA, NO CURVA
 ```
+
+-**Tendencia general**: Como podemos en la gráfica, existe una correlación positiva entre ambas variables, donde a medida que aumentan las horas actividad de un paciente, también aumentará su índice de salud.
+
+En cuanto a la linealidad, el comportamiento de la nube de puntos se ajusta de manera razonable a una tendencia creciente, aunque se aprecian ciertas variaciones en la dispersión de los datos en los valores extremos y una acumulación de observaciones en el límite inferior. No obstante, la desviación respecto a la linealidad es menos acusada que en el caso del índice de masa corporal, pudiendo valorarse un modelo lineal simple como una primera aproximación aceptable.
+
+### 1.8. Realiza un boxplot de health_score por fumador.
+
+```{r}
+#| echo: false
+
+ggplot(health_df, aes(x = factor(smoker), y = health_score)) +
+  geom_boxplot(fill = "lightblue", color="blue") +
+  labs(title = "Indice de salud por fumadores",
+       x = "Fumador(1) o no fumador(0)",
+       y = "Indice de salud") +
+  theme_minimal()
+```
+
+Al analizar la distribución de los índices de salud según la condición de fumador del paciente podemos observar que ambas son practicamente identidas. Ambos grupos presentan una mediana similar cerca del 55, así como unos valores atípicos centrados en la parte inferior de las distribuciones.
+
+### 1.9. Identifica posibles valores atípicos en cholesterol y discute si son plausibles en un contexto clínico. 
+
+Los valores atípicos, o también llamados outliers, son observación en un conjunto que se desvían drasticamente del patrón general de los datos. Para poder visulizar bien estos puntos se usan gráficos boxplot.
+
+```{r}
+#| echo: false
+
+ggplot(health_df, aes(y = cholesterol)) +
+  geom_boxplot(fill = "lightblue", color="blue") +
+  labs(title = "Diagrama de cajas niveles de colesterol",
+       y = "colesterol") +
+  theme_minimal()
+```
+
+En los diagramas de cajas los valores atípicos se observan como puntos fuera de la caja tomando valores extremadamente altos o bajos.
+
+En nuestro caso, podemos ver dos puntos atípicos con valores cercanos a los 300 mg/dL; lo que en el contexto clínico pueden ser casos plausibles y relevantes, ya que indican diferentes patologias como transtornos genéticos y patológicos.
+
+### 1.10.  Calcula la proporción de pacientes con enfermedad controlada.
+
+A continuación calcularemos la proporición de clientes con su enfermedad controlada (`disease_controlled`), que toma valor 0 si no esta controllada y 1 si sí. 
+
+La proporción expresa la frecuencia con la que aparece una variable o característica de interés en relación con el total de elementos de una población o muestra. 
+
+```{r}
+#| echo: false
+
+frec_abs=table(health_df$disease_controlled) 
+frec_rel=prop.table(frec_abs)
+porcentaje=frec_rel*100
+
+proptable <- cbind(
+  "Proporción (%)" = porcentaje
+)
+print(proptable)
+```
+
+Como podemos observar en la tabla, el 64,85% de los pacientes presentan un control en sus enfermedades, mientras que el 35,14% de ellos no.
 
 ## Bloque 2: Manejo de valores faltantes
 
