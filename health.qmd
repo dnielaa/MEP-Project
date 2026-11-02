@@ -1,7 +1,21 @@
 ---
 title: "Trabajo de estadística de datos sanitarios"
 author: "Paula María Arroyo Botica, Daniela Ioana Iacobita, Nuria Valiente Prieto"
-format: html
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-location: left
+    number-sections: true
+    theme: cerulean
+    highlight-style: github
+    code-fold: true
+    smooth-scroll: true
+    fig-width: 8
+    fig-height: 5
+editor: 
+  markdown: 
+    wrap: sentence
 ---
 
 ```{r}
@@ -14,11 +28,13 @@ library(dplyr)
 library(purrr)
 library(ggcorrplot)
 library(patchwork)
+library(broom)
 ```
 
 ## Introducción
 
-El objetivo de este trabajo es llevar a cabo un análisis estadístico a partir de una base de datos de pacientes hospitalarios. En primer lugar, leeremos el conjunto de datos y la visulizaremos los primeros cinco registros con el fin de confirmar que la lectura de la información se ha ejecutado correctamente.
+El objetivo de este trabajo es llevar a cabo un análisis estadístico a partir de una base de datos de pacientes hospitalarios.
+En primer lugar, leeremos el conjunto de datos y la visulizaremos los primeros cinco registros con el fin de confirmar que la lectura de la información se ha ejecutado correctamente.
 
 ```{r}
 health_df <- read.csv("data/health_C.csv")
@@ -48,14 +64,15 @@ proptable=matrix(
 proptable
 ```
 
-- **Media**: La media mide el promedio de la variable. Se calula como la suma de los valores dividido entre la dimensión de la muestra. 
-En este caso se ha obtenido que los pacientes siguen un indice de salud global promedio a `r round(media, 4)`.
+- **Media**: La media mide el promedio de la variable.
+  Se calula como la suma de los valores dividido entre la dimensión de la muestra.
+  En este caso se ha obtenido que los pacientes siguen un indice de salud global promedio a `r round(media, 4)`.
 
 - **Mediana**: La media es el valor que ocupa la posición central cuando los ordenamos los datos de menor a mayor.
-En este caso la tendencia central es `r round(mediana, 4)`
+  En este caso la tendencia central es `r round(mediana, 4)`
 
 - **Desviación típica**: La desviación típica mide cuánto se dispersan los valores respecto a la media.
-Los datos presentan una dispersion de `r round(des_tipica, 4)` con respecto a la media aritmética.
+  Los datos presentan una dispersion de `r round(des_tipica, 4)` con respecto a la media aritmética.
 
 ### 1.2. Puntaje de índice de salud.
 
@@ -70,7 +87,9 @@ ggplot(health_df, aes(x = health_score)) +
   theme_minimal()
 ```
 
-Como podemos observar, la mayoría de los valores se concentran entre 45 y 75 puntos, con una mayor frecuencia alrededor de los 65 puntos. También podemos ver una cola hacia los valores más bajos, donde hay menos observaciones. También se aprecia que existen algunos pacientes con puntuaciones muy bajas, incluso cercanas a 0. 
+Como podemos observar, la mayoría de los valores se concentran entre 45 y 75 puntos, con una mayor frecuencia alrededor de los 65 puntos.
+También podemos ver una cola hacia los valores más bajos, donde hay menos observaciones.
+También se aprecia que existen algunos pacientes con puntuaciones muy bajas, incluso cercanas a 0.
 
 En general, los valores se concentran en los niveles medios-altos del índice de salud, aunque existe cierta variabilidad entre los pacientes.
 
@@ -93,13 +112,14 @@ proptable=cbind(
 proptable
 ```
 
--**Mujeres**: Las muejeres presentan una frecuenta relativa de $0,524$.
+\-**Mujeres**: Las muejeres presentan una frecuenta relativa de $0,524$.
 -**Hombres**: Los hombres presentan una frecuencia relativa de $0,462$.
 -**Otros**: La personas que no han expecificado su sexo presentan una frecuencia relativa de $0,014$.
 
 ### 1.4. Diagrama de cajas de indice de salud por región
 
-A continuación, se compara el índice de salud según la zona en la que viven los pacientes: norte, sur, centro o islas; mediante un diagrama de cajas. Esta representación gráfica permite observar las diferencias en la distribución de la variable entre la zona de residencia de los pacientes, así como identificar posibles discrepancias en sus niveles de salud.
+A continuación, se compara el índice de salud según la zona en la que viven los pacientes: norte, sur, centro o islas; mediante un diagrama de cajas.
+Esta representación gráfica permite observar las diferencias en la distribución de la variable entre la zona de residencia de los pacientes, así como identificar posibles discrepancias en sus niveles de salud.
 
 ```{r}
 ggplot(health_df, aes(x = factor(region), y = health_score)) +
@@ -110,7 +130,8 @@ ggplot(health_df, aes(x = factor(region), y = health_score)) +
   theme_minimal()
 ```
 
-En el gráfico se observa que las medianas son bastante similares, situándose aproximadamente entre 55 y 58 puntos, por lo que el nivel central del índice de salud es parecido en todas las regiones. Sin embargo, podemos identificar varios valores atípicos inferiores, especialmente en las regiones centro, islas y el norte, correspondientes a pacientes con índices de salud muy bajos.
+En el gráfico se observa que las medianas son bastante similares, situándose aproximadamente entre 55 y 58 puntos, por lo que el nivel central del índice de salud es parecido en todas las regiones.
+Sin embargo, podemos identificar varios valores atípicos inferiores, especialmente en las regiones centro, islas y el norte, correspondientes a pacientes con índices de salud muy bajos.
 
 ### 1.5. Diagrama de dispersion entre índice de salud e índice de masa corporal
 
@@ -123,12 +144,9 @@ ggplot(health_df, aes(x = bmi, y = health_score)) +
   labs(title = "Relación entre índice de salud e índice de masa corporal",
        x = "indice de masa corporal", y = "indice de salud") +
   theme_minimal()
-
 ```
 
 Como se puede observar, a medida que el índice de masa corporal (`bmi`) va aumentando, el índice de salud de los pacientes tiende a disminuir, lo que la existencia de una relación negativa entre ambas variables.
-
-Sin embargo, la recta de regresión presenta una trayectoria curva, lo que nos puede evidenciar una violación en el supuesto de linealidad del modelo. Para corregir esta falta de linealidad (después de haber refutado esta hipótesis con el test de Ramsey), se podría que emplear una transformación logarítmica. 
 
 ### 1.6. Matriz de correlaciones entre variables numéricas.
 
@@ -146,27 +164,54 @@ ggcorrplot(cor_matrix,
            lab_size   = 3,                                 
            p.mat      = NULL)                               
 ```
-La correlación se mueven entre valores de [-1,1], donde los valores negativos próximos al -1 marcan una relación inversa y los valores positivos cercanos al 1 una directa.
 
-En la gráfica se puede ver como en general la correlación entre las variables es debil y cercana al cero. Sin embargo, podemos destacar la relación entre `systolic_bp` (presión arteriar sistólica) y `alcohol_unites` (unidades de alcohol) con una correlación de -0.08; así como `med_adherence` (nivel de adherencia al tratamiento) con `income` (ingresos anuales) con un valor de -0.07. 
+La correlación se mueven entre valores de \[-1,1\], donde los valores negativos próximos al -1 marcan una relación inversa y los valores positivos cercanos al 1 una directa.
+
+En la gráfica se puede ver como en general la correlación entre las variables es debil y cercana al cero.
+Sin embargo, podemos destacar la relación entre `systolic_bp` (presión arteriar sistólica) y `alcohol_unites` (unidades de alcohol) con una correlación de -0.08; así como `med_adherence` (nivel de adherencia al tratamiento) con `income` (ingresos anuales) con un valor de -0.07.
 Por otro lado, también cabe destacar la relación positiva entre la variable `age` con `comorbidities` (número de comordidades diagnosticadas) y `med_adherence` con valores de 0.05 y 0.06 respectivamente.
 
-### 1.7. Gráfico de dispersión entre horas de actividad e indice de salud
+### 1.7. Gráfico de dispersión entre horas de actividad e indice de salud {#sec-actividad}
 
-A continuación estudiaremos la relción exitente entre la variable `activity_hours` (horas de actividad) y `health_score`. 
+A continuación estudiaremos la relción exitente entre la variable `activity_hours` (horas de actividad) y `health_score`.
 
 ```{r}
+modelo_estudio=lm(health_score~activity_hours, health_df)
+
 ggplot(health_df, aes(x = activity_hours, y = health_score)) +
   geom_point(alpha = 0.7, color="#7FFFD4") +
   geom_smooth(method = "loess", se = FALSE, color = "aquamarine4") +
   labs(title = "Relación entre horas de actividad e índice de salud",
        x = "horas de actividad", y = "indice de salud") +
   theme_minimal()
+
+# Extraer residuos y valores ajustados
+datos_diagnostico <- data.frame(
+  residuos = residuals(modelo_estudio),
+  valores_ajustados = fitted(modelo_estudio)
+)
+
+# Gráfico de Residuos vs. Valores Ajustados con ggplot2
+ggplot(datos_diagnostico, aes(x = valores_ajustados, y = residuos)) +
+  geom_point(color = "aquamarine", alpha = 0.7) +
+  geom_hline(yintercept = 0, color = "aquamarine4", linetype = "dashed") +
+  geom_smooth(method = "loess", se = FALSE, color = "aquamarine4", linewidth = 0.8, formula = y ~ x) +
+  labs(
+    title = "Residuos vs. Valores Ajustados",
+    x = "Valores Ajustados",
+    y = "Residuos"
+  ) +
+  theme_classic(base_size = 12)
 ```
 
 Como podemos ver en la gráfica, existe una correlación positiva entre ambas variables, donde a medida que aumentan las horas actividad de un paciente, también aumentará su índice de salud.
 
--**Linealidad**: Pese a que en la gráfica se puede estudiar una relación entre ambas variables, también podemos observar una violación en el supuesto de linealidad. Esta evidencia se ve en la recta que regresión, que presenta una curvatura,lo que indica que el aumento del índice de salud es más notable en niveles bajos de actividad física que en niveles más altos. Igualmente esta curvatura de puntos no es suficiente para detectar una violación en la linealidad de regresión, por lo que se deberían aplicar otros métodos como el test de Ramsey.
+\-**Linealidad**: Pese a que en la gráfica se puede estudiar una relación entre ambas variables, también podemos observar una violación en el supuesto de linealidad.
+Esta evidencia se ve en la recta que regresión, que presenta una curvatura,lo que indica que el aumento del índice de salud es más notable en niveles bajos de actividad física que en niveles más altos.
+Sin embargo, la herremienta fundamental para detectar esta violación es mediante la gráfica de residuos frente a los valores ajustados del modelo.
+En este caso podemos detectar un ligero patrón curvo, lo que nos índica que los residuos no son completamente aleatorios y que se guarda una relación con los predictores.
+
+Para poder corregir esta falta de linealidad se tendría que hacer una trasformación logaritmica sobre las variables y hacer el modelos con estas.
 
 ### 1.8. Realiza un boxplot de health_score por fumador.
 
@@ -181,11 +226,13 @@ ggplot(health_df, aes(x = factor(smoker), y = health_score)) +
   theme_minimal()
 ```
 
-Al analizar la distribución de los índices de salud según la condición de fumador del paciente podemos observar que ambas son practicamente identidas. Ambos grupos presentan una mediana similar cerca del 55, así como unos valores atípicos centrados en la parte inferior de las distribuciones.
+Al analizar la distribución de los índices de salud según la condición de fumador del paciente podemos observar que ambas son practicamente identidas.
+Ambos grupos presentan una mediana similar cerca del 55, así como unos valores atípicos centrados en la parte inferior de las distribuciones.
 
-### 1.9. Identifica posibles valores atípicos en cholesterol y discute si son plausibles en un contexto clínico. 
+### 1.9. Identifica posibles valores atípicos en cholesterol y discute si son plausibles en un contexto clínico.
 
-Los valores atípicos, o también llamados outliers, son observación en un conjunto que se desvían drasticamente del patrón general de los datos. Para poder visulizar bien estos puntos se usan gráficos boxplot.
+Los valores atípicos, o también llamados outliers, son observación en un conjunto que se desvían drasticamente del patrón general de los datos.
+Para poder visulizar bien estos puntos se usan gráficos boxplot.
 
 ```{r}
 ggplot(health_df, aes(y = cholesterol)) +
@@ -199,11 +246,11 @@ En los diagramas de cajas los valores atípicos se observan como puntos fuera de
 
 En nuestro caso, podemos ver tres puntos atípicos con valores cercanos a los 300 mg/dL; lo que en el contexto clínico pueden ser casos plausibles y relevantes, ya que indican diferentes patologias relacionados transtornos genéticos y patológicos.
 
-### 1.10.  Calcula la proporción de pacientes con enfermedad controlada.
+### 1.10. Calcula la proporción de pacientes con enfermedad controlada.
 
-A continuación calcularemos la proporición de clientes con su enfermedad controlada (`disease_controlled`), que toma valor 0 si no esta controllada y 1 si sí. 
+A continuación calcularemos la proporición de clientes con su enfermedad controlada (`disease_controlled`), que toma valor 0 si no esta controllada y 1 si sí.
 
-La proporción expresa la frecuencia con la que aparece una variable o característica de interés en relación con el total de elementos de una población o muestra. 
+La proporción expresa la frecuencia con la que aparece una variable o característica de interés en relación con el total de elementos de una población o muestra.
 
 ```{r}
 frec_abs=table(health_df$disease_controlled) 
@@ -228,10 +275,15 @@ Para comenzar, veremos si nuestra base de datos presenta valores faltantes y, en
 
 ```{r}
 nas_totales=colSums(is.na(health_df))
-nas_totales[nas_totales > 0]
+nas_totales_clas=nas_totales[nas_totales > 0]
+
+proptable=cbind(
+  "valores faltantes"=nas_totales_clas
+)
+print(proptable)
 ```
 
-En este caso las variables que tienen valores faltantes son en `bmi`, `activity_hours`, `sleep_hours`, `stress` y `cholesterol`, que tienen nueve valores nulos cada uno. 
+En este caso las variables que tienen valores faltantes son en `bmi`, `activity_hours`, `sleep_hours`, `stress` y `cholesterol`, que tienen nueve valores nulos cada uno.
 
 Al ver este resultado nos ha sorprendido que todas estas variables tuviesen el mismo número de valores nulos, por lo que hemos hecho una tabla que nos muestras que filas tienen estos valores ausentes por varaible.
 
@@ -247,9 +299,9 @@ data.frame(
 
 Tras identificar las filas en las que aparecen valores faltantes para cada variable, se observó que los datos ausentes no se concentran necesariamente en los mismos registros.
 
-### 2.2 y 2.4. Proporción total de valores faltantes sobre el dataset completo y tabla resumen con las variables que presentan missing y el porcentaje de datos ausentes en cada una.
+### 2.2 y 2.3. Proporción total de valores faltantes sobre el dataset completo y tabla resumen con las variables que presentan missing y el porcentaje de datos ausentes en cada una.
 
-A continuación hemos calculado la proporción total de valores nulos en nuestra base de datos. 
+A continuación hemos calculado la proporción total de valores nulos en nuestra base de datos.
 
 ```{r}
 ## proporción de valores nulos en el data set
@@ -269,15 +321,18 @@ tabla_na=data.frame(
 tabla_na
 ```
 
-El $0,2096\%$ de los valores de nuestra base de datos son nulos. Por otro lado, la tabla nos muestra que el $0,92\%$ de los valores de cada una de las variables analizadas son nulos. 
+El $0,2096\%$ de los valores de nuestra base de datos son nulos.
+Por otro lado, la tabla nos muestra que el $0,92\%$ de los valores de cada una de las variables analizadas son nulos.
 Ambos porcentajes son muy bajo si se tiene el cuenta que nuestra base de datos cuenta con casi mil registros, por lo tanto la presencia de valores nulos puede no resultar, al principio, un problema.
 
 ### 2.4. Aplica una imputación por la media en bmi y calcula de nuevo la media de esta variable.
 
-Una vez detectados los valores faltantes, es necesario aplicar una técnica que permita tratarlos antes de continuar con el análisis. En este caso, imputaremos las variables, un procedimiento que consiste en sustituir los valores ausentes de una o más variables mediante información plausible como la media, mediana u otros métodos. De esta forma, se conserva el tamaño de la muestra y se evita la pérdida de información. 
+Una vez detectados los valores faltantes, es necesario aplicar una técnica que permita tratarlos antes de continuar con el análisis.
+En este caso, imputaremos las variables, un procedimiento que consiste en sustituir los valores ausentes de una o más variables mediante información plausible como la media, mediana u otros métodos.
+De esta forma, se conserva el tamaño de la muestra y se evita la pérdida de información.
 Este procedimiento introduce un el error de imputación, debido a la incertidumbre que introducen los valores no observados.
 
-Una de las variables que contienen valores faltantes es `bmi` (índice de masa corporal), por lo que vamos a imputarlos mediante la media. 
+Una de las variables que contienen valores faltantes es `bmi` (índice de masa corporal), por lo que vamos a imputarlos mediante la media.
 
 ```{r}
 health_df_imputado=health_df
@@ -307,7 +362,7 @@ Como podemos observar la media de la variable antes y después de imputarla es i
 
 ### 2.5. Representa histogramas de sleep_hours antes y después de la imputación por media.
 
-A continuación vamos a imputar mediante la media la veriable `sleep_hours` y visualizaremos su cambio mediante histogramas. 
+A continuación vamos a imputar mediante la media la veriable `sleep_hours` y visualizaremos su cambio mediante histogramas.
 
 ```{r}
 #histograma antes de la imputacion
@@ -346,7 +401,9 @@ health_df_imputado2$stress[is.na(health_df_imputado2$stress)]=mediana_calculada
 
 ### 2.7. Realiza una imputación condicional: sustituye los valores faltantes de cholesterol por la media de pacientes del mismo grupo de sex.
 
-A continuación imputaremos la variable `cholesterol` mediante la media de cada sexo. De esta forma, los valores ausentes de las mujeres se reemplazan por la media de colesterol de las mujeres y los de los hombres por la media de colesterol de los hombres. Este método suele puede ser más adecuado que una imputación global si existen diferencias entre grupos.
+A continuación imputaremos la variable `cholesterol` mediante la media de cada sexo.
+De esta forma, los valores ausentes de las mujeres se reemplazan por la media de colesterol de las mujeres y los de los hombres por la media de colesterol de los hombres.
+Este método suele puede ser más adecuado que una imputación global si existen diferencias entre grupos.
 
 ```{r}
 health_df_imputado2=health_df
@@ -361,16 +418,20 @@ health_df_imputado2$cholesterol[is.na(health_df$cholesterol) & health_df$sex=="H
 
 ### 2.8. Discute si es razonable suponer que los valores faltantes son MCAR, MAR o MNAR en este contexto de salud.
 
-Los valores faltantes pueden ocurrir por varias razones, desde un fallo en el dispositivo de medición, falta de información por parte de los pacientes, fallos a la hora de almacenar los datos... En este apartado veremos si es plausible considerar si los valores nulos son del tipo **MACR**, **MAR** o **MNAR** atendiendo a al contexto clinico en el que nos encontramos.
+Los valores faltantes pueden ocurrir por varias razones, desde un fallo en el dispositivo de medición, falta de información por parte de los pacientes, fallos a la hora de almacenar los datos...
+En este apartado veremos si es plausible considerar si los valores nulos son del tipo **MACR**, **MAR** o **MNAR** atendiendo a al contexto clinico en el que nos encontramos.
 
--**MCAR**: Los valores faltantes se producen de forma completamente aleatoria. En el contexto sanitario, esta situación es poco probable ya que en la situación en la que estamos el entorno esta muy controladoy un fallo en la maquinaria u otros instrumentos suele ser poco común. 
+\-**MCAR**: Los valores faltantes se producen de forma completamente aleatoria.
+En el contexto sanitario, esta situación es poco probable ya que en la situación en la que estamos el entorno esta muy controladoy un fallo en la maquinaria u otros instrumentos suele ser poco común.
 En general este tipo de valores nulos no suelen ser MCAR y suelen ser suposiciones poco realistas.
 
--**MAR**: los valores faltantes dependen de otras variables observadas del conjunto de datos. Este caso puede ser posible, por ejemplo, podría ocurrir que algunos pacientes no dispongan de una medida de colesterol porque pertenecen a un determinado grupo de edad o sexo para el que no se realizó la prueba o pacientes con elevados niveles de estres podrían evitar hacer determinadas pruebas que impidan rellernar otras variables en la base de datos.
+\-**MAR**: los valores faltantes dependen de otras variables observadas del conjunto de datos.
+Este caso puede ser posible, por ejemplo, podría ocurrir que algunos pacientes no dispongan de una medida de colesterol porque pertenecen a un determinado grupo de edad o sexo para el que no se realizó la prueba o pacientes con elevados niveles de estres podrían evitar hacer determinadas pruebas que impidan rellernar otras variables en la base de datos.
 
--**MNAR**: los valores faltantes dependen del propio valor ausente. Esta caso podría darse, por ejemplo, un paciente con estres podría podría no realizar la prueba de estres por si esto pudiera resultarle perjudicial.
+\-**MNAR**: los valores faltantes dependen del propio valor ausente.
+Esta caso podría darse, por ejemplo, un paciente con estres podría podría no realizar la prueba de estres por si esto pudiera resultarle perjudicial.
 
-Finalmente hemos llegado a la conclusión de que, en el contexto clínico en el que nos encontramos, los tipos de valores faltantes más posibles son del tipo MAR y MNAR. 
+Finalmente hemos llegado a la conclusión de que, en el contexto clínico en el que nos encontramos, los tipos de valores faltantes más posibles son del tipo MAR y MNAR.
 
 ### 2.9. Ajuste del modelo lineal de las variables health_score y bmi usando solo casos completos. ¿Cuántas observaciones se pierden?
 
@@ -396,15 +457,18 @@ ggplot(health_df_completo, aes(x = bmi, y = health_score)) +
   theme_minimal()
 ```
 
-Como pudimos calcular en apartados anteriores, la variable `bmi` presenta $9$ valores faltantes, mientras que la variable `health_score` no contiene ninguno. Por lo tanto, al hacer el modelo de regresión completo hemos perdido nueve observaciones.
+Como pudimos calcular en apartados anteriores, la variable `bmi` presenta $9$ valores faltantes, mientras que la variable `health_score` no contiene ninguno.
+Por lo tanto, al hacer el modelo de regresión completo hemos perdido nueve observaciones.
 
-Los resultado del modelo muestra como existe una relación negativa entre ambas variables. En concreto, medida que el índice de masa corporal aumenta en una unidad, el índice de salud disminuye en $-2,443$ unidades. 
+Los resultado del modelo muestra como existe una relación negativa entre ambas variables.
+En concreto, medida que el índice de masa corporal aumenta en una unidad, el índice de salud disminuye en $-2,443$ unidades.
 
-Además este modelo resulta ser estadisticamente significativo, debido a que tenemos un p-valor pequeño un estadístico F grande. Sin embargo, el coeficiente de determinación $R^2$ nos indica que el modelo explica el $38,99\%$ de la variabilidad total, por lo que hay más variables de nuestro modelo que influyen en la variable `health_score`.
+Además este modelo resulta ser estadisticamente significativo, debido a que tenemos un p-valor pequeño un estadístico F grande.
+Sin embargo, el coeficiente de determinación $R^2$ nos indica que el modelo explica el $38,99\%$ de la variabilidad total, por lo que hay más variables de nuestro modelo que influyen en la variable `health_score`.
 
-Por otro lado debemos destacar la violación de linealidad en el modelo que se debería resolver con una transforamación en las variables. 
+Por otro lado debemos destacar la violación de linealidad en el modelo que se debería resolver con una transforamación en las variables.
 
-### 2.10. Repite el modelo anterior pero con el dataset imputado. ¿Cambian los coeficientes? Explica por qué.
+### 2.10. Repite el modelo anterior pero con el dataset imputado..
 
 A continuación realizaremos otra vez el modelo de regresión sobre el dataset impotado.
 
@@ -421,11 +485,84 @@ ggplot(health_df_imputado, aes(x = bmi, y = health_score)) +
   theme_minimal()
 ```
 
-Al comparar ambos modelos, se observa que los coeficientes apenas varían. El coeficiente asociado a la variable `bmi` se mantiene identico, mientras que el intercepto pasa de 118,013 en nuestro modelo anterior a 117,975. Del mismo modo, el coeficiente de determinación $R^2$ disminuye ligeramente de $38,99\%$ a $38,49\%$. Estas diferencias son mínimas debido a que la cantidad de datos faltantes era muy reducida.
+Al comparar ambos modelos, se observa que los coeficientes apenas varían.
+El coeficiente asociado a la variable `bmi` se mantiene identico, mientras que el intercepto pasa de 118,013 en nuestro modelo anterior a 117,975.
+Del mismo modo, el coeficiente de determinación $R^2$ disminuye ligeramente de $38,99\%$ a $38,49\%$.
+Estas diferencias son mínimas debido a que la cantidad de datos faltantes era muy reducida.
 
 Por otra parte, al observar el gráfico de dispersión, se asigue apreciando que la relación entre bmi y health_score podría no ser completamente lineal.
 
 ## Bloque 3: Regresion lineal simple y multiple
+
+### 3.1. Ajusta un modelo de regresión lineal simple entre índice de salud y bmi e interpreta los coeficientes.
+
+```{r}
+modelo_hs_bmi=lm(health_score~bmi, health_df)
+summary(modelo_hs_bmi)
+```
+
+Los resultado del modelo muestra como existe una relación negativa entre el índice de masa corporal (`bmi`) y el indice de salud (`health_score`).
+En particular, el coeficiente asociado a la variable bmi es $-2,443$, que representa la pendiente de la recta de regresión.
+Este valor nos indica que por cada unidad de incremento de bmi, el índice de salud disminuye $-2,443$ unidades
+
+Además este modelo resulta ser estadisticamente significativo, debido a que tenemos un p-valor pequeño.
+Sin embargo, el coeficiente de determinación $R^2$ nos indica que el modelo explica el $38,99\%$ de la variabilidad total, por lo que hay más variables de nuestro modelo que influyen en la variable `health_score`.
+
+Por otro lado debemos destacar la violación de linealidad en el modelo que se debería resolver con una transforamación en las variables.
+
+Finalmente, cabe señalar que al hacer el modelo se han eliminado nueve observaciones devido a la presencial de valores faltantes.
+
+### 3.2. Representa el gráfico de dispersión de health_score frente a bmi con la recta ajustada.
+
+En este aparatado representaremos graficamente el modelo anterior mediante un gráfico de dispersión y su recta ajustada.
+
+La recta ajustada se calcula ajustando los predictores del modelo poblacional mediante el método de los minimos cuadrado (MCO), obteniendo la siguiente ecuación: $$\hat{y} = \hat{\beta}\_0 + \hat{\beta}\_1 x$$ Que ajustada al contecto de nuestros datos es: $$ \text{health score} = 118.01323 - 2.44345\,\text{bmi} $$
+
+```{r}
+ggplot(health_df_imputado, aes(x = bmi, y = health_score)) +
+  geom_point(alpha = 0.7, color="#7FFFD4") +
+  geom_smooth(method = "lm", se = FALSE, color = "aquamarine4") +
+  labs(title = "Relación entre índice de masa corporal e índice de salud",
+       x = "bmi", y = "indice de salud") +
+  theme_minimal()
+```
+
+### 3.3. Calcula el R² del modelo simple anterior. ¿Qué proporción de la variabilidad explica el IMC?
+
+En nuestro modelo $R^2$ es 0.3899, que nos indica que el modelo explica el $38,99\%$ de la variablidad del modelo.
+Este bajo porcentaje es debido a que el índice de salud es influido por otras variables que no estan incluidas en el modelo como, por ejemplo, la variable `activity_hours` como vimos en el apartado @sec-actividad.
+
+Cabe destacar que en regresión lineal simple la raíz cuadrada del coeficiente de determinación $R^2$ es el coeficiente de correlación de Pearson $r_{xy}$.
+En nuestro modelo el valor es $-0,6244$, lo afirma la relación negativa que indica el modelo.
+
+### 3.4. Ajusta un modelo de regresión lineal múltiple de índice de salud con bmi y horas de sueño, ¿Qué variable parece tener un mayor efecto en la salud?
+
+Como vimos en el apartado anterior el índice de salud también es influido por otras variables, por lo que para poder hacer mejores predicciones necesatamos crear modelos de regresión mulptiples.
+
+En este apartado definiremos el modelo de regresión con las variables predictoreas `bmi` y `sleep_hours` (horas de sueño).
+
+```{r}
+modelo_multiple=lm(health_score~bmi+sleep_hours, health_df)
+summary(modelo_multiple)
+```
+
+Como podemos ver en el coeficiente de determinación $R^2$ ajustado, la variablidad del modelo a aumentado un $2,37%$ más que con respecto al anterior.
+En el modelo de regresión multiple es importante diferenciar entre $R^2$ y $R^2$ ajustado, ya que este último marca una penalización sobre las variables para que el porcentaje de variablidad no aumente por la adicción de estas pese a que no sean significativas en el modelo.
+
+En este caso los coeficientes de las variables `bmi` y `sleep_hours` son $-2.47475$ y $2.49872$ respectivamente.
+Estos valores nos muestran que las horas de sueño tienen un mayor efecto sobre el índice de salud que índice de masa corporal, lo que ínidca que por cada hora extra de sueño el puntaje en la salud aumenta $2.49872$ unidades.
+
+### 3.5. Compara los coeficientes de bmi en el modelo simple y en el múltiple. ¿Por qué cambian?
+
+### 3.6. Añade stress al modelo múltiple anterior. ¿Mejora el ajuste según el R² ajustado?
+
+### 3.7. Interpreta el efecto de la variable categórica smoker cuando se incluye en un modelo múltiple junto con predictores cuantitativos.
+
+### 3.8. Ajusta un modelo que incluya age como predictor adicional. ¿Cómo influye la edad en el índice de salud?
+
+### 3.9. Realiza un diagrama de residuos del modelo múltiple. ¿Se aprecian patrones que indiquen falta de linealidad?
+
+### 3.10. Explica en qué situaciones en el ámbito de la salud sería más adecuado usar un modelo múltiple en lugar de uno simple.
 
 ## Bloque 4: No linealidades y piecewise
 
@@ -440,4 +577,3 @@ Por otra parte, al observar el gráfico de dispersión, se asigue apreciando que
 ## Bloque 9: Evaluación y comparación de modelos
 
 ## Bloque 10: Proyecto integrador
-

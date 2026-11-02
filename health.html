@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.18">
+<meta name="generator" content="quarto-1.10.19">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -72,10 +72,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="health_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="health_files/libs/quarto-html/anchor.min.js"></script>
 <link href="health_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="health_files/libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="health_files/libs/quarto-html/quarto-syntax-highlighting-5c1318cf63eba56dbef7ba16bc7d56f5.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="health_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="health_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="health_files/libs/bootstrap/bootstrap-215b371544c282197b31c8aa00ce3677.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="health_files/libs/bootstrap/bootstrap-7f29e5759311ed584748f40bceceb4ae.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<style>html{ scroll-behavior: smooth; }</style>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
@@ -109,10 +110,65 @@ window.Quarto = {
 
 </head>
 
-<body class="fullcontent quarto-light">
+<body class="quarto-light">
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introducción" id="toc-introducción" class="nav-link active" data-scroll-target="#introducción"><span class="header-section-number">1</span> Introducción</a></li>
+  <li><a href="#bloque-1-exploración-inicial" id="toc-bloque-1-exploración-inicial" class="nav-link" data-scroll-target="#bloque-1-exploración-inicial"><span class="header-section-number">2</span> Bloque 1: Exploración inicial</a>
+  <ul class="collapse">
+  <li><a href="#media-mediana-y-desviación-típica" id="toc-media-mediana-y-desviación-típica" class="nav-link" data-scroll-target="#media-mediana-y-desviación-típica"><span class="header-section-number">2.1</span> 1.1. Media, mediana y desviación típica</a></li>
+  <li><a href="#puntaje-de-índice-de-salud." id="toc-puntaje-de-índice-de-salud." class="nav-link" data-scroll-target="#puntaje-de-índice-de-salud."><span class="header-section-number">2.2</span> 1.2. Puntaje de índice de salud.</a></li>
+  <li><a href="#distribucion-de-frecuencias-relativas-de-los-pacientes-por-sexo." id="toc-distribucion-de-frecuencias-relativas-de-los-pacientes-por-sexo." class="nav-link" data-scroll-target="#distribucion-de-frecuencias-relativas-de-los-pacientes-por-sexo."><span class="header-section-number">2.3</span> 1.3. Distribucion de frecuencias relativas de los pacientes por sexo.</a></li>
+  <li><a href="#diagrama-de-cajas-de-indice-de-salud-por-región" id="toc-diagrama-de-cajas-de-indice-de-salud-por-región" class="nav-link" data-scroll-target="#diagrama-de-cajas-de-indice-de-salud-por-región"><span class="header-section-number">2.4</span> 1.4. Diagrama de cajas de indice de salud por región</a></li>
+  <li><a href="#diagrama-de-dispersion-entre-índice-de-salud-e-índice-de-masa-corporal" id="toc-diagrama-de-dispersion-entre-índice-de-salud-e-índice-de-masa-corporal" class="nav-link" data-scroll-target="#diagrama-de-dispersion-entre-índice-de-salud-e-índice-de-masa-corporal"><span class="header-section-number">2.5</span> 1.5. Diagrama de dispersion entre índice de salud e índice de masa corporal</a></li>
+  <li><a href="#matriz-de-correlaciones-entre-variables-numéricas." id="toc-matriz-de-correlaciones-entre-variables-numéricas." class="nav-link" data-scroll-target="#matriz-de-correlaciones-entre-variables-numéricas."><span class="header-section-number">2.6</span> 1.6. Matriz de correlaciones entre variables numéricas.</a></li>
+  <li><a href="#sec-actividad" id="toc-sec-actividad" class="nav-link" data-scroll-target="#sec-actividad"><span class="header-section-number">2.7</span> 1.7. Gráfico de dispersión entre horas de actividad e indice de salud</a></li>
+  <li><a href="#realiza-un-boxplot-de-health_score-por-fumador." id="toc-realiza-un-boxplot-de-health_score-por-fumador." class="nav-link" data-scroll-target="#realiza-un-boxplot-de-health_score-por-fumador."><span class="header-section-number">2.8</span> 1.8. Realiza un boxplot de health_score por fumador.</a></li>
+  <li><a href="#identifica-posibles-valores-atípicos-en-cholesterol-y-discute-si-son-plausibles-en-un-contexto-clínico." id="toc-identifica-posibles-valores-atípicos-en-cholesterol-y-discute-si-son-plausibles-en-un-contexto-clínico." class="nav-link" data-scroll-target="#identifica-posibles-valores-atípicos-en-cholesterol-y-discute-si-son-plausibles-en-un-contexto-clínico."><span class="header-section-number">2.9</span> 1.9. Identifica posibles valores atípicos en cholesterol y discute si son plausibles en un contexto clínico.</a></li>
+  <li><a href="#calcula-la-proporción-de-pacientes-con-enfermedad-controlada." id="toc-calcula-la-proporción-de-pacientes-con-enfermedad-controlada." class="nav-link" data-scroll-target="#calcula-la-proporción-de-pacientes-con-enfermedad-controlada."><span class="header-section-number">2.10</span> 1.10. Calcula la proporción de pacientes con enfermedad controlada.</a></li>
+  </ul></li>
+  <li><a href="#bloque-2-manejo-de-valores-faltantes" id="toc-bloque-2-manejo-de-valores-faltantes" class="nav-link" data-scroll-target="#bloque-2-manejo-de-valores-faltantes"><span class="header-section-number">3</span> Bloque 2: Manejo de valores faltantes</a>
+  <ul class="collapse">
+  <li><a href="#identifica-las-variables-que-contienen-valores-faltantes-y-cuántos-casos-faltan-en-cada-una." id="toc-identifica-las-variables-que-contienen-valores-faltantes-y-cuántos-casos-faltan-en-cada-una." class="nav-link" data-scroll-target="#identifica-las-variables-que-contienen-valores-faltantes-y-cuántos-casos-faltan-en-cada-una."><span class="header-section-number">3.1</span> 2.1. Identifica las variables que contienen valores faltantes y cuántos casos faltan en cada una.</a></li>
+  <li><a href="#y-2.3.-proporción-total-de-valores-faltantes-sobre-el-dataset-completo-y-tabla-resumen-con-las-variables-que-presentan-missing-y-el-porcentaje-de-datos-ausentes-en-cada-una." id="toc-y-2.3.-proporción-total-de-valores-faltantes-sobre-el-dataset-completo-y-tabla-resumen-con-las-variables-que-presentan-missing-y-el-porcentaje-de-datos-ausentes-en-cada-una." class="nav-link" data-scroll-target="#y-2.3.-proporción-total-de-valores-faltantes-sobre-el-dataset-completo-y-tabla-resumen-con-las-variables-que-presentan-missing-y-el-porcentaje-de-datos-ausentes-en-cada-una."><span class="header-section-number">3.2</span> 2.2 y 2.3. Proporción total de valores faltantes sobre el dataset completo y tabla resumen con las variables que presentan missing y el porcentaje de datos ausentes en cada una.</a></li>
+  <li><a href="#aplica-una-imputación-por-la-media-en-bmi-y-calcula-de-nuevo-la-media-de-esta-variable." id="toc-aplica-una-imputación-por-la-media-en-bmi-y-calcula-de-nuevo-la-media-de-esta-variable." class="nav-link" data-scroll-target="#aplica-una-imputación-por-la-media-en-bmi-y-calcula-de-nuevo-la-media-de-esta-variable."><span class="header-section-number">3.3</span> 2.4. Aplica una imputación por la media en bmi y calcula de nuevo la media de esta variable.</a></li>
+  <li><a href="#representa-histogramas-de-sleep_hours-antes-y-después-de-la-imputación-por-media." id="toc-representa-histogramas-de-sleep_hours-antes-y-después-de-la-imputación-por-media." class="nav-link" data-scroll-target="#representa-histogramas-de-sleep_hours-antes-y-después-de-la-imputación-por-media."><span class="header-section-number">3.4</span> 2.5. Representa histogramas de sleep_hours antes y después de la imputación por media.</a></li>
+  <li><a href="#aplica-una-imputación-por-la-mediana-en-stress.-compara-los-resultados-con-la-imputación-por-la-media." id="toc-aplica-una-imputación-por-la-mediana-en-stress.-compara-los-resultados-con-la-imputación-por-la-media." class="nav-link" data-scroll-target="#aplica-una-imputación-por-la-mediana-en-stress.-compara-los-resultados-con-la-imputación-por-la-media."><span class="header-section-number">3.5</span> 2.6. Aplica una imputación por la mediana en stress. Compara los resultados con la imputación por la media.</a></li>
+  <li><a href="#realiza-una-imputación-condicional-sustituye-los-valores-faltantes-de-cholesterol-por-la-media-de-pacientes-del-mismo-grupo-de-sex." id="toc-realiza-una-imputación-condicional-sustituye-los-valores-faltantes-de-cholesterol-por-la-media-de-pacientes-del-mismo-grupo-de-sex." class="nav-link" data-scroll-target="#realiza-una-imputación-condicional-sustituye-los-valores-faltantes-de-cholesterol-por-la-media-de-pacientes-del-mismo-grupo-de-sex."><span class="header-section-number">3.6</span> 2.7. Realiza una imputación condicional: sustituye los valores faltantes de cholesterol por la media de pacientes del mismo grupo de sex.</a></li>
+  <li><a href="#discute-si-es-razonable-suponer-que-los-valores-faltantes-son-mcar-mar-o-mnar-en-este-contexto-de-salud." id="toc-discute-si-es-razonable-suponer-que-los-valores-faltantes-son-mcar-mar-o-mnar-en-este-contexto-de-salud." class="nav-link" data-scroll-target="#discute-si-es-razonable-suponer-que-los-valores-faltantes-son-mcar-mar-o-mnar-en-este-contexto-de-salud."><span class="header-section-number">3.7</span> 2.8. Discute si es razonable suponer que los valores faltantes son MCAR, MAR o MNAR en este contexto de salud.</a></li>
+  <li><a href="#ajuste-del-modelo-lineal-de-las-variables-health_score-y-bmi-usando-solo-casos-completos.-cuántas-observaciones-se-pierden" id="toc-ajuste-del-modelo-lineal-de-las-variables-health_score-y-bmi-usando-solo-casos-completos.-cuántas-observaciones-se-pierden" class="nav-link" data-scroll-target="#ajuste-del-modelo-lineal-de-las-variables-health_score-y-bmi-usando-solo-casos-completos.-cuántas-observaciones-se-pierden"><span class="header-section-number">3.8</span> 2.9. Ajuste del modelo lineal de las variables health_score y bmi usando solo casos completos. ¿Cuántas observaciones se pierden?</a></li>
+  <li><a href="#repite-el-modelo-anterior-pero-con-el-dataset-imputado.." id="toc-repite-el-modelo-anterior-pero-con-el-dataset-imputado.." class="nav-link" data-scroll-target="#repite-el-modelo-anterior-pero-con-el-dataset-imputado.."><span class="header-section-number">3.9</span> 2.10. Repite el modelo anterior pero con el dataset imputado..</a></li>
+  </ul></li>
+  <li><a href="#bloque-3-regresion-lineal-simple-y-multiple" id="toc-bloque-3-regresion-lineal-simple-y-multiple" class="nav-link" data-scroll-target="#bloque-3-regresion-lineal-simple-y-multiple"><span class="header-section-number">4</span> Bloque 3: Regresion lineal simple y multiple</a>
+  <ul class="collapse">
+  <li><a href="#ajusta-un-modelo-de-regresión-lineal-simple-entre-índice-de-salud-y-bmi-e-interpreta-los-coeficientes." id="toc-ajusta-un-modelo-de-regresión-lineal-simple-entre-índice-de-salud-y-bmi-e-interpreta-los-coeficientes." class="nav-link" data-scroll-target="#ajusta-un-modelo-de-regresión-lineal-simple-entre-índice-de-salud-y-bmi-e-interpreta-los-coeficientes."><span class="header-section-number">4.1</span> 3.1. Ajusta un modelo de regresión lineal simple entre índice de salud y bmi e interpreta los coeficientes.</a></li>
+  <li><a href="#representa-el-gráfico-de-dispersión-de-health_score-frente-a-bmi-con-la-recta-ajustada." id="toc-representa-el-gráfico-de-dispersión-de-health_score-frente-a-bmi-con-la-recta-ajustada." class="nav-link" data-scroll-target="#representa-el-gráfico-de-dispersión-de-health_score-frente-a-bmi-con-la-recta-ajustada."><span class="header-section-number">4.2</span> 3.2. Representa el gráfico de dispersión de health_score frente a bmi con la recta ajustada.</a></li>
+  <li><a href="#calcula-el-r²-del-modelo-simple-anterior.-qué-proporción-de-la-variabilidad-explica-el-imc" id="toc-calcula-el-r²-del-modelo-simple-anterior.-qué-proporción-de-la-variabilidad-explica-el-imc" class="nav-link" data-scroll-target="#calcula-el-r²-del-modelo-simple-anterior.-qué-proporción-de-la-variabilidad-explica-el-imc"><span class="header-section-number">4.3</span> 3.3. Calcula el R² del modelo simple anterior. ¿Qué proporción de la variabilidad explica el IMC?</a></li>
+  <li><a href="#ajusta-un-modelo-de-regresión-lineal-múltiple-health_scorebmiactivity_hourssleep_hours-qué-variable-parece-tener-un-mayor-efecto-en-la-salud" id="toc-ajusta-un-modelo-de-regresión-lineal-múltiple-health_scorebmiactivity_hourssleep_hours-qué-variable-parece-tener-un-mayor-efecto-en-la-salud" class="nav-link" data-scroll-target="#ajusta-un-modelo-de-regresión-lineal-múltiple-health_scorebmiactivity_hourssleep_hours-qué-variable-parece-tener-un-mayor-efecto-en-la-salud"><span class="header-section-number">4.4</span> 3.4. Ajusta un modelo de regresión lineal múltiple: health_score∼bmi+activity_hours+sleep_hours ¿Qué variable parece tener un mayor efecto en la salud?</a></li>
+  <li><a href="#compara-los-coeficientes-de-bmi-en-el-modelo-simple-y-en-el-múltiple.-por-qué-cambian" id="toc-compara-los-coeficientes-de-bmi-en-el-modelo-simple-y-en-el-múltiple.-por-qué-cambian" class="nav-link" data-scroll-target="#compara-los-coeficientes-de-bmi-en-el-modelo-simple-y-en-el-múltiple.-por-qué-cambian"><span class="header-section-number">4.5</span> 3.5. Compara los coeficientes de bmi en el modelo simple y en el múltiple. ¿Por qué cambian?</a></li>
+  <li><a href="#añade-stress-al-modelo-múltiple-anterior.-mejora-el-ajuste-según-el-r²-ajustado" id="toc-añade-stress-al-modelo-múltiple-anterior.-mejora-el-ajuste-según-el-r²-ajustado" class="nav-link" data-scroll-target="#añade-stress-al-modelo-múltiple-anterior.-mejora-el-ajuste-según-el-r²-ajustado"><span class="header-section-number">4.6</span> 3.6. Añade stress al modelo múltiple anterior. ¿Mejora el ajuste según el R² ajustado?</a></li>
+  <li><a href="#interpreta-el-efecto-de-la-variable-categórica-smoker-cuando-se-incluye-en-un-modelo-múltiple-junto-con-predictores-cuantitativos." id="toc-interpreta-el-efecto-de-la-variable-categórica-smoker-cuando-se-incluye-en-un-modelo-múltiple-junto-con-predictores-cuantitativos." class="nav-link" data-scroll-target="#interpreta-el-efecto-de-la-variable-categórica-smoker-cuando-se-incluye-en-un-modelo-múltiple-junto-con-predictores-cuantitativos."><span class="header-section-number">4.7</span> 3.7. Interpreta el efecto de la variable categórica smoker cuando se incluye en un modelo múltiple junto con predictores cuantitativos.</a></li>
+  <li><a href="#ajusta-un-modelo-que-incluya-age-como-predictor-adicional.-cómo-influye-la-edad-en-el-índice-de-salud" id="toc-ajusta-un-modelo-que-incluya-age-como-predictor-adicional.-cómo-influye-la-edad-en-el-índice-de-salud" class="nav-link" data-scroll-target="#ajusta-un-modelo-que-incluya-age-como-predictor-adicional.-cómo-influye-la-edad-en-el-índice-de-salud"><span class="header-section-number">4.8</span> 3.8. Ajusta un modelo que incluya age como predictor adicional. ¿Cómo influye la edad en el índice de salud?</a></li>
+  <li><a href="#realiza-un-diagrama-de-residuos-del-modelo-múltiple.-se-aprecian-patrones-que-indiquen-falta-de-linealidad" id="toc-realiza-un-diagrama-de-residuos-del-modelo-múltiple.-se-aprecian-patrones-que-indiquen-falta-de-linealidad" class="nav-link" data-scroll-target="#realiza-un-diagrama-de-residuos-del-modelo-múltiple.-se-aprecian-patrones-que-indiquen-falta-de-linealidad"><span class="header-section-number">4.9</span> 3.9. Realiza un diagrama de residuos del modelo múltiple. ¿Se aprecian patrones que indiquen falta de linealidad?</a></li>
+  <li><a href="#explica-en-qué-situaciones-en-el-ámbito-de-la-salud-sería-más-adecuado-usar-un-modelo-múltiple-en-lugar-de-uno-simple." id="toc-explica-en-qué-situaciones-en-el-ámbito-de-la-salud-sería-más-adecuado-usar-un-modelo-múltiple-en-lugar-de-uno-simple." class="nav-link" data-scroll-target="#explica-en-qué-situaciones-en-el-ámbito-de-la-salud-sería-más-adecuado-usar-un-modelo-múltiple-en-lugar-de-uno-simple."><span class="header-section-number">4.10</span> 3.10. Explica en qué situaciones en el ámbito de la salud sería más adecuado usar un modelo múltiple en lugar de uno simple.</a></li>
+  </ul></li>
+  <li><a href="#bloque-4-no-linealidades-y-piecewise" id="toc-bloque-4-no-linealidades-y-piecewise" class="nav-link" data-scroll-target="#bloque-4-no-linealidades-y-piecewise"><span class="header-section-number">5</span> Bloque 4: No linealidades y piecewise</a></li>
+  <li><a href="#bloque-5-heterocedastidad" id="toc-bloque-5-heterocedastidad" class="nav-link" data-scroll-target="#bloque-5-heterocedastidad"><span class="header-section-number">6</span> Bloque 5: Heterocedastidad</a></li>
+  <li><a href="#bloque-6-modelos-glm" id="toc-bloque-6-modelos-glm" class="nav-link" data-scroll-target="#bloque-6-modelos-glm"><span class="header-section-number">7</span> Bloque 6: Modelos GLM</a></li>
+  <li><a href="#bloque-7-iteracciones" id="toc-bloque-7-iteracciones" class="nav-link" data-scroll-target="#bloque-7-iteracciones"><span class="header-section-number">8</span> Bloque 7: Iteracciones</a></li>
+  <li><a href="#bloque-8-varibles-cateogóricas" id="toc-bloque-8-varibles-cateogóricas" class="nav-link" data-scroll-target="#bloque-8-varibles-cateogóricas"><span class="header-section-number">9</span> Bloque 8: Varibles cateogóricas</a></li>
+  <li><a href="#bloque-9-evaluación-y-comparación-de-modelos" id="toc-bloque-9-evaluación-y-comparación-de-modelos" class="nav-link" data-scroll-target="#bloque-9-evaluación-y-comparación-de-modelos"><span class="header-section-number">10</span> Bloque 9: Evaluación y comparación de modelos</a></li>
+  <li><a href="#bloque-10-proyecto-integrador" id="toc-bloque-10-proyecto-integrador" class="nav-link" data-scroll-target="#bloque-10-proyecto-integrador"><span class="header-section-number">11</span> Bloque 10: Proyecto integrador</a></li>
+  </ul>
+</nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+</div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
@@ -141,8 +197,11 @@ window.Quarto = {
 
 
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># librerias</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.2.1     ✔ readr     2.2.0
@@ -155,20 +214,25 @@ window.Quarto = {
 ✖ dplyr::lag()    masks stats::lag()
 ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
+<details class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggcorrplot)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggcorrplot)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 </div>
-<section id="introducción" class="level2">
-<h2 class="anchored" data-anchor-id="introducción">Introducción</h2>
-<p>El objetivo de este trabajo es hacer un estudio estadísticos sobre un conjunto datos que contiene informacion sanitaria de una serie da pacientes.</p>
-<p>En este contexto aprenderemos desde como hacer sus primeras observaciones y la trata de elementos faltantes hasta ver las iteracciones de las varaiables en un modelo de inferencia.</p>
-</section>
-<section id="bloque-1-exploración-inicial" class="level2">
-<h2 class="anchored" data-anchor-id="bloque-1-exploración-inicial">Bloque 1: Exploración inicial</h2>
-<p>Para comenzar con el estudio es necesario primero cargar los datos. Par esto usamos la función <code>read.csv</code> y mostramos sus primeras lineas para ver que este es la base de datos correcta.</p>
+<section id="introducción" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="introducción"><span class="header-section-number">1</span> Introducción</h2>
+<p>El objetivo de este trabajo es llevar a cabo un análisis estadístico a partir de una base de datos de pacientes hospitalarios. En primer lugar, leeremos el conjunto de datos y la visulizaremos los primeros cinco registros con el fin de confirmar que la lectura de la información se ha ejecutado correctamente.</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>health_df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/health_C.csv"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(health_df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>  health_score hospital_visits disease_controlled doses_prescribed doses_taken
 1         0.00               0                  0               17          17
@@ -200,64 +264,117 @@ window.Quarto = {
 6 25154.91 Centro Clínica A</code></pre>
 </div>
 </div>
-<section id="media-mediana-y-desviación-típica" class="level3">
-<h3 class="anchored" data-anchor-id="media-mediana-y-desviación-típica">1.1. Media, mediana y desviación típica</h3>
-<p>En este subapartado calcularemos la media, mediana y desviación típica de la variable <code>health_score</code> (índice de salud):</p>
+</section>
+<section id="bloque-1-exploración-inicial" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="bloque-1-exploración-inicial"><span class="header-section-number">2</span> Bloque 1: Exploración inicial</h2>
+<section id="media-mediana-y-desviación-típica" class="level3" data-number="2.1">
+<h3 data-number="2.1" class="anchored" data-anchor-id="media-mediana-y-desviación-típica"><span class="header-section-number">2.1</span> 1.1. Media, mediana y desviación típica</h3>
+<p>Para comenzar con el estudio primero calcularemos la media, mediana y desviación típica de la variable <code>health_score</code> (indice de salud) de los pacientes.</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>media<span class="ot">=</span><span class="fu">mean</span>(health_df<span class="sc">$</span>health_score) </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>mediana<span class="ot">=</span><span class="fu">median</span>(health_df<span class="sc">$</span>health_score) </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>des_tipica<span class="ot">=</span><span class="fu">sd</span>(health_df<span class="sc">$</span>health_score) </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>proptable<span class="ot">=</span><span class="fu">matrix</span>(</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(media, mediana, des_tipica),</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">1</span>,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">dimnames =</span> <span class="fu">list</span>(</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(<span class="st">"Media"</span>, <span class="st">"Mediana"</span>, <span class="st">"Desviación típica"</span>),</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Valor"</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>proptable</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stdout">
-<pre><code>                  Índice de Salud
-media                    53.10447
-mediana                  55.90500
-desviación típica        18.62233</code></pre>
+<pre><code>                     Valor
+Media             53.10447
+Mediana           55.90500
+Desviación típica 18.62233</code></pre>
 </div>
 </div>
-<p>En este caso los resultado obtenidos son:</p>
 <ul>
-<li><p><strong>Media</strong>: En estadítica la media indica el promedio de todos los valores juntos, se calcula como el sumatorio de todos los valores partido de el número total de elemntos. En este contexto, se ha obtenido que los pacientes siguen un indice de salud global promedio a 53.1045.</p></li>
-<li><p><strong>Mediana</strong>: La mediana es el la posición central cuando todos los datos son ordenados en una escala de menor a mayor. En este caso, la tendencia central es 55.905.</p></li>
-<li><p><strong>Desviación típica</strong>: La desviación típica mide el grado de dispersión de los datos, es decir, indica cuanto se alejan estos en promedio respecto a la media. En nuestro conjunto, los datos presentan una dispersion de 18.6223 con respecto a la media aritmética.</p></li>
+<li><p><strong>Media</strong>: La media mide el promedio de la variable. Se calula como la suma de los valores dividido entre la dimensión de la muestra. En este caso se ha obtenido que los pacientes siguen un indice de salud global promedio a 53.1045.</p></li>
+<li><p><strong>Mediana</strong>: La media es el valor que ocupa la posición central cuando los ordenamos los datos de menor a mayor. En este caso la tendencia central es 55.905</p></li>
+<li><p><strong>Desviación típica</strong>: La desviación típica mide cuánto se dispersan los valores respecto a la media. Los datos presentan una dispersion de 18.6223 con respecto a la media aritmética.</p></li>
 </ul>
 </section>
-<section id="puntaje-de-índice-de-salud." class="level3">
-<h3 class="anchored" data-anchor-id="puntaje-de-índice-de-salud.">1.2. Puntaje de índice de salud.</h3>
-<p>A continuación se ha realizado un histograma de los de la variable <code>health_score</code> en 20 intervalos.</p>
+<section id="puntaje-de-índice-de-salud." class="level3" data-number="2.2">
+<h3 data-number="2.2" class="anchored" data-anchor-id="puntaje-de-índice-de-salud."><span class="header-section-number">2.2</span> 1.2. Puntaje de índice de salud.</h3>
+<p>A continuación se desea ver entre que puntajes se mueven los pacientes, para ello hemos realizado un histograma de la varieble índices de salud en 20 intervalos.</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(health_df, <span class="fu">aes</span>(<span class="at">x =</span> health_score)) <span class="sc">+</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>, <span class="at">fill =</span> <span class="st">"aquamarine1"</span>, <span class="at">color =</span> <span class="st">"#458B74"</span>) <span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"índices de salud del paciente"</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"puntaje índice de salud"</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"número de pacientes"</span>) <span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="health_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="health_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="768"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>A partir de la gráfica obtenida se puede obeservar que, en general, la mayoría de pacientes presentan un índice de salud, de entre los <span class="math inline">\(44\)</span> y <span class="math inline">\(70\)</span> puntos (moda). En particular, el puntaje con un mayor número de pacientes ronda los <span class="math inline">\(68\)</span> puntos mas o menos, con casi <span class="math inline">\(125\)</span> pacientes.</p>
+<p>Como podemos observar, la mayoría de los valores se concentran entre 45 y 75 puntos, con una mayor frecuencia alrededor de los 65 puntos. También podemos ver una cola hacia los valores más bajos, donde hay menos observaciones. También se aprecia que existen algunos pacientes con puntuaciones muy bajas, incluso cercanas a 0.</p>
+<p>En general, los valores se concentran en los niveles medios-altos del índice de salud, aunque existe cierta variabilidad entre los pacientes.</p>
 </section>
-<section id="distribucion-de-frecuencias-relativas-de-los-pacientes-por-sexo." class="level3">
-<h3 class="anchored" data-anchor-id="distribucion-de-frecuencias-relativas-de-los-pacientes-por-sexo.">1.3. Distribucion de frecuencias relativas de los pacientes por sexo.</h3>
-<p>A continuación calcularemos la frecuencia relativas de los pacientes por sexo.</p>
-<p>La frecuencia relativa de un valor se calcula como la división de la frecuencia absoluta de ese valor (número de veces que se repite ese valor en el conjunto de datos) entre el número total de datos.</p>
+<section id="distribucion-de-frecuencias-relativas-de-los-pacientes-por-sexo." class="level3" data-number="2.3">
+<h3 data-number="2.3" class="anchored" data-anchor-id="distribucion-de-frecuencias-relativas-de-los-pacientes-por-sexo."><span class="header-section-number">2.3</span> 1.3. Distribucion de frecuencias relativas de los pacientes por sexo.</h3>
+<p>En este apartado queremos calcular la frecuencia relativa de los pacientes por sexo.</p>
+<p>La frecuencia relativa mide el número total de veces que aparece una categoria (frecuencia absoluta) respecto al número total de observaciones.</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>       Frecuencia Absoluta Frecuencia Relativa
-Hombre                 451           46.209016
-Mujer                  511           52.356557
-Otro                    14            1.434426</code></pre>
+<pre><code>       Frecuencia absoluta Frecuencia relativa
+Hombre                 451               0.462
+Mujer                  511               0.524
+Otro                    14               0.014</code></pre>
 </div>
 </div>
-<p>Como podemos observar a traves de la tabla, los hombre presentan una frecuencia relativa de <code>round(porcentaje[1],4)</code>%; las mujeres con <code>round(porcentaje[2],4)</code>% y finalmente otros con <code>round(porcentaje[3],4)</code>%.</p>
+<p>-<strong>Mujeres</strong>: Las muejeres presentan una frecuenta relativa de <span class="math inline">\(0,524\)</span>. -<strong>Hombres</strong>: Los hombres presentan una frecuencia relativa de <span class="math inline">\(0,462\)</span>. -<strong>Otros</strong>: La personas que no han expecificado su sexo presentan una frecuencia relativa de <span class="math inline">\(0,014\)</span>.</p>
 </section>
-<section id="diagrama-de-dispersion-entre-índice-de-salud-e-índice-de-masa-corporal" class="level3">
-<h3 class="anchored" data-anchor-id="diagrama-de-dispersion-entre-índice-de-salud-e-índice-de-masa-corporal">1.5. Diagrama de dispersion entre índice de salud e índice de masa corporal</h3>
-<p>En este apartado se desea estudiar que relación puede haber entre en la variable <code>bmi</code> (índice de masa corporal) y <code>health_score</code> entre los pacientes. Para ello se ha creado la siguiente gráfica de dispersión:</p>
+<section id="diagrama-de-cajas-de-indice-de-salud-por-región" class="level3" data-number="2.4">
+<h3 data-number="2.4" class="anchored" data-anchor-id="diagrama-de-cajas-de-indice-de-salud-por-región"><span class="header-section-number">2.4</span> 1.4. Diagrama de cajas de indice de salud por región</h3>
+<p>A continuación, se compara el índice de salud según la zona en la que viven los pacientes: norte, sur, centro o islas; mediante un diagrama de cajas. Esta representación gráfica permite observar las diferencias en la distribución de la variable entre la zona de residencia de los pacientes, así como identificar posibles discrepancias en sus niveles de salud.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#|echo: false</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(health_df, <span class="fu">aes</span>(<span class="at">x =</span> bmi, <span class="at">y =</span> health_score)) <span class="sc">+</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>,<span class="at">color=</span><span class="st">"lightblue"</span>) <span class="sc">+</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Relación entre índice de salud e índice de masa corporal"</span>,</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"indice de masa corporal"</span>, <span class="at">y =</span> <span class="st">"indice de salud"</span>) <span class="sc">+</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(health_df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(region), <span class="at">y =</span> health_score)) <span class="sc">+</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"#7FFFD4"</span>, <span class="at">color=</span><span class="st">"aquamarine4"</span>) <span class="sc">+</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Indice de salud por región"</span>,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Region"</span>,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Indice de salud"</span>) <span class="sc">+</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="health_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>En el gráfico se observa que las medianas son bastante similares, situándose aproximadamente entre 55 y 58 puntos, por lo que el nivel central del índice de salud es parecido en todas las regiones. Sin embargo, podemos identificar varios valores atípicos inferiores, especialmente en las regiones centro, islas y el norte, correspondientes a pacientes con índices de salud muy bajos.</p>
+</section>
+<section id="diagrama-de-dispersion-entre-índice-de-salud-e-índice-de-masa-corporal" class="level3" data-number="2.5">
+<h3 data-number="2.5" class="anchored" data-anchor-id="diagrama-de-dispersion-entre-índice-de-salud-e-índice-de-masa-corporal"><span class="header-section-number">2.5</span> 1.5. Diagrama de dispersion entre índice de salud e índice de masa corporal</h3>
+<p>A continuación queremos saber si hay una relación existente entre el índice de salud de los pacuentes y el índice de masa corporal.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(health_df, <span class="fu">aes</span>(<span class="at">x =</span> bmi, <span class="at">y =</span> health_score)) <span class="sc">+</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">color=</span><span class="st">"#7FFFD4"</span>) <span class="sc">+</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"#458B74"</span>) <span class="sc">+</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Relación entre índice de salud e índice de masa corporal"</span>,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"indice de masa corporal"</span>, <span class="at">y =</span> <span class="st">"indice de salud"</span>) <span class="sc">+</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
@@ -272,269 +389,334 @@ Otro                    14            1.434426</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="health_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="health_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="768"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Como se puede observar, a medida que el índice de masa corporal va aumentando, el índice de salud de los pacientes va disminuyendo. Por lo tanto, podemos suponer que existe una relacion negativa entre ambas variables.</p>
-<p>Sin embargo, cabe destacar que los puntos de la gráfica siguen una forma curvilinea y además hay una cola en la gráfica, lo que indica un supuesto de violación en la <strong>linealidad</strong> y <strong>normalidad</strong> de los residuos. Por lo tanto, para poder hacer correctamente un estudio inferencial, se debería hacer una serie de transformaciones, lo que podría cambiar nuestra suposición inicial.</p>
+<p>Como se puede observar, a medida que el índice de masa corporal (<code>bmi</code>) va aumentando, el índice de salud de los pacientes tiende a disminuir, lo que la existencia de una relación negativa entre ambas variables.</p>
 </section>
-<section id="matriz-de-correlaciones-entre-variables-numéricas." class="level3">
-<h3 class="anchored" data-anchor-id="matriz-de-correlaciones-entre-variables-numéricas.">1.6. Matriz de correlaciones entre variables numéricas.</h3>
-<p>En este apartado se desea calcular la matriz de correlaciones de todos los datos numericos que contiene nuestra base de datos. Esta matriz indicará el nivel de relación existente entre las variables.</p>
+<section id="matriz-de-correlaciones-entre-variables-numéricas." class="level3" data-number="2.6">
+<h3 data-number="2.6" class="anchored" data-anchor-id="matriz-de-correlaciones-entre-variables-numéricas."><span class="header-section-number">2.6</span> 1.6. Matriz de correlaciones entre variables numéricas.</h3>
+<p>Deseamos calcular la correlación entre las variables numéricas de nuestro modelo, para ello hemos calculado la matriz de correlaciones de Pearson y la hemos representado graficamente mediante un mapa de calor.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#|echo: false</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>var_numericas <span class="ot">&lt;-</span> health_df[, <span class="fu">c</span>(<span class="st">"age"</span>,<span class="st">"bmi"</span>,<span class="st">"activity_hours"</span>,<span class="st">"sleep_hours"</span>,<span class="st">"stress"</span>,                              <span class="st">"cholesterol"</span>,<span class="st">"systolic_bp"</span>,<span class="st">"diastolic_bp"</span>,<span class="st">"alcohol_units"</span>,                              <span class="st">"diet_score"</span>,<span class="st">"med_adherence"</span>,<span class="st">"comorbidities"</span>,<span class="st">"income"</span>)]</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>cor_matrix <span class="ot">&lt;-</span> <span class="fu">cor</span>(var_numericas, <span class="at">use =</span> <span class="st">"pairwise.complete.obs"</span>)</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Representación gráfica de la matriz</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggcorrplot</span>(cor_matrix,</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">hc.order =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">type =</span> <span class="st">"lower"</span>,</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">lab =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>           <span class="at">lab_size =</span> <span class="fl">2.2</span>,</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>           <span class="at">colors =</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"white"</span>, <span class="st">"#2166AC"</span>),</span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>           <span class="at">title =</span> <span class="st">"Matriz de Correlación de Variables Numéricas"</span>,</span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>           <span class="at">ggtheme =</span> <span class="fu">theme_minimal</span>()) <span class="sc">+</span></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">vjust =</span> <span class="dv">1</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid =</span> <span class="fu">element_blank</span>()</span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>var_num<span class="ot">=</span>health_df[,<span class="fu">c</span>(<span class="st">"age"</span>,<span class="st">"bmi"</span>,<span class="st">"activity_hours"</span>,<span class="st">"sleep_hours"</span>,<span class="st">"stress"</span>,<span class="st">"cholesterol"</span>,<span class="st">"systolic_bp"</span>,<span class="st">"diastolic_bp"</span>, <span class="st">"alcohol_units"</span>,<span class="st">"diet_score"</span>,<span class="st">"med_adherence"</span>,<span class="st">"comorbidities"</span>,<span class="st">"income"</span>)]</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>cor_matrix <span class="ot">&lt;-</span> <span class="fu">cor</span>(var_num)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggcorrplot</span>(cor_matrix,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">type       =</span> <span class="st">"upper"</span>,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">colors     =</span> <span class="fu">c</span>(<span class="st">"deeppink"</span>, <span class="st">"white"</span>, <span class="st">"#458B74"</span>), </span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">lab        =</span> <span class="cn">TRUE</span>,                              </span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">lab_size   =</span> <span class="dv">3</span>,                                 </span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">p.mat      =</span> <span class="cn">NULL</span>)                               </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="health_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="health_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="768"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Las correlaciones se calculan mediante el coeficientes de correlación de Pearson, que se mueve en el intevalo <span class="math inline">\([-1,1]\)</span>.</p>
-<p>A partir del mapa de calor de las variables numéricas, se puede apreciar que la gran mayoría de los coeficientes de correlacion oscilan en valores cercanos al cero (entre (-0.08) y (0.08)), lo que visualmente se traduce en celdas con tonalidades blancas.</p>
-<p>Sin embargo, es posible destacar algunos relaciones dentro de esta baja linealidad:</p>
-<p>• <strong>Asociaciones negativas</strong>: Destaca la relación entre las variables de <code>systolic_bp</code> (presión arterial) con <code>alcohol_units</code> (unidades de alcohol) de (-0.08)) o los niveles de adherencia médica frente a las comorbilidades <code>med_adherence</code> (nivel de adherencia del tratamiento) con <code>comorbidities</code> (número de comorbilidades diagnosticadas) de (-0.07)). Aunque estadísticamente son relaciones muy débiles</p>
-<p>• <strong>Asociaciones positivas</strong>: Variables como la <code>age</code> (edad) muestran una correlación positiva con los niveles de <code>stress</code> de (0.07)).</p>
-<p>En conclusión, dado que prácticamente ninguna variable numérica comparte una relación lineal directa con otra, se verifica que no existen problemas de multicolinealidad en los datos.</p>
+<p>La correlación se mueven entre valores de [-1,1], donde los valores negativos próximos al -1 marcan una relación inversa y los valores positivos cercanos al 1 una directa.</p>
+<p>En la gráfica se puede ver como en general la correlación entre las variables es debil y cercana al cero. Sin embargo, podemos destacar la relación entre <code>systolic_bp</code> (presión arteriar sistólica) y <code>alcohol_unites</code> (unidades de alcohol) con una correlación de -0.08; así como <code>med_adherence</code> (nivel de adherencia al tratamiento) con <code>income</code> (ingresos anuales) con un valor de -0.07. Por otro lado, también cabe destacar la relación positiva entre la variable <code>age</code> con <code>comorbidities</code> (número de comordidades diagnosticadas) y <code>med_adherence</code> con valores de 0.05 y 0.06 respectivamente.</p>
 </section>
-<section id="gráfico-de-dispersión-entre-horas-de-actividad-e-indice-de-salud" class="level3">
-<h3 class="anchored" data-anchor-id="gráfico-de-dispersión-entre-horas-de-actividad-e-indice-de-salud">1.7. Gráfico de dispersión entre horas de actividad e indice de salud</h3>
-<p>En este apartado se desea estudiar que relación puede haber entre en la variable <code>activity_hours</code> (horas de actividad) y <code>health_score</code> entre los pacientes. Para ello se ha creado la siguiente gráfica de dispersión:</p>
+<section id="sec-actividad" class="level3" data-number="2.7">
+<h3 data-number="2.7" class="anchored" data-anchor-id="sec-actividad"><span class="header-section-number">2.7</span> 1.7. Gráfico de dispersión entre horas de actividad e indice de salud</h3>
+<p>A continuación estudiaremos la relción exitente entre la variable <code>activity_hours</code> (horas de actividad) y <code>health_score</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#|echo: false</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(health_df, <span class="fu">aes</span>(<span class="at">x =</span> activity_hours, <span class="at">y =</span> health_score)) <span class="sc">+</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">color=</span><span class="st">"lightblue"</span>) <span class="sc">+</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Relación entre horas de actividad e índice de salud"</span>,</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"horas de actividad"</span>, <span class="at">y =</span> <span class="st">"indice de salud"</span>) <span class="sc">+</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 9 rows containing non-finite outside the scale range
-(`stat_smooth()`).</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 9 rows containing missing values or values outside the scale range
-(`geom_point()`).</code></pre>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="health_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>A partir del gráfico de dispersión se puede evidenciar una tendencia positiva entre ambas variables, es decir, un mayor número de horas de actividad esta asociada con un mayor índice de salud.</p>
-<p>No obsetante, si se hace un un analisis visual se puede deterctar una violacion en el supuesto de linealidad de los parametros.</p>
-<ul>
-<li><strong>Curvatura</strong>: Se puede ver una curvatura en la nube de puntos, donde a partir de las <span class="math inline">\(4,5\)</span> horas de ejercicio, los puntos suben ligeramente y alrededor de la <span class="math inline">\(7,5\)</span> horas se puede ver un descenso en ellos.</li>
-</ul>
-<p>Por otro lado, también se puede ver un problema de <strong>homocedatidad</strong> debido a que la dispesión de los puntos en la nube se va estrechando a medidad que aumentan las horas de ejercicio, lo que indica que la varianza de los errores no es constante.</p>
-</section>
-<section id="boxplot-de-health_score-por-fumador." class="level3">
-<h3 class="anchored" data-anchor-id="boxplot-de-health_score-por-fumador.">1.8. Boxplot de health_score por fumador.</h3>
-<p>A continuación se desea crear una gráfica boxplot por fumadores:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#|echo: false</span></span>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>modelo_estudio<span class="ot">=</span><span class="fu">lm</span>(health_score<span class="sc">~</span>activity_hours, health_df)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(health_df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(smoker), <span class="at">y =</span> health_score)) <span class="sc">+</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"lightblue"</span>, <span class="at">color=</span><span class="st">"blue"</span>) <span class="sc">+</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Indice de salud por fumadores"</span>,</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"fumador (0 no es fumador, 1 sí es fumador)"</span>,</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Indice de salud"</span>) <span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(health_df, <span class="fu">aes</span>(<span class="at">x =</span> activity_hours, <span class="at">y =</span> health_score)) <span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">color=</span><span class="st">"#7FFFD4"</span>) <span class="sc">+</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"aquamarine4"</span>) <span class="sc">+</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Relación entre horas de actividad e índice de salud"</span>,</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"horas de actividad"</span>, <span class="at">y =</span> <span class="st">"indice de salud"</span>) <span class="sc">+</span></span>
 <span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 9 rows containing non-finite outside the scale range
+(`stat_smooth()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 9 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="health_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="health_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extraer residuos y valores ajustados</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>datos_diagnostico <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">residuos =</span> <span class="fu">residuals</span>(modelo_estudio),</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">valores_ajustados =</span> <span class="fu">fitted</span>(modelo_estudio)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico de Residuos vs. Valores Ajustados con ggplot2</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(datos_diagnostico, <span class="fu">aes</span>(<span class="at">x =</span> valores_ajustados, <span class="at">y =</span> residuos)) <span class="sc">+</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"aquamarine"</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">"aquamarine4"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"aquamarine4"</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>, <span class="at">formula =</span> y <span class="sc">~</span> x) <span class="sc">+</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Residuos vs. Valores Ajustados"</span>,</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Valores Ajustados"</span>,</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Residuos"</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="health_files/figure-html/unnamed-chunk-8-2.png" class="img-fluid figure-img" width="768"></p>
 </figure>
 </div>
 </div>
 </div>
+<p>Como podemos ver en la gráfica, existe una correlación positiva entre ambas variables, donde a medida que aumentan las horas actividad de un paciente, también aumentará su índice de salud.</p>
+<p>-<strong>Linealidad</strong>: Pese a que en la gráfica se puede estudiar una relación entre ambas variables, también podemos observar una violación en el supuesto de linealidad. Esta evidencia se ve en la recta que regresión, que presenta una curvatura,lo que indica que el aumento del índice de salud es más notable en niveles bajos de actividad física que en niveles más altos. Sin embargo, la herremienta fundamental para detectar esta violación es mediante la gráfica de residuos frente a los valores ajustados del modelo. En este caso podemos detectar un ligero patrón curvo, lo que nos índica que los residuos no son completamente aleatorios y que se guarda una relación con los predictores.</p>
+<p>Para poder corregir esta falta de linealidad se tendría que hacer una trasformación logaritmica sobre las variables y hacer el modelos con estas.</p>
 </section>
-<section id="identifica-posibles-valores-atípicos-en-cholesterol." class="level3">
-<h3 class="anchored" data-anchor-id="identifica-posibles-valores-atípicos-en-cholesterol.">1.9. Identifica posibles valores atípicos en cholesterol.</h3>
-</section>
-<section id="calcula-la-proporción-de-pacientes-con-enfermedad-controlada" class="level3">
-<h3 class="anchored" data-anchor-id="calcula-la-proporción-de-pacientes-con-enfermedad-controlada">1.10. Calcula la proporción de pacientes con enfermedad controlada</h3>
-</section>
-</section>
-<section id="bloque-2-manejo-de-valores-faltantes" class="level2">
-<h2 class="anchored" data-anchor-id="bloque-2-manejo-de-valores-faltantes">Bloque 2: Manejo de valores faltantes</h2>
-<section id="identifica-las-variables-que-contienen-valores-faltantes-y-cuántos-casos-faltan-en-cada-una." class="level3">
-<h3 class="anchored" data-anchor-id="identifica-las-variables-que-contienen-valores-faltantes-y-cuántos-casos-faltan-en-cada-una.">2.1. Identifica las variables que contienen valores faltantes y cuántos casos faltan en cada una.</h3>
+<section id="realiza-un-boxplot-de-health_score-por-fumador." class="level3" data-number="2.8">
+<h3 data-number="2.8" class="anchored" data-anchor-id="realiza-un-boxplot-de-health_score-por-fumador."><span class="header-section-number">2.8</span> 1.8. Realiza un boxplot de health_score por fumador.</h3>
+<p>A continuación, se compara el índice de salud según la condición de fumador mediante un diagrama de cajas.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>nas_totales <span class="ot">=</span> <span class="fu">colSums</span>(<span class="fu">is.na</span>(health_df))</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>nas_totales[nas_totales <span class="sc">&gt;</span> <span class="dv">0</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(health_df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(smoker), <span class="at">y =</span> health_score)) <span class="sc">+</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"aquamarine1"</span>, <span class="at">color=</span><span class="st">"aquamarine4"</span>) <span class="sc">+</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Indice de salud por fumadores"</span>,</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Fumador(1) o no fumador(0)"</span>,</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Indice de salud"</span>) <span class="sc">+</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="health_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Al analizar la distribución de los índices de salud según la condición de fumador del paciente podemos observar que ambas son practicamente identidas. Ambos grupos presentan una mediana similar cerca del 55, así como unos valores atípicos centrados en la parte inferior de las distribuciones.</p>
+</section>
+<section id="identifica-posibles-valores-atípicos-en-cholesterol-y-discute-si-son-plausibles-en-un-contexto-clínico." class="level3" data-number="2.9">
+<h3 data-number="2.9" class="anchored" data-anchor-id="identifica-posibles-valores-atípicos-en-cholesterol-y-discute-si-son-plausibles-en-un-contexto-clínico."><span class="header-section-number">2.9</span> 1.9. Identifica posibles valores atípicos en cholesterol y discute si son plausibles en un contexto clínico.</h3>
+<p>Los valores atípicos, o también llamados outliers, son observación en un conjunto que se desvían drasticamente del patrón general de los datos. Para poder visulizar bien estos puntos se usan gráficos boxplot.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(health_df, <span class="fu">aes</span>(<span class="at">y =</span> cholesterol)) <span class="sc">+</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"aquamarine1"</span>, <span class="at">color=</span><span class="st">"aquamarine4"</span>) <span class="sc">+</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Diagrama de cajas niveles de colesterol"</span>,</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"colesterol"</span>) <span class="sc">+</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 9 rows containing non-finite outside the scale range
+(`stat_boxplot()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="health_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>En los diagramas de cajas los valores atípicos se observan como puntos fuera de la caja tomando valores extremadamente altos o bajos.</p>
+<p>En nuestro caso, podemos ver tres puntos atípicos con valores cercanos a los 300 mg/dL; lo que en el contexto clínico pueden ser casos plausibles y relevantes, ya que indican diferentes patologias relacionados transtornos genéticos y patológicos.</p>
+</section>
+<section id="calcula-la-proporción-de-pacientes-con-enfermedad-controlada." class="level3" data-number="2.10">
+<h3 data-number="2.10" class="anchored" data-anchor-id="calcula-la-proporción-de-pacientes-con-enfermedad-controlada."><span class="header-section-number">2.10</span> 1.10. Calcula la proporción de pacientes con enfermedad controlada.</h3>
+<p>A continuación calcularemos la proporición de clientes con su enfermedad controlada (<code>disease_controlled</code>), que toma valor 0 si no esta controllada y 1 si sí.</p>
+<p>La proporción expresa la frecuencia con la que aparece una variable o característica de interés en relación con el total de elementos de una población o muestra.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>frec_abs<span class="ot">=</span><span class="fu">table</span>(health_df<span class="sc">$</span>disease_controlled) </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>frec_rel<span class="ot">=</span><span class="fu">prop.table</span>(frec_abs)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>porcentaje<span class="ot">=</span>frec_rel<span class="sc">*</span><span class="dv">100</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>proptable<span class="ot">=</span><span class="fu">cbind</span>(</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Proporción (%)"</span><span class="ot">=</span>porcentaje</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(proptable)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stdout">
-<pre><code>           bmi activity_hours    sleep_hours         stress    cholesterol 
-             9              9              9              9              9 </code></pre>
+<pre><code>  Proporción (%)
+0       64.85656
+1       35.14344</code></pre>
 </div>
 </div>
-<p>En este caso las variables que tienen valores faltantes son en <code>bmi</code>, <code>activity_hours</code>, <code>sleep_hours</code>, <code>stress</code> y <code>cholesterol</code>, que tienen nueve valores nulos.</p>
+<p>Como podemos observar en la tabla, el 64,85% de los pacientes presentan un control en sus enfermedades, mientras que el 35,14% de ellos no.</p>
+</section>
+</section>
+<section id="bloque-2-manejo-de-valores-faltantes" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="bloque-2-manejo-de-valores-faltantes"><span class="header-section-number">3</span> Bloque 2: Manejo de valores faltantes</h2>
+<p>En este bloque aprenderemos como se manejan uno de los supuestos más comunes en mineria de datos y estaditica, el manejo de valores faltantes.</p>
+<section id="identifica-las-variables-que-contienen-valores-faltantes-y-cuántos-casos-faltan-en-cada-una." class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="identifica-las-variables-que-contienen-valores-faltantes-y-cuántos-casos-faltan-en-cada-una."><span class="header-section-number">3.1</span> 2.1. Identifica las variables que contienen valores faltantes y cuántos casos faltan en cada una.</h3>
+<p>Para comenzar, veremos si nuestra base de datos presenta valores faltantes y, en su caso, en que variables se encuentran.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>nas_totales<span class="ot">=</span><span class="fu">colSums</span>(<span class="fu">is.na</span>(health_df))</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>nas_totales_clas<span class="ot">=</span>nas_totales[nas_totales <span class="sc">&gt;</span> <span class="dv">0</span>]</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>proptable<span class="ot">=</span><span class="fu">cbind</span>(</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"valores faltantes"</span><span class="ot">=</span>nas_totales_clas</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(proptable)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>               valores faltantes
+bmi                            9
+activity_hours                 9
+sleep_hours                    9
+stress                         9
+cholesterol                    9</code></pre>
+</div>
+</div>
+<p>En este caso las variables que tienen valores faltantes son en <code>bmi</code>, <code>activity_hours</code>, <code>sleep_hours</code>, <code>stress</code> y <code>cholesterol</code>, que tienen nueve valores nulos cada uno.</p>
 <p>Al ver este resultado nos ha sorprendido que todas estas variables tuviesen el mismo número de valores nulos, por lo que hemos hecho una tabla que nos muestras que filas tienen estos valores ausentes por varaible.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Obtener la matriz de posiciones</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>posiciones_na <span class="ot">=</span> <span class="fu">which</span>(<span class="fu">is.na</span>(health_df), <span class="at">arr.ind =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Convertirlo en un data.frame ordenado y bonito</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>df_nas <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Fila =</span> posiciones_na[, <span class="st">"row"</span>],</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">Variable =</span> <span class="fu">names</span>(health_df)[posiciones_na[, <span class="st">"col"</span>]]</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Ver los primeros resultados (o todo el objeto)</span></span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_nas, <span class="dv">45</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>vars_con_na<span class="ot">=</span>health_df[, <span class="fu">colSums</span>(<span class="fu">is.na</span>(health_df)) <span class="sc">&gt;</span> <span class="dv">0</span>]</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Filas_con_NA =</span> <span class="fu">sapply</span>(vars_con_na, <span class="cf">function</span>(x) {</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">paste</span>(<span class="fu">which</span>(<span class="fu">is.na</span>(x)), <span class="at">collapse =</span> <span class="st">", "</span>)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stdout">
-<pre><code>   Fila       Variable
-1   146            bmi
-2   284            bmi
-3   288            bmi
-4   456            bmi
-5   458            bmi
-6   477            bmi
-7   578            bmi
-8   845            bmi
-9   868            bmi
-10  172 activity_hours
-11  173 activity_hours
-12  325 activity_hours
-13  337 activity_hours
-14  533 activity_hours
-15  622 activity_hours
-16  663 activity_hours
-17  860 activity_hours
-18  885 activity_hours
-19   92    sleep_hours
-20  220    sleep_hours
-21  346    sleep_hours
-22  444    sleep_hours
-23  609    sleep_hours
-24  695    sleep_hours
-25  772    sleep_hours
-26  788    sleep_hours
-27  819    sleep_hours
-28    4         stress
-29   86         stress
-30  219         stress
-31  271         stress
-32  406         stress
-33  647         stress
-34  723         stress
-35  876         stress
-36  890         stress
-37   50    cholesterol
-38  110    cholesterol
-39  379    cholesterol
-40  389    cholesterol
-41  522    cholesterol
-42  594    cholesterol
-43  603    cholesterol
-44  739    cholesterol
-45  940    cholesterol</code></pre>
+<pre><code>                                              Filas_con_NA
+bmi            146, 284, 288, 456, 458, 477, 578, 845, 868
+activity_hours 172, 173, 325, 337, 533, 622, 663, 860, 885
+sleep_hours     92, 220, 346, 444, 609, 695, 772, 788, 819
+stress            4, 86, 219, 271, 406, 647, 723, 876, 890
+cholesterol     50, 110, 379, 389, 522, 594, 603, 739, 940</code></pre>
 </div>
 </div>
-<p>Como podemos comprobar estos valores nulos no estan en las mismas filas</p>
+<p>Tras identificar las filas en las que aparecen valores faltantes para cada variable, se observó que los datos ausentes no se concentran necesariamente en los mismos registros.</p>
 </section>
-<section id="calcula-la-proporción-total-de-valores-faltantes-sobre-el-dataset-completo." class="level3">
-<h3 class="anchored" data-anchor-id="calcula-la-proporción-total-de-valores-faltantes-sobre-el-dataset-completo.">2.2. Calcula la proporción total de valores faltantes sobre el dataset completo.</h3>
-<p>A continuación hemos calculado el procentaje total de valores nulos.</p>
+<section id="y-2.3.-proporción-total-de-valores-faltantes-sobre-el-dataset-completo-y-tabla-resumen-con-las-variables-que-presentan-missing-y-el-porcentaje-de-datos-ausentes-en-cada-una." class="level3" data-number="3.2">
+<h3 data-number="3.2" class="anchored" data-anchor-id="y-2.3.-proporción-total-de-valores-faltantes-sobre-el-dataset-completo-y-tabla-resumen-con-las-variables-que-presentan-missing-y-el-porcentaje-de-datos-ausentes-en-cada-una."><span class="header-section-number">3.2</span> 2.2 y 2.3. Proporción total de valores faltantes sobre el dataset completo y tabla resumen con las variables que presentan missing y el porcentaje de datos ausentes en cada una.</h3>
+<p>A continuación hemos calculado la proporción total de valores nulos en nuestra base de datos.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Proporción total de NA (da un valor entre 0 y 1, por ejemplo: 0.02)</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>proporcion_nas <span class="ot">=</span> <span class="fu">mean</span>(<span class="fu">is.na</span>(health_df))</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"proporcion total de valores nulos:"</span>,proporcion_nas<span class="sc">*</span><span class="dv">100</span>,<span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="do">## proporción de valores nulos en el data set</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>total_na<span class="ot">=</span><span class="fu">sum</span>(<span class="fu">is.na</span>(health_df))</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>total_celdas <span class="ot">&lt;-</span> <span class="fu">nrow</span>(health_df) <span class="sc">*</span> <span class="fu">ncol</span>(health_df)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>prop_total<span class="ot">=</span>(total_na <span class="sc">/</span> total_celdas) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"proporción de valores nulos:"</span>,<span class="fu">round</span>(prop_total,<span class="dv">4</span>),<span class="st">"%"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stdout">
-<pre><code>proporcion total de valores nulos: 0.2095753 </code></pre>
+<pre><code>proporción de valores nulos: 0.2096 %</code></pre>
 </div>
-</div>
-</section>
-<section id="construye-una-tabla-resumen-con-las-variables-que-presentan-missing-y-el-porcentaje-de-datos-ausentes-en-cada-una." class="level3">
-<h3 class="anchored" data-anchor-id="construye-una-tabla-resumen-con-las-variables-que-presentan-missing-y-el-porcentaje-de-datos-ausentes-en-cada-una.">2.3. Construye una tabla resumen con las variables que presentan missing y el porcentaje de datos ausentes en cada una.</h3>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>tabla_resumen<span class="ot">=</span><span class="fu">data.frame</span>(<span class="at">porcentaje=</span><span class="fu">colMeans</span>(<span class="fu">is.na</span>(health_df)<span class="sc">*</span><span class="dv">100</span>))</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(tabla_resumen)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="do">## proporcion de valores nulos por variable</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>na_variable<span class="ot">=</span><span class="fu">colSums</span>(<span class="fu">is.na</span>(health_df))</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>prop_na<span class="ot">=</span>(na_variable <span class="sc">/</span> <span class="fu">nrow</span>(health_df)) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>tabla_na<span class="ot">=</span><span class="fu">data.frame</span>(</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Proporción en porcentaje</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">round</span>(prop_na[prop_na <span class="sc">&gt;</span> <span class="dv">0</span>], <span class="dv">2</span>)</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>tabla_na</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stdout">
-<pre><code>   porcentaje    
- Min.   :0.0000  
- 1st Qu.:0.0000  
- Median :0.0000  
- Mean   :0.2096  
- 3rd Qu.:0.0000  
- Max.   :0.9221  </code></pre>
+<pre><code>               Proporción.en.porcentaje
+bmi                                0.92
+activity_hours                     0.92
+sleep_hours                        0.92
+stress                             0.92
+cholesterol                        0.92</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>tabla_resumen</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>El <span class="math inline">\(0,2096\%\)</span> de los valores de nuestra base de datos son nulos. Por otro lado, la tabla nos muestra que el <span class="math inline">\(0,92\%\)</span> de los valores de cada una de las variables analizadas son nulos. Ambos porcentajes son muy bajo si se tiene el cuenta que nuestra base de datos cuenta con casi mil registros, por lo tanto la presencia de valores nulos puede no resultar, al principio, un problema.</p>
+</section>
+<section id="aplica-una-imputación-por-la-media-en-bmi-y-calcula-de-nuevo-la-media-de-esta-variable." class="level3" data-number="3.3">
+<h3 data-number="3.3" class="anchored" data-anchor-id="aplica-una-imputación-por-la-media-en-bmi-y-calcula-de-nuevo-la-media-de-esta-variable."><span class="header-section-number">3.3</span> 2.4. Aplica una imputación por la media en bmi y calcula de nuevo la media de esta variable.</h3>
+<p>Una vez detectados los valores faltantes, es necesario aplicar una técnica que permita tratarlos antes de continuar con el análisis. En este caso, imputaremos las variables, un procedimiento que consiste en sustituir los valores ausentes de una o más variables mediante información plausible como la media, mediana u otros métodos. De esta forma, se conserva el tamaño de la muestra y se evita la pérdida de información. Este procedimiento introduce un el error de imputación, debido a la incertidumbre que introducen los valores no observados.</p>
+<p>Una de las variables que contienen valores faltantes es <code>bmi</code> (índice de masa corporal), por lo que vamos a imputarlos mediante la media.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>health_df_imputado<span class="ot">=</span>health_df</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>media_calculada<span class="ot">=</span><span class="fu">mean</span>(health_df<span class="sc">$</span>bmi, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>health_df_imputado<span class="sc">$</span>bmi[<span class="fu">is.na</span>(health_df_imputado<span class="sc">$</span>bmi)]<span class="ot">=</span>media_calculada</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>A continuación calcularemos la media de nuestra base de datos antes y después de imputarla para ver el cambio realizado.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>media_sin_imputar<span class="ot">=</span><span class="fu">mean</span>(health_df<span class="sc">$</span>bmi, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>media_imputada<span class="ot">=</span><span class="fu">mean</span>(health_df_imputado<span class="sc">$</span>bmi)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>proptable<span class="ot">=</span><span class="fu">matrix</span>(</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(media_sin_imputar, media_imputada),</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">1</span>,</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">dimnames =</span> <span class="fu">list</span>(</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(<span class="st">"Media de la base de datos sin imputar"</span>, <span class="st">"Media de la base de datos imputada"</span>),</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Valor"</span></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>proptable</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stdout">
-<pre><code>                   porcentaje
-health_score        0.0000000
-hospital_visits     0.0000000
-disease_controlled  0.0000000
-doses_prescribed    0.0000000
-doses_taken         0.0000000
-age                 0.0000000
-sex                 0.0000000
-bmi                 0.9221311
-activity_hours      0.9221311
-sleep_hours         0.9221311
-stress              0.9221311
-cholesterol         0.9221311
-systolic_bp         0.0000000
-diastolic_bp        0.0000000
-smoker              0.0000000
-alcohol_units       0.0000000
-diet_score          0.0000000
-med_adherence       0.0000000
-comorbidities       0.0000000
-income              0.0000000
-region              0.0000000
-clinic              0.0000000</code></pre>
+<pre><code>                                         Valor
+Media de la base de datos sin imputar 26.54881
+Media de la base de datos imputada    26.54881</code></pre>
 </div>
 </div>
+<p>Como podemos observar la media de la variable antes y después de imputarla es igual (26.54881), este resultado de se debe a la baja proporción de valores ausentes en la variable, por lo que al sustituir los datos nulos por la media apenas se modifican las caracteristicas de nuestra muestra.</p>
 </section>
-<section id="aplica-una-imputación-por-la-media-en-bmi-y-calcula-de-nuevo-la-media-de-esta-variable." class="level3">
-<h3 class="anchored" data-anchor-id="aplica-una-imputación-por-la-media-en-bmi-y-calcula-de-nuevo-la-media-de-esta-variable.">2.4. Aplica una imputación por la media en bmi y calcula de nuevo la media de esta variable.</h3>
-<p>Una de las variables que tienen valores faltantes es <code>bmi</code> (índice de masa corporal), por lo que vamos a imputarlos para poder eliminarlos.</p>
-<p>La imputación es un proceso por el cual se sustituyen los valores faltantes de una variable por la media total de ella misma.</p>
+<section id="representa-histogramas-de-sleep_hours-antes-y-después-de-la-imputación-por-media." class="level3" data-number="3.4">
+<h3 data-number="3.4" class="anchored" data-anchor-id="representa-histogramas-de-sleep_hours-antes-y-después-de-la-imputación-por-media."><span class="header-section-number">3.4</span> 2.5. Representa histogramas de sleep_hours antes y después de la imputación por media.</h3>
+<p>A continuación vamos a imputar mediante la media la veriable <code>sleep_hours</code> y visualizaremos su cambio mediante histogramas.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>health_df_imputado<span class="ot">=</span>health_df</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>media_calculada<span class="ot">=</span><span class="fu">mean</span>(health_df<span class="sc">$</span>bmi, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>health_df_imputado<span class="sc">$</span>bmi[<span class="fu">is.na</span>(health_df<span class="sc">$</span>bmi)]<span class="ot">=</span>media_calculada</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-<section id="representa-histogramas-de-sleep_hours-antes-y-después-de-la-imputación-por-media.-observas-cambios-en-la-distribución" class="level3">
-<h3 class="anchored" data-anchor-id="representa-histogramas-de-sleep_hours-antes-y-después-de-la-imputación-por-media.-observas-cambios-en-la-distribución">2.5. Representa histogramas de sleep_hours antes y después de la imputación por media. ¿Observas cambios en la distribución?</h3>
-<p>A continuacíón vamos a ver como han cambiado estos datos tas su imputacion:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#histograma antes de la imputacion</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(health_df, <span class="fu">aes</span>(<span class="at">x =</span> sleep_hours)) <span class="sc">+</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">"lightblue"</span>, <span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Histograma de horas de sueño antes de la imputación"</span>,</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"horas de sueño"</span>,</span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"media"</span>) <span class="sc">+</span></span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">#histograma antes de la imputacion</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>grafica_antes<span class="ot">=</span><span class="fu">ggplot</span>(health_df, <span class="fu">aes</span>(<span class="at">x =</span> sleep_hours)) <span class="sc">+</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">"aquamarine1"</span>, <span class="at">color =</span> <span class="st">"aquamarine4"</span>) <span class="sc">+</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Antes de la imputación"</span>,</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"horas de sueño"</span>,</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>health_df_imputado1<span class="ot">=</span>health_df</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>media_calculada1<span class="ot">=</span><span class="fu">mean</span>(health_df<span class="sc">$</span>sleep_hours, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>health_df_imputado1<span class="sc">$</span>sleep_hours[<span class="fu">is.na</span>(health_df_imputado1<span class="sc">$</span>sleep_hours)]<span class="ot">=</span>media_calculada1</span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a><span class="co">#histograma despues de la imputacion</span></span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>grafica_despues<span class="ot">=</span><span class="fu">ggplot</span>(health_df_imputado1, <span class="fu">aes</span>(<span class="at">x =</span> sleep_hours)) <span class="sc">+</span></span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">"aquamarine1"</span>, <span class="at">color =</span> <span class="st">"aquamarine4"</span>) <span class="sc">+</span></span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Después de la imputación"</span>,</span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"horas de sueño"</span>,</span>
+<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-20"><a href="#cb37-20" aria-hidden="true" tabindex="-1"></a>grafica_antes<span class="sc">+</span>grafica_despues</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stderr">
 <pre><code>`stat_bin()` using `bins = 30`. Pick better value `binwidth`.</code></pre>
 </div>
@@ -542,96 +724,285 @@ clinic              0.0000000</code></pre>
 <pre><code>Warning: Removed 9 rows containing non-finite outside the scale range
 (`stat_bin()`).</code></pre>
 </div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="health_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#histograma despues de la imputacion</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(health_df_imputado, <span class="fu">aes</span>(<span class="at">x =</span> sleep_hours)) <span class="sc">+</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">"lightblue"</span>, <span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Histograma de horas de sueño después de la imputación"</span>,</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"horas de sueño"</span>,</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"media"</span>) <span class="sc">+</span></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`stat_bin()` using `bins = 30`. Pick better value `binwidth`.</code></pre>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 9 rows containing non-finite outside the scale range
-(`stat_bin()`).</code></pre>
-</div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="health_files/figure-html/unnamed-chunk-14-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="health_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="768"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Al comparar las dos gráficas, pordemos ver que estas son iguales. Esto es debido a que nuestros datos contiene la información de casi mil pacientes y tenemos un total de <span class="math inline">\(45\)</span> datos n/a, por lo que el cambio no se nota mucho.</p>
+<p>Al igual que en el caso anterior, las gráficas no presentan apenas cambio debido a la baja proporción de valores faltantes en la variable</p>
 </section>
-<section id="aplica-una-imputación-por-la-mediana-en-stress.-compara-los-resultados-con-la-imputación-por-la-media." class="level3">
-<h3 class="anchored" data-anchor-id="aplica-una-imputación-por-la-mediana-en-stress.-compara-los-resultados-con-la-imputación-por-la-media.">2.6. Aplica una imputación por la mediana en stress. Compara los resultados con la imputación por la media.</h3>
-<p>La imputación no solo se puede hacer con la media de la variable, sino tambien con su mediana. En este caso vamos a imputar la variable <code>stress</code> mediante su mediana.</p>
+<section id="aplica-una-imputación-por-la-mediana-en-stress.-compara-los-resultados-con-la-imputación-por-la-media." class="level3" data-number="3.5">
+<h3 data-number="3.5" class="anchored" data-anchor-id="aplica-una-imputación-por-la-mediana-en-stress.-compara-los-resultados-con-la-imputación-por-la-media."><span class="header-section-number">3.5</span> 2.6. Aplica una imputación por la mediana en stress. Compara los resultados con la imputación por la media.</h3>
+<p>En este apartado imputaremos la variable <code>stress</code> mediante su mediana.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>health_df_imputado1<span class="ot">=</span>health_df</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>mediana_calculada<span class="ot">=</span><span class="fu">median</span>(health_df<span class="sc">$</span>stress, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>health_df_imputado1<span class="sc">$</span>stress[<span class="fu">is.na</span>(health_df<span class="sc">$</span>stress)]<span class="ot">=</span>mediana_calculada</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>health_df_imputado2<span class="ot">=</span>health_df</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>mediana_calculada<span class="ot">=</span><span class="fu">median</span>(health_df<span class="sc">$</span>stress, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>health_df_imputado2<span class="sc">$</span>stress[<span class="fu">is.na</span>(health_df_imputado2<span class="sc">$</span>stress)]<span class="ot">=</span>mediana_calculada</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 </div>
 </section>
-<section id="realiza-una-imputación-condicional-sustituye-los-valores-faltantes-de-cholesterol-por-la-media-de-pacientes-del-mismo-grupo-de-sex." class="level3">
-<h3 class="anchored" data-anchor-id="realiza-una-imputación-condicional-sustituye-los-valores-faltantes-de-cholesterol-por-la-media-de-pacientes-del-mismo-grupo-de-sex.">2.7. Realiza una imputación condicional: sustituye los valores faltantes de cholesterol por la media de pacientes del mismo grupo de sex.</h3>
+<section id="realiza-una-imputación-condicional-sustituye-los-valores-faltantes-de-cholesterol-por-la-media-de-pacientes-del-mismo-grupo-de-sex." class="level3" data-number="3.6">
+<h3 data-number="3.6" class="anchored" data-anchor-id="realiza-una-imputación-condicional-sustituye-los-valores-faltantes-de-cholesterol-por-la-media-de-pacientes-del-mismo-grupo-de-sex."><span class="header-section-number">3.6</span> 2.7. Realiza una imputación condicional: sustituye los valores faltantes de cholesterol por la media de pacientes del mismo grupo de sex.</h3>
+<p>A continuación imputaremos la variable <code>cholesterol</code> mediante la media de cada sexo. De esta forma, los valores ausentes de las mujeres se reemplazan por la media de colesterol de las mujeres y los de los hombres por la media de colesterol de los hombres. Este método suele puede ser más adecuado que una imputación global si existen diferencias entre grupos.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>health_df_imputado2<span class="ot">=</span>health_df</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>media_calculada_mujeres<span class="ot">=</span><span class="fu">mean</span>(health_df<span class="sc">$</span>cholesterol[health_df<span class="sc">$</span>sex<span class="sc">==</span><span class="st">"Mujer"</span>], <span class="at">na.rm =</span> <span class="cn">TRUE</span>,)</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>media_calculada_hombres<span class="ot">=</span><span class="fu">mean</span>(health_df<span class="sc">$</span>cholesterol[health_df<span class="sc">$</span>sex<span class="sc">==</span><span class="st">"Hombre"</span>], <span class="at">na.rm =</span> <span class="cn">TRUE</span>,)</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>health_df_imputado2<span class="sc">$</span>cholesterol[<span class="fu">is.na</span>(health_df<span class="sc">$</span>cholesterol) <span class="sc">&amp;</span> health_df<span class="sc">$</span>sex<span class="sc">==</span><span class="st">"Mujer"</span> ]<span class="ot">=</span>media_calculada_mujeres</span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>health_df_imputado2<span class="sc">$</span>cholesterol[<span class="fu">is.na</span>(health_df<span class="sc">$</span>cholesterol) <span class="sc">&amp;</span> health_df<span class="sc">$</span>sex<span class="sc">==</span><span class="st">"Hombre"</span> ]<span class="ot">=</span>media_calculada_hombres</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>health_df_imputado2<span class="ot">=</span>health_df</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>media_calculada_mujeres<span class="ot">=</span><span class="fu">mean</span>(health_df<span class="sc">$</span>cholesterol[health_df<span class="sc">$</span>sex<span class="sc">==</span><span class="st">"Mujer"</span>], <span class="at">na.rm =</span> <span class="cn">TRUE</span>,)</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>media_calculada_hombres<span class="ot">=</span><span class="fu">mean</span>(health_df<span class="sc">$</span>cholesterol[health_df<span class="sc">$</span>sex<span class="sc">==</span><span class="st">"Hombre"</span>], <span class="at">na.rm =</span> <span class="cn">TRUE</span>,)</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>health_df_imputado2<span class="sc">$</span>cholesterol[<span class="fu">is.na</span>(health_df<span class="sc">$</span>cholesterol) <span class="sc">&amp;</span> health_df<span class="sc">$</span>sex<span class="sc">==</span><span class="st">"Mujer"</span> ]<span class="ot">=</span>media_calculada_mujeres</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>health_df_imputado2<span class="sc">$</span>cholesterol[<span class="fu">is.na</span>(health_df<span class="sc">$</span>cholesterol) <span class="sc">&amp;</span> health_df<span class="sc">$</span>sex<span class="sc">==</span><span class="st">"Hombre"</span> ]<span class="ot">=</span>media_calculada_hombres</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 </div>
 </section>
-<section id="discute-si-es-razonable-suponer-que-los-valores-faltantes-son-mcar-mar-o-mnar-en-este-contexto-de-salud." class="level3">
-<h3 class="anchored" data-anchor-id="discute-si-es-razonable-suponer-que-los-valores-faltantes-son-mcar-mar-o-mnar-en-este-contexto-de-salud.">2.8. Discute si es razonable suponer que los valores faltantes son MCAR, MAR o MNAR en este contexto de salud.</h3>
-<ul>
-<li><p>MCAR: Indica que los valores faltan por puro azar. En el contexto de la salud, esto no puede ser posible, ya que los datos médicos se recogen mediante el historial de los pacientes, sensores de dispositivos de salud, pruebas etc…, por lo tanto son datos protegidos.</p></li>
-<li><p>MAR: Indica que los valores faltan debido a la falta de otras variables.</p></li>
-</ul>
+<section id="discute-si-es-razonable-suponer-que-los-valores-faltantes-son-mcar-mar-o-mnar-en-este-contexto-de-salud." class="level3" data-number="3.7">
+<h3 data-number="3.7" class="anchored" data-anchor-id="discute-si-es-razonable-suponer-que-los-valores-faltantes-son-mcar-mar-o-mnar-en-este-contexto-de-salud."><span class="header-section-number">3.7</span> 2.8. Discute si es razonable suponer que los valores faltantes son MCAR, MAR o MNAR en este contexto de salud.</h3>
+<p>Los valores faltantes pueden ocurrir por varias razones, desde un fallo en el dispositivo de medición, falta de información por parte de los pacientes, fallos a la hora de almacenar los datos… En este apartado veremos si es plausible considerar si los valores nulos son del tipo <strong>MACR</strong>, <strong>MAR</strong> o <strong>MNAR</strong> atendiendo a al contexto clinico en el que nos encontramos.</p>
+<p>-<strong>MCAR</strong>: Los valores faltantes se producen de forma completamente aleatoria. En el contexto sanitario, esta situación es poco probable ya que en la situación en la que estamos el entorno esta muy controladoy un fallo en la maquinaria u otros instrumentos suele ser poco común. En general este tipo de valores nulos no suelen ser MCAR y suelen ser suposiciones poco realistas.</p>
+<p>-<strong>MAR</strong>: los valores faltantes dependen de otras variables observadas del conjunto de datos. Este caso puede ser posible, por ejemplo, podría ocurrir que algunos pacientes no dispongan de una medida de colesterol porque pertenecen a un determinado grupo de edad o sexo para el que no se realizó la prueba o pacientes con elevados niveles de estres podrían evitar hacer determinadas pruebas que impidan rellernar otras variables en la base de datos.</p>
+<p>-<strong>MNAR</strong>: los valores faltantes dependen del propio valor ausente. Esta caso podría darse, por ejemplo, un paciente con estres podría podría no realizar la prueba de estres por si esto pudiera resultarle perjudicial.</p>
+<p>Finalmente hemos llegado a la conclusión de que, en el contexto clínico en el que nos encontramos, los tipos de valores faltantes más posibles son del tipo MAR y MNAR.</p>
 </section>
-<section id="ajusta-un-modelo-lineal-simple-health_score-bmi-usando-solo-casos-completos.-cuántas-observaciones-se-pierden" class="level3">
-<h3 class="anchored" data-anchor-id="ajusta-un-modelo-lineal-simple-health_score-bmi-usando-solo-casos-completos.-cuántas-observaciones-se-pierden">2.9. Ajusta un modelo lineal simple (health_score ~ bmi) usando solo casos completos. ¿Cuántas observaciones se pierden?</h3>
+<section id="ajuste-del-modelo-lineal-de-las-variables-health_score-y-bmi-usando-solo-casos-completos.-cuántas-observaciones-se-pierden" class="level3" data-number="3.8">
+<h3 data-number="3.8" class="anchored" data-anchor-id="ajuste-del-modelo-lineal-de-las-variables-health_score-y-bmi-usando-solo-casos-completos.-cuántas-observaciones-se-pierden"><span class="header-section-number">3.8</span> 2.9. Ajuste del modelo lineal de las variables health_score y bmi usando solo casos completos. ¿Cuántas observaciones se pierden?</h3>
+<p>En el bloque anterior creamos la grafica de dispersión de las variables <code>health_score</code> y <code>bmi</code> sin tener en cuenta la presencia de valores nulos en la base de datos.</p>
+<p>En este apartado realizaremos el modelo de regresión lineal con nuestra base de datos completa, es decir, sin tener en cuenta los registros que contengan valores nulos en estas variables.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>health_df_completo<span class="ot">=</span>health_df[<span class="fu">complete.cases</span>(health_df[, <span class="fu">c</span>(<span class="st">"health_score"</span>, <span class="st">"bmi"</span>)]),]</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>obs_perdidas<span class="ot">=</span><span class="fu">nrow</span>(health_df)<span class="sc">-</span><span class="fu">nrow</span>(health_df_completo)</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"observaciones perdidas:"</span>, obs_perdidas, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>observaciones perdidas: 9 </code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>modelo<span class="ot">=</span><span class="fu">lm</span>(health_score<span class="sc">~</span>bmi, health_df_completo)</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = health_score ~ bmi, data = health_df_completo)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-77.398  -8.964   1.548  10.257  30.420 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 118.01323    2.65358   44.47   &lt;2e-16 ***
+bmi          -2.44345    0.09839  -24.83   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 14.53 on 965 degrees of freedom
+Multiple R-squared:  0.3899,    Adjusted R-squared:  0.3893 
+F-statistic: 616.7 on 1 and 965 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="do">## grafica de regresión </span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(health_df_completo, <span class="fu">aes</span>(<span class="at">x =</span> bmi, <span class="at">y =</span> health_score)) <span class="sc">+</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">color=</span><span class="st">"#7FFFD4"</span>) <span class="sc">+</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"aquamarine4"</span>) <span class="sc">+</span></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Relación entre índice de masa corporal e índice de salud"</span>,</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"bmi"</span>, <span class="at">y =</span> <span class="st">"indice de salud"</span>) <span class="sc">+</span></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="health_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Como pudimos calcular en apartados anteriores, la variable <code>bmi</code> presenta <span class="math inline">\(9\)</span> valores faltantes, mientras que la variable <code>health_score</code> no contiene ninguno. Por lo tanto, al hacer el modelo de regresión completo hemos perdido nueve observaciones.</p>
+<p>Los resultado del modelo muestra como existe una relación negativa entre ambas variables. En concreto, medida que el índice de masa corporal aumenta en una unidad, el índice de salud disminuye en <span class="math inline">\(-2,443\)</span> unidades.</p>
+<p>Además este modelo resulta ser estadisticamente significativo, debido a que tenemos un p-valor pequeño un estadístico F grande. Sin embargo, el coeficiente de determinación <span class="math inline">\(R^2\)</span> nos indica que el modelo explica el <span class="math inline">\(38,99\%\)</span> de la variabilidad total, por lo que hay más variables de nuestro modelo que influyen en la variable <code>health_score</code>.</p>
+<p>Por otro lado debemos destacar la violación de linealidad en el modelo que se debería resolver con una transforamación en las variables.</p>
 </section>
-<section id="repite-el-modelo-anterior-pero-con-el-dataset-imputado.-cambian-los-coeficientes-explica-por-qué." class="level3">
-<h3 class="anchored" data-anchor-id="repite-el-modelo-anterior-pero-con-el-dataset-imputado.-cambian-los-coeficientes-explica-por-qué.">2.10. Repite el modelo anterior pero con el dataset imputado. ¿Cambian los coeficientes? Explica por qué.</h3>
+<section id="repite-el-modelo-anterior-pero-con-el-dataset-imputado.." class="level3" data-number="3.9">
+<h3 data-number="3.9" class="anchored" data-anchor-id="repite-el-modelo-anterior-pero-con-el-dataset-imputado.."><span class="header-section-number">3.9</span> 2.10. Repite el modelo anterior pero con el dataset imputado..</h3>
+<p>A continuación realizaremos otra vez el modelo de regresión sobre el dataset impotado.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>modelo<span class="ot">=</span><span class="fu">lm</span>(health_score<span class="sc">~</span>bmi, health_df_imputado)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = health_score ~ bmi, data = health_df_imputado)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-77.360  -8.972   1.592  10.317  30.459 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 117.97508    2.66898   44.20   &lt;2e-16 ***
+bmi          -2.44345    0.09898  -24.69   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 14.61 on 974 degrees of freedom
+Multiple R-squared:  0.3849,    Adjusted R-squared:  0.3843 
+F-statistic: 609.5 on 1 and 974 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="do">## grafica de regresión </span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(health_df_imputado, <span class="fu">aes</span>(<span class="at">x =</span> bmi, <span class="at">y =</span> health_score)) <span class="sc">+</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">color=</span><span class="st">"#7FFFD4"</span>) <span class="sc">+</span></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"aquamarine4"</span>) <span class="sc">+</span></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Relación entre índice de masa corporal e índice de salud"</span>,</span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"bmi"</span>, <span class="at">y =</span> <span class="st">"indice de salud"</span>) <span class="sc">+</span></span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="health_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Al comparar ambos modelos, se observa que los coeficientes apenas varían. El coeficiente asociado a la variable <code>bmi</code> se mantiene identico, mientras que el intercepto pasa de 118,013 en nuestro modelo anterior a 117,975. Del mismo modo, el coeficiente de determinación <span class="math inline">\(R^2\)</span> disminuye ligeramente de <span class="math inline">\(38,99\%\)</span> a <span class="math inline">\(38,49\%\)</span>. Estas diferencias son mínimas debido a que la cantidad de datos faltantes era muy reducida.</p>
+<p>Por otra parte, al observar el gráfico de dispersión, se asigue apreciando que la relación entre bmi y health_score podría no ser completamente lineal.</p>
 </section>
 </section>
-<section id="bloque-3-regresion-lineal-simple-y-multiple" class="level2">
-<h2 class="anchored" data-anchor-id="bloque-3-regresion-lineal-simple-y-multiple">Bloque 3: Regresion lineal simple y multiple</h2>
+<section id="bloque-3-regresion-lineal-simple-y-multiple" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="bloque-3-regresion-lineal-simple-y-multiple"><span class="header-section-number">4</span> Bloque 3: Regresion lineal simple y multiple</h2>
+<section id="ajusta-un-modelo-de-regresión-lineal-simple-entre-índice-de-salud-y-bmi-e-interpreta-los-coeficientes." class="level3" data-number="4.1">
+<h3 data-number="4.1" class="anchored" data-anchor-id="ajusta-un-modelo-de-regresión-lineal-simple-entre-índice-de-salud-y-bmi-e-interpreta-los-coeficientes."><span class="header-section-number">4.1</span> 3.1. Ajusta un modelo de regresión lineal simple entre índice de salud y bmi e interpreta los coeficientes.</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>modelo_hs_bmi<span class="ot">=</span><span class="fu">lm</span>(health_score<span class="sc">~</span>bmi, health_df)</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo_hs_bmi)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = health_score ~ bmi, data = health_df)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-77.398  -8.964   1.548  10.257  30.420 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 118.01323    2.65358   44.47   &lt;2e-16 ***
+bmi          -2.44345    0.09839  -24.83   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 14.53 on 965 degrees of freedom
+  (9 observations deleted due to missingness)
+Multiple R-squared:  0.3899,    Adjusted R-squared:  0.3893 
+F-statistic: 616.7 on 1 and 965 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>Los resultado del modelo muestra como existe una relación negativa entre el índice de masa corporal (<code>bmi</code>) y el indice de salud (<code>health_score</code>). En particular, el coeficiente asociado a la variable bmi es <span class="math inline">\(-2,443\)</span>, que representa la pendiente de la recta de regresión. Este valor nos indica que por cada unidad de incremento de bmi, el índice de salud disminuye <span class="math inline">\(-2,443\)</span> unidades</p>
+<p>Además este modelo resulta ser estadisticamente significativo, debido a que tenemos un p-valor pequeño. Sin embargo, el coeficiente de determinación <span class="math inline">\(R^2\)</span> nos indica que el modelo explica el <span class="math inline">\(38,99\%\)</span> de la variabilidad total, por lo que hay más variables de nuestro modelo que influyen en la variable <code>health_score</code>.</p>
+<p>Por otro lado debemos destacar la violación de linealidad en el modelo que se debería resolver con una transforamación en las variables.</p>
+<p>Finalmente, cabe señalar que al hacer el modelo se han eliminado nueve observaciones devido a la presencial de valores faltantes.</p>
 </section>
-<section id="bloque-4-no-linealidades-y-piecewise" class="level2">
-<h2 class="anchored" data-anchor-id="bloque-4-no-linealidades-y-piecewise">Bloque 4: No linealidades y piecewise</h2>
+<section id="representa-el-gráfico-de-dispersión-de-health_score-frente-a-bmi-con-la-recta-ajustada." class="level3" data-number="4.2">
+<h3 data-number="4.2" class="anchored" data-anchor-id="representa-el-gráfico-de-dispersión-de-health_score-frente-a-bmi-con-la-recta-ajustada."><span class="header-section-number">4.2</span> 3.2. Representa el gráfico de dispersión de health_score frente a bmi con la recta ajustada.</h3>
+<p>En este aparatado representaremos graficamente el modelo anterior mediante un gráfico de dispersión y su recta ajustada.</p>
+<p>La recta ajustada se calcula ajustando los predictores del modelo poblacional mediante el método de los minimos cuadrado (MCO), obteniendo la siguiente ecuación: <span class="math display">\[\hat{y} = \hat{\beta}\_0 + \hat{\beta}\_1 x\]</span> Que ajustada al contecto de nuestros datos es: <span class="math display">\[ \text{health score} = 118.01323 - 2.44345\,\text{bmi} \]</span></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(health_df_imputado, <span class="fu">aes</span>(<span class="at">x =</span> bmi, <span class="at">y =</span> health_score)) <span class="sc">+</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">color=</span><span class="st">"#7FFFD4"</span>) <span class="sc">+</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"aquamarine4"</span>) <span class="sc">+</span></span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Relación entre índice de masa corporal e índice de salud"</span>,</span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"bmi"</span>, <span class="at">y =</span> <span class="st">"indice de salud"</span>) <span class="sc">+</span></span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="health_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
-<section id="bloque-5-heterocedastidad" class="level2">
-<h2 class="anchored" data-anchor-id="bloque-5-heterocedastidad">Bloque 5: Heterocedastidad</h2>
+<section id="calcula-el-r²-del-modelo-simple-anterior.-qué-proporción-de-la-variabilidad-explica-el-imc" class="level3" data-number="4.3">
+<h3 data-number="4.3" class="anchored" data-anchor-id="calcula-el-r²-del-modelo-simple-anterior.-qué-proporción-de-la-variabilidad-explica-el-imc"><span class="header-section-number">4.3</span> 3.3. Calcula el R² del modelo simple anterior. ¿Qué proporción de la variabilidad explica el IMC?</h3>
+<p>En nuestro modelo <span class="math inline">\(R^2\)</span> es 0.3899, que nos indica que el modelo explica el <span class="math inline">\(38,99\%\)</span> de la variablidad del modelo. Este bajo porcentaje es debido a que el índice de salud es influido por otras variables que no estan incluidas en el modelo como, por ejemplo, la variable <code>activity_hours</code> como vimos en el apartado <a href="#sec-actividad" class="quarto-xref">Section&nbsp;2.7</a></p>
 </section>
-<section id="bloque-6-modelos-glm" class="level2">
-<h2 class="anchored" data-anchor-id="bloque-6-modelos-glm">Bloque 6: Modelos GLM</h2>
+<section id="ajusta-un-modelo-de-regresión-lineal-múltiple-health_scorebmiactivity_hourssleep_hours-qué-variable-parece-tener-un-mayor-efecto-en-la-salud" class="level3" data-number="4.4">
+<h3 data-number="4.4" class="anchored" data-anchor-id="ajusta-un-modelo-de-regresión-lineal-múltiple-health_scorebmiactivity_hourssleep_hours-qué-variable-parece-tener-un-mayor-efecto-en-la-salud"><span class="header-section-number">4.4</span> 3.4. Ajusta un modelo de regresión lineal múltiple: health_score∼bmi+activity_hours+sleep_hours ¿Qué variable parece tener un mayor efecto en la salud?</h3>
 </section>
-<section id="bloque-7-iteracciones" class="level2">
-<h2 class="anchored" data-anchor-id="bloque-7-iteracciones">Bloque 7: Iteracciones</h2>
+<section id="compara-los-coeficientes-de-bmi-en-el-modelo-simple-y-en-el-múltiple.-por-qué-cambian" class="level3" data-number="4.5">
+<h3 data-number="4.5" class="anchored" data-anchor-id="compara-los-coeficientes-de-bmi-en-el-modelo-simple-y-en-el-múltiple.-por-qué-cambian"><span class="header-section-number">4.5</span> 3.5. Compara los coeficientes de bmi en el modelo simple y en el múltiple. ¿Por qué cambian?</h3>
 </section>
-<section id="bloque-8-varibles-cateogóricas" class="level2">
-<h2 class="anchored" data-anchor-id="bloque-8-varibles-cateogóricas">Bloque 8: Varibles cateogóricas</h2>
+<section id="añade-stress-al-modelo-múltiple-anterior.-mejora-el-ajuste-según-el-r²-ajustado" class="level3" data-number="4.6">
+<h3 data-number="4.6" class="anchored" data-anchor-id="añade-stress-al-modelo-múltiple-anterior.-mejora-el-ajuste-según-el-r²-ajustado"><span class="header-section-number">4.6</span> 3.6. Añade stress al modelo múltiple anterior. ¿Mejora el ajuste según el R² ajustado?</h3>
 </section>
-<section id="bloque-9-evaluación-y-comparación-de-modelos" class="level2">
-<h2 class="anchored" data-anchor-id="bloque-9-evaluación-y-comparación-de-modelos">Bloque 9: Evaluación y comparación de modelos</h2>
+<section id="interpreta-el-efecto-de-la-variable-categórica-smoker-cuando-se-incluye-en-un-modelo-múltiple-junto-con-predictores-cuantitativos." class="level3" data-number="4.7">
+<h3 data-number="4.7" class="anchored" data-anchor-id="interpreta-el-efecto-de-la-variable-categórica-smoker-cuando-se-incluye-en-un-modelo-múltiple-junto-con-predictores-cuantitativos."><span class="header-section-number">4.7</span> 3.7. Interpreta el efecto de la variable categórica smoker cuando se incluye en un modelo múltiple junto con predictores cuantitativos.</h3>
 </section>
-<section id="bloque-10-proyecto-integrador" class="level2">
-<h2 class="anchored" data-anchor-id="bloque-10-proyecto-integrador">Bloque 10: Proyecto integrador</h2>
+<section id="ajusta-un-modelo-que-incluya-age-como-predictor-adicional.-cómo-influye-la-edad-en-el-índice-de-salud" class="level3" data-number="4.8">
+<h3 data-number="4.8" class="anchored" data-anchor-id="ajusta-un-modelo-que-incluya-age-como-predictor-adicional.-cómo-influye-la-edad-en-el-índice-de-salud"><span class="header-section-number">4.8</span> 3.8. Ajusta un modelo que incluya age como predictor adicional. ¿Cómo influye la edad en el índice de salud?</h3>
 </section>
-<section id="código" class="level2">
-<h2 class="anchored" data-anchor-id="código">Código</h2>
+<section id="realiza-un-diagrama-de-residuos-del-modelo-múltiple.-se-aprecian-patrones-que-indiquen-falta-de-linealidad" class="level3" data-number="4.9">
+<h3 data-number="4.9" class="anchored" data-anchor-id="realiza-un-diagrama-de-residuos-del-modelo-múltiple.-se-aprecian-patrones-que-indiquen-falta-de-linealidad"><span class="header-section-number">4.9</span> 3.9. Realiza un diagrama de residuos del modelo múltiple. ¿Se aprecian patrones que indiquen falta de linealidad?</h3>
+</section>
+<section id="explica-en-qué-situaciones-en-el-ámbito-de-la-salud-sería-más-adecuado-usar-un-modelo-múltiple-en-lugar-de-uno-simple." class="level3" data-number="4.10">
+<h3 data-number="4.10" class="anchored" data-anchor-id="explica-en-qué-situaciones-en-el-ámbito-de-la-salud-sería-más-adecuado-usar-un-modelo-múltiple-en-lugar-de-uno-simple."><span class="header-section-number">4.10</span> 3.10. Explica en qué situaciones en el ámbito de la salud sería más adecuado usar un modelo múltiple en lugar de uno simple.</h3>
+</section>
+</section>
+<section id="bloque-4-no-linealidades-y-piecewise" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="bloque-4-no-linealidades-y-piecewise"><span class="header-section-number">5</span> Bloque 4: No linealidades y piecewise</h2>
+</section>
+<section id="bloque-5-heterocedastidad" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="bloque-5-heterocedastidad"><span class="header-section-number">6</span> Bloque 5: Heterocedastidad</h2>
+</section>
+<section id="bloque-6-modelos-glm" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="bloque-6-modelos-glm"><span class="header-section-number">7</span> Bloque 6: Modelos GLM</h2>
+</section>
+<section id="bloque-7-iteracciones" class="level2" data-number="8">
+<h2 data-number="8" class="anchored" data-anchor-id="bloque-7-iteracciones"><span class="header-section-number">8</span> Bloque 7: Iteracciones</h2>
+</section>
+<section id="bloque-8-varibles-cateogóricas" class="level2" data-number="9">
+<h2 data-number="9" class="anchored" data-anchor-id="bloque-8-varibles-cateogóricas"><span class="header-section-number">9</span> Bloque 8: Varibles cateogóricas</h2>
+</section>
+<section id="bloque-9-evaluación-y-comparación-de-modelos" class="level2" data-number="10">
+<h2 data-number="10" class="anchored" data-anchor-id="bloque-9-evaluación-y-comparación-de-modelos"><span class="header-section-number">10</span> Bloque 9: Evaluación y comparación de modelos</h2>
+</section>
+<section id="bloque-10-proyecto-integrador" class="level2" data-number="11">
+<h2 data-number="11" class="anchored" data-anchor-id="bloque-10-proyecto-integrador"><span class="header-section-number">11</span> Bloque 10: Proyecto integrador</h2>
 </section>
 
 </main>
@@ -1041,4 +1412,5 @@ clinic              0.0000000</code></pre>
 
 
 
+<script src="health_files/libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
