@@ -29,6 +29,7 @@ library(purrr)
 library(ggcorrplot)
 library(patchwork)
 library(broom)
+library(gridExtra)
 ```
 
 ## Introducción
@@ -550,19 +551,107 @@ Como podemos ver en el coeficiente de determinación $R^2$ ajustado, la variabli
 En el modelo de regresión multiple es importante diferenciar entre $R^2$ y $R^2$ ajustado, ya que este último marca una penalización sobre las variables para que el porcentaje de variablidad no aumente por la adicción de estas pese a que no sean significativas en el modelo.
 
 En este caso los coeficientes de las variables `bmi` y `sleep_hours` son $-2.47475$ y $2.49872$ respectivamente.
-Estos valores nos muestran que las horas de sueño tienen un mayor efecto sobre el índice de salud que índice de masa corporal, lo que ínidca que por cada hora extra de sueño el puntaje en la salud aumenta $2.49872$ unidades.
+Estos valores nos muestran que las horas de sueño tienen un mayor efecto sobre el índice de salud que índice de masa corporal, lo que índica que por cada hora extra de sueño el puntaje en la salud aumenta $2.49872$ unidades.
 
 ### 3.5. Compara los coeficientes de bmi en el modelo simple y en el múltiple. ¿Por qué cambian?
 
+En el modelo simple, queremos explicar el índice de salud a partir del bmi, con un coeficiente de $-2.44345$, por tanto, toda la variabilidad la atribuimos a esta variable explicativa.
+
+Cuando incluimos otras variables, como serían las horas de sueño, podemos mejorar la explicación de la variabilidad en el modelo y ajustar los pesos, obteniendo para el nuevo modelo los coeficientes de las variables `bmi` y `sleep_hours` $-2.47475$ y $2.49872$ respectivamente.
+
+Por tanto, estos coeficientes cambian porque estamos distribuyendo la explicación de la variabilidad en más variables.
+
 ### 3.6. Añade stress al modelo múltiple anterior. ¿Mejora el ajuste según el R² ajustado?
+
+```{r}
+#| echo: false
+modelo_multiple_2 <- lm(health_score ~ bmi + sleep_hours + stress, data = health_df)
+
+summary(modelo_multiple)$adj.r.squared
+summary(modelo_multiple_2)$adj.r.squared
+```
+
+Observamos que nuestro valor $R^2$ anterior era `r summary(modelo_multiple)$adj.r.squared` y el nuevo es `r summary(modelo_multiple_2)$adj.r.squared`, por tanto, el modelo que incluye una tercera variable explicativa ajusta mejor los datos a un modelo de regresión lineal.
 
 ### 3.7. Interpreta el efecto de la variable categórica smoker cuando se incluye en un modelo múltiple junto con predictores cuantitativos.
 
+```{r}
+modelo_smoker <- lm(health_score ~ bmi + sleep_hours + stress + smoker, data = health_df)
+
+summary(modelo_smoker)
+```
+
+Al incluir la condición de fumador en el modelo, conseguimos mejorar el $R^2$ ajustado respecto del modelo anterior con 3 variables, pasando a obtener el siguiente $R^2$ ajustado: `r summary(modelo_smoker)$adj.r.squared`.
+
 ### 3.8. Ajusta un modelo que incluya age como predictor adicional. ¿Cómo influye la edad en el índice de salud?
+
+```{r}
+#| echo: false
+#| output: false
+modelo_edad <- lm(health_score ~ bmi + sleep_hours + stress + smoker + age, data = health_df)
+
+summary(modelo_edad)
+```
+
+Hemos ajustado el modelo con mejor ajuste hasta el momento, que hasta ahora ha sido el que nos ha incluido las variables bmi, horas de sueño, estrés y la condición de ser o no fumador, y le hemos añadido la variable adicional de la edad, obteniendo un $R^2$ ajustado mejor de `r summary(modelo_edad)$adj.r.squared`.
+
+Para ver como afecta la edad en este modelo, vamos a interpretar su coeficiente junto con el del resto de variables.
+
+```{r}
+coef(modelo_edad)
+```
+Observamos que, dado que el resto de coeficientes tienen valores absolutos mucho mayores y sus variables alcanzan valores también relativamente altos, estos tienen mucho más peso que la edad la cual, podemos suponer que la variable tiene un dominio entre 0 y 100 y su coeficiente es `r coef(modelo_edad)["age"]`.
 
 ### 3.9. Realiza un diagrama de residuos del modelo múltiple. ¿Se aprecian patrones que indiquen falta de linealidad?
 
+```{r}
+#| echo: false
+#| output: true
+# Obtener residuos y valores ajustados
+modelo_data <- augment(modelo_edad)
+
+# Gráficos de diagnóstico
+p1 <- ggplot(modelo_data, aes(x = .fitted, y = .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0, color = "red", linetype = "dashed") +
+  geom_smooth(se = FALSE, color = "blue") +
+  labs(title = "Residuos vs Valores Ajustados",
+       x = "Valores Ajustados", y = "Residuos") +
+  theme_minimal()
+
+p2 <- ggplot(modelo_data, aes(sample = .resid)) +
+  stat_qq() +
+  stat_qq_line(color = "red") +
+  labs(title = "Q-Q Plot de Residuos",
+       x = "Cuantiles Teóricos", y = "Cuantiles de los Residuos") +
+  theme_minimal()
+
+p3 <- ggplot(modelo_data, aes(x = .fitted, y = sqrt(abs(.std.resid)))) +
+  geom_point() +
+  geom_smooth(se = FALSE, color = "blue") +
+  labs(title = "Scale-Location",
+       x = "Valores Ajustados", y = "√|Residuos Estandarizados|") +
+  theme_minimal()
+
+p4 <- ggplot(modelo_data, aes(x = .hat, y = .std.resid)) +
+  geom_point() +
+  geom_smooth(se = FALSE, color = "blue") +
+  geom_hline(yintercept = c(-2, 2), color = "red", linetype = "dashed") +
+  labs(title = "Residuos vs Leverage",
+       x = "Leverage", y = "Residuos Estandarizados") +
+  theme_minimal()
+
+# Mostrar los 4 gráficos
+grid.arrange(p1, p2, p3, p4, ncol = 2)
+```
+
+Observamos en el primer gráfico una clara falta de linealidad en el modelo. Se aprecia cierto comportamiento parabólico, por lo que alguna de las variables explicativas podría estar relacionada cuadráticamente con el índice de salud. Este problema se confirma también la tercera gráfica Scale-Location, ya que la variabilidad aumenta en los extremos.
+
 ### 3.10. Explica en qué situaciones en el ámbito de la salud sería más adecuado usar un modelo múltiple en lugar de uno simple.
+
+Siempre se debería considerar, dentro de las posibilidades, el uso de un modelo múltiple para evitar el mito de que la correlación implica causalidad, por ejemplo en la búsqueda de un detonante de una enfermedad.
+
+Aunque el modelo simple sea rápido y económico de construir, puede omitir mucha información que es conveniente incluir en el modelo, por lo que no debería descartarse añadir variables que se puedan considerar interesantes para el modelo.
 
 ## Bloque 4: No linealidades y piecewise
 
