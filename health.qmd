@@ -600,6 +600,7 @@ Para ver como afecta la edad en este modelo, vamos a interpretar su coeficiente 
 ```{r}
 coef(modelo_edad)
 ```
+
 Observamos que, dado que el resto de coeficientes tienen valores absolutos mucho mayores y sus variables alcanzan valores también relativamente altos, estos tienen mucho más peso que la edad la cual, podemos suponer que la variable tiene un dominio entre 0 y 100 y su coeficiente es `r coef(modelo_edad)["age"]`.
 
 ### 3.9. Realiza un diagrama de residuos del modelo múltiple. ¿Se aprecian patrones que indiquen falta de linealidad?
@@ -645,7 +646,9 @@ p4 <- ggplot(modelo_data, aes(x = .hat, y = .std.resid)) +
 grid.arrange(p1, p2, p3, p4, ncol = 2)
 ```
 
-Observamos en el primer gráfico una clara falta de linealidad en el modelo. Se aprecia cierto comportamiento parabólico, por lo que alguna de las variables explicativas podría estar relacionada cuadráticamente con el índice de salud. Este problema se confirma también la tercera gráfica Scale-Location, ya que la variabilidad aumenta en los extremos.
+Observamos en el primer gráfico una clara falta de linealidad en el modelo.
+Se aprecia cierto comportamiento parabólico, por lo que alguna de las variables explicativas podría estar relacionada cuadráticamente con el índice de salud.
+Este problema se confirma también la tercera gráfica Scale-Location, ya que la variabilidad aumenta en los extremos.
 
 ### 3.10. Explica en qué situaciones en el ámbito de la salud sería más adecuado usar un modelo múltiple en lugar de uno simple.
 
@@ -655,14 +658,152 @@ Aunque el modelo simple sea rápido y económico de construir, puede omitir much
 
 ## Bloque 4: No linealidades y piecewise
 
+### 4.1. Ajusta el modelo: $health\_score \sim bmi+I(bmi2)$ y compáralo con el modelo lineal simple. ¿Mejora el ajuste?
+
+### 4.2. Representa la relación entre health_score y age. ¿Observas una forma cuadrática (descenso tras cierta edad)?
+
+### 4.3. Introduce una variable dicotómica para sleep_hours (\<6h vs ≥6h) y ajústala como predictor de health_score. ¿Qué impacto tiene el descanso insuficiente?
+
+### 4.4. Representa health_score frente a stress usando un suavizado LOESS. ¿Qué tipo de relación aparece?
+
+### 4.5. Ajusta un spline sobre activity_hours y compáralo con el modelo lineal.
+
+### 4.6. Crea un modelo piecewise en bmi (≤30 vs \>30) para explicar health_score. ¿Qué diferencias observas?
+
+### 4.7. Evalúa el AIC entre modelos lineal, cuadrático y piecewise para bmi. ¿Cuál es preferible?
+
+### 4.8. Representa gráficamente las predicciones del modelo piecewise frente a las observaciones reales.
+
+### 4.9. Ajusta un modelo con transformación logarítmica$health\_score \sim log(cholesterol)$ e interpreta el coeficiente.
+
+### 4.10. Explica por qué, en el ámbito de la salud, es importante detectar y modelar efectos no lineales (ej. sueño, IMC, estrés).
+
 ## Bloque 5: Heterocedastidad
+
+### 5.1. Ajusta un modelo múltiple para: $health\_score~bmi+activity\_hours+sleep\_hours+stress$ y representa un gráfico de residuos vs. valores ajustados.
+
+### 5.2. Aplica el test de Breusch–Pagan al modelo. ¿Se cumple la homocedasticidad?
+
+### 5.3. Calcula la varianza de los residuos en tres grupos de stress (bajo, medio, alto). ¿Es constante entre los grupos?
+
+### 5.4. Realiza un gráfico de residuos frente a sleep_hours. ¿La varianza parece depender del sueño?
+
+### 5.5. Ajusta el mismo modelo múltiple pero usando errores estándar robustos (HC). Compara con los errores estándar del modelo clásico.
+
+### 5.6. Aplica una transformación logarítmica al predictor cholesterol y vuelve a ajustar el modelo. ¿Mejora la homocedasticidad?
+
+### 5.7. Estudia gráficamente si la heterocedasticidad es más acusada en pacientes con mayor estrés o con menor sueño.
+
+### 5.8. Discute cómo afecta la heterocedasticidad a la validez de los intervalos de confianza y los tests de significación.
+
+### 5.9. Explica por qué podría ser razonable, en ciertos casos, usar un GLM con varianza distinta a la normal en vez de un modelo lineal.
+
+### 5.10. Resume qué estrategia te parece más adecuada para manejar la heterocedasticidad en este dataset de salud.
 
 ## Bloque 6: Modelos GLM
 
+### 6.1. Ajusta un modelo de Poisson para: $hospital\_visits~age+comorbidities$ ¿Qué relación aparece entre la edad, las comorbilidades y las visitas hospitalarias?
+
+### 6.2. Comprueba si existe sobre-dispersión en el modelo de Poisson.
+
+### 6.3. Ajusta un modelo de binomial negativa para las mismas variables. ¿Mejora el ajuste respecto al Poisson?
+
+### 6.4. Compara la devianza residual y el AIC de los modelos de Poisson y NegBin.
+
+### 6.5. Ajusta un modelo de regresión logística para:
+
+disease_controlled\~bmi+activity_hours+sleep_hours+smoker Interpreta los odds ratios de cada predictor.
+
+### 6.6. Representa la curva ROC del modelo logístico y calcula el AUC.
+
+### 6.7. Ajusta un modelo binomial logit para la adherencia:$cbind(doses\_taken, doses\_prescribed–doses_taken)~med\_adherence+stress+diet\_score$ ¿Qué variables favorecen la toma correcta de la medicación?
+
+### 6.8. Evalúa qué efecto tiene el nivel de estrés sobre la probabilidad de adherencia al tratamiento.
+
+### 6.9. Ajusta un modelo logístico incluyendo sex y region como predictores de disease_controlled. ¿Existen diferencias significativas entre grupos?
+
+### 6.10. Explica por qué los GLM son más apropiados que la regresión lineal para modelar variables como visitas hospitalarias, control de la enfermedad o adherencia a la medicación.
+
 ## Bloque 7: Iteracciones
 
-## Bloque 8: Varibles cateogóricas
+### 7.1. Ajusta un modelo lineal para: $health\_score~bmi*activity\_hours$ ¿Cómo se interpreta la interacción entre IMC y actividad física?
+
+### 7.2. Representa gráficamente la interacción anterior con curvas de health_score frente a bmi para distintos niveles de activity_hours.
+
+### 7.3. Ajusta un modelo logístico para: $disease\_controlled~sleep\_hours*stress$. Interpreta el efecto combinado del sueño y el estrés en el control de la enfermedad.
+
+### 7.4. Representa gráficamente la interacción anterior mostrando cómo cambia la probabilidad de tener la enfermedad controlada según el nivel de sueño para distintos valores de estrés.
+
+### 7.5. Ajusta un modelo de binomial negativa para: $hospital\_visits~age*comorbidities$. ¿Cómo influye la edad en el efecto de las comorbilidades sobre las visitas hospitalarias?
+
+### 7.6. Discute por qué, en el ámbito de la salud, las interacciones son especialmente relevantes (ej. el efecto de la actividad depende del IMC, o el impacto del estrés depende de las horas de sueño).
+
+## Bloque 8: Variables categóricas
+
+### 8.1. Ajusta un modelo lineal para: $health\_score~sex$. ¿Qué grupo presenta el mayor índice medio de salud?
+
+### 8.2. Añade bmi y activity_hours al modelo anterior. ¿Cambia el efecto del sexo al controlar por estas variables cuantitativas?
+
+### 8.3. Ajusta un modelo lineal para: $health\_score~region$. Interpreta los coeficientes en términos de diferencias entre regiones.
+
+### 8.4. Introduce clinic como predictor de health_score. ¿Existen diferencias sistemáticas entre clínicas?
+
+### 8.5. Ajusta un modelo logístico para: $disease\_controlled~smoker$. ¿Qué efecto tiene el tabaquismo sobre la probabilidad de tener la enfermedad controlada?
+
+### 8.6. Representa un gráfico de cajas de health_score por region. ¿Coinciden las diferencias visuales con las estimadas por el modelo lineal?
+
+### 8.7. Ajusta un modelo múltiple que combine variables categóricas (sex, region) y cuantitativas (bmi, sleep_hours). Interpreta los resultados.
 
 ## Bloque 9: Evaluación y comparación de modelos
 
+### 9.1. Divide el dataset en conjunto de entrenamiento (70%) y prueba (30%).
+
+### 9.2. Ajusta un modelo lineal simple: $health\_score~bmi$.
+
+### 9.3. Ajusta un modelo múltiple que incluya términos cuadráticos: $health\_score~bmi+I(bmi2)+activity\_hours+sleep\_hours+stress$.
+
+### 9.4. Calcula el RMSE y MAE en el conjunto de prueba para ambos modelos. ¿Cuál predice mejor?
+
+### 9.5. Compara los modelos anteriores usando AIC y BIC en el conjunto de entrenamiento. ¿Coinciden los criterios de información con las métricas de error predictivo?
+
+### 9.6. Ajusta un modelo que incluya variables categóricas (sex, region) además de las cuantitativas. ¿Mejora el ajuste global?
+
+### 9.7. Representa gráficamente las predicciones vs. valores reales en el conjunto de prueba para el mejor modelo.
+
+### 9.8. Discute en qué situaciones es preferible usar métricas de predicción (RMSE, MAE) y en cuáles criterios de información (AIC, BIC) en el análisis de salud.
+
 ## Bloque 10: Proyecto integrador
+
+### 10.1. Elige una variable respuesta entre las disponibles:
+
+- health_score (continua).
+- hospital_visits (conteo).
+- disease_controlled (binaria).
+- doses_taken (binomial, con doses_prescribed).
+
+### 10.2. Formula una hipótesis inicial sobre qué predictores pueden influir más en la variable elegida.
+
+### 10.3. Realiza una exploración descriptiva de la variable respuesta y los predictores seleccionados.
+
+### 10.4. Ajusta un modelo inicial sencillo (lineal, Poisson, NegBin, logístico o binomial, según la variable).
+
+### 10.5. Analiza los residuos o medidas de ajuste del modelo inicial. ¿Qué problemas detectas?
+
+### 10.6. Mejora el modelo incluyendo:
+
+- No linealidades (cuadráticas, piecewise o splines).
+- Interacciones entre predictores relevantes.
+- Variables categóricas (sex, region, clinic, smoker).
+- Tratamiento de valores faltantes de forma explícita.
+
+### 10.7. Evalúa el modelo final mediante:
+
+- Medidas de bondad de ajuste (R², AIC, BIC, devianza).
+- Medidas predictivas en conjunto de prueba (RMSE, MAE, AUC, según el caso).
+
+### 10.8. Redacta una síntesis final en la que presentes:
+
+- Los resultados principales del modelo final.
+- Qué aprendiste del proceso de modelización.
+- Limitaciones del análisis.
+- Posibles extensiones o mejoras para futuros estudios.
