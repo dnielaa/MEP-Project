@@ -30,6 +30,7 @@ library(ggcorrplot)
 library(patchwork)
 library(broom)
 library(gridExtra)
+library(splines)
 ```
 
 ## Introducción
@@ -520,7 +521,7 @@ En este aparatado representaremos graficamente el modelo anterior mediante un gr
 La recta ajustada se calcula ajustando los predictores del modelo poblacional mediante el método de los minimos cuadrado (MCO), obteniendo la siguiente ecuación: $$\hat{y} = \hat{\beta}\_0 + \hat{\beta}\_1 x$$ Que ajustada al contecto de nuestros datos es: $$ \text{health score} = 118.01323 - 2.44345\,\text{bmi} $$
 
 ```{r}
-ggplot(health_df_imputado, aes(x = bmi, y = health_score)) +
+ggplot(health_df, aes(x = bmi, y = health_score)) +
   geom_point(alpha = 0.7, color="#7FFFD4") +
   geom_smooth(method = "lm", se = FALSE, color = "aquamarine4") +
   labs(title = "Relación entre índice de masa corporal e índice de salud",
@@ -660,13 +661,80 @@ Aunque el modelo simple sea rápido y económico de construir, puede omitir much
 
 ### 4.1. Ajusta el modelo: $health\_score \sim bmi+I(bmi2)$ y compáralo con el modelo lineal simple. ¿Mejora el ajuste?
 
+```{r}
+modelo_cuadratico<- lm(health_score ~ bmi + I(bmi^2), data = health_df)
+summary(modelo_cuadratico)
+anova(modelo_hs_bmi, modelo_cuadratico)
+```
+
+------------------------------------------------------------------------
+
+------------------------------------------------------------------------
+
 ### 4.2. Representa la relación entre health_score y age. ¿Observas una forma cuadrática (descenso tras cierta edad)?
+
+```{r}
+ggplot(health_df, aes(x = age, y = health_score)) + geom_point(alpha = 0.7, color="blue") + geom_smooth(method = "lm",formula = y~x+I(x^2), se = TRUE, color = "red") + labs(title = "Relación entre índice de salud y edad", x = "edad", y = "indice de salud") + theme_minimal()
+```
 
 ### 4.3. Introduce una variable dicotómica para sleep_hours (\<6h vs ≥6h) y ajústala como predictor de health_score. ¿Qué impacto tiene el descanso insuficiente?
 
+```{r}
+modelo_dicotomico <- lm(health_score ~ bmi + I(bmi^2) + factor(ifelse(
+  sleep_hours < 6, "Menor que 6", "Mayor o igual que 6"
+)),
+data = health_df)
+summary(modelo_dicotomico)
+#para compararlos necesitamos que ambos usen las mismas observaciones por lo que usamos los datos imputados de las tres variables. Para comodidad se crea la tabla con los datos de todas las variables imputados
+health_df_imp = health_df
+
+health_df_imp$bmi[is.na(health_df_imp$bmi)] = mean(health_df$bmi, na.rm = TRUE)
+
+health_df_imp$health_score[is.na(health_df_imp$health_score)] = mean(health_df$health_score, na.rm = TRUE)
+
+health_df_imp$sleep_hours[is.na(health_df_imp$sleep_hours)] = mean(health_df$sleep_hours, na.rm = TRUE)
+
+#creamos los modelos cuadratico y dicotomico imputados
+
+modelo_cuadratico_imp<- lm(health_score ~ bmi + I(bmi^2), data = health_df_imp)
+
+summary(modelo_cuadratico_imp)
+
+modelo_dicotomico_imp <- lm(health_score ~ bmi + I(bmi^2) + factor(ifelse(
+  sleep_hours < 6, "Menor que 6", "Mayor o igual que 6"
+)),
+data = health_df_imp)
+summary(modelo_dicotomico_imp)
+#comparamos
+anova(modelo_cuadratico_imp,modelo_dicotomico_imp)
+```
+
 ### 4.4. Representa health_score frente a stress usando un suavizado LOESS. ¿Qué tipo de relación aparece?
 
+```{r}
+ggplot(data =health_df, aes(x = stress, y = health_score)) +
+  geom_point(alpha = 0.5, color = "blue") +
+  geom_smooth(
+    method = "loess",
+    se = TRUE,
+    color = "red",
+    linewidth =  1
+  ) +
+  labs(
+    title = "Relación entre el índice de salud y el estrés",
+    subtitle = "Suavizado LOESS",
+    x = "Estrés",
+    y = "Índice de salud"
+  ) +
+  theme_minimal()
+
+```
+
 ### 4.5. Ajusta un spline sobre activity_hours y compáralo con el modelo lineal.
+
+```{r}
+modelo_spline <- lm(health_score ~ bs(activity_hours, df = 3), data = health_df)
+```
 
 ### 4.6. Crea un modelo piecewise en bmi (≤30 vs \>30) para explicar health_score. ¿Qué diferencias observas?
 
