@@ -748,11 +748,87 @@ modelo_spline <- lm(health_score ~ bs(activity_hours, df = 3), data = health_df)
 
 ## Bloque 5: Heterocedastidad
 
-### 5.1. Ajusta un modelo múltiple para: $health\_score~bmi+activity\_hours+sleep\_hours+stress$ y representa un gráfico de residuos vs. valores ajustados.
+En este bloque estudiaremos la heterocedastidad de nuestros datos.
+
+En inferencia estadística, la varianza de los errores del modelo debe ser constante para todos los niveles de la variable predictora. Es decir, la dispersión de los datos alrededor de la línea de regresión es la misma en todo su recorrido. La violación de este supuesto se conoce como heterocedasticidad. 
+
+### 5.1. Ajusta un modelo múltiple para health_score en función de  bmi, activity_hours, sleep_hours y stress y representa un gráfico de residuos vs. valores ajustados.
+
+```{r}
+modelo_multiple=lm(health_score~bmi+activity_hours+sleep_hours+stress, data=health_df)
+summary(modelo_multiple)
+
+#grafica de valores ajustados y residuos
+datos_diag_hetero <- data.frame(
+  residuos = residuals(modelo_multiple),
+  valores_ajustados = fitted(modelo_multiple),
+  residuos_std_sqrt = sqrt(abs(rstandard(modelo_multiple)))
+)
+
+ggplot(datos_diag_hetero, aes(x = valores_ajustados, y = residuos)) +
+  geom_point(color = "aquamarine1", alpha = 0.7) +
+  geom_hline(yintercept = 0, color = "aquamarine4", linetype = "dashed") +
+  geom_smooth(method = "loess", se = FALSE, color = "aquamarine4", linewidth = 0.8, formula = y ~ x) +
+  labs(
+    title = "Residuos vs. Valores Ajustados",
+    x = "Valores Ajustados",
+    y = "Residuos"
+  ) +
+  theme_classic(base_size = 10)
+```
+
+Como podemos ver en el resumen de nuestro modelo, el índice de salud se ve afectado positivamente por las horas de actvidad física y de sueño y de forma negativa por el índice de masa corporal y el nivel de estres, con coeficientes $2,454$, $3,845$, $-2,453$ y $-0,241$ respectivamente. 
+
+Por otro lado, al fijarnos en el coeficiente de detrminación $R^2$ ajustado, vemos que el modelo explica un $59,99\%$ de la variabilidad.
+
+Si a continuación nos fijamos en el garfico de residuos frente a valores ajustados podemos ver que la linea de tendencia (verde) es curva lo que evidencia una violación en el supuesto de linealidad del modelo. 
+
+Además, si nos fijamos en la dispersión de los puntos a lo largo de eje de los valores ajustados se puede apreciar una ligera dispersión de estos, lo que podría marca una violación de la homocedastidad del modelo porque la varianza de los errores no es costante. 
 
 ### 5.2. Aplica el test de Breusch–Pagan al modelo. ¿Se cumple la homocedasticidad?
 
+En el apartado anterior vimos que podría haber indicios de una violación de la homocedastidad de nuestro modelo. Para poder verificar si es cierta esta violación aplicaremos el test de Breusch-Pagan:
+
+```{r}
+suppressPackageStartupMessages(library(lmtest))
+bptest(modelo_multiple)
+```
+
+En el test se marca un $\alpha = 0,05$ y en nuestro modelo tenemos un p-valor de $0,2236$. Por lo tanto, al ser este valor mayor que $\alpha$, aceptamos nuestra hipetesis nula (Ho) que rechaza el supuesto de heterocedastidad en nuestro modelo.
+
 ### 5.3. Calcula la varianza de los residuos en tres grupos de stress (bajo, medio, alto). ¿Es constante entre los grupos?
+
+```{r}
+# sacamos los residuos del modelo
+residuos=residuals(modelo_multiple)
+# dividimos la variable estres en grupos de bajo medio y alto 
+nombres=c("bajo", "medio", "alto")
+datos_modelo=modelo_multiple$model
+grupos_estres=cut(datos_modelo$stress, breaks=3, labels=nombres, include.lowest=TRUE)
+
+#calculamos las varianzas de los residuos de los grupos 
+varianzas=tapply(residuos,grupos_estres,var,na.rm = TRUE)
+
+proptable=cbind(
+ "varianza"=varianzas
+)
+print(proptable)
+
+# lo representamos en un boxplot
+datos_boxplot <- data.frame(
+  Residuos = residuos,
+  Grupo = grupos_estres
+)
+
+ggplot(datos_boxplot, aes(x = factor(grupos_estres), y = Residuos)) +
+  geom_boxplot(fill = "aquamarine1", color="aquamarine4") +
+  labs(title = "Dispersión de Residuos por Nivel de Estrés",
+       x = "nivel de estres",
+       y = "residuos") +
+  theme_minimal()
+
+```
+
 
 ### 5.4. Realiza un gráfico de residuos frente a sleep_hours. ¿La varianza parece depender del sueño?
 
