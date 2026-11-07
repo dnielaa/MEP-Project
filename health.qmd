@@ -31,6 +31,7 @@ library(patchwork)
 library(broom)
 library(gridExtra)
 library(splines)
+library(MASS)
 ```
 
 ## Introducción
@@ -750,9 +751,11 @@ modelo_spline <- lm(health_score ~ bs(activity_hours, df = 3), data = health_df)
 
 En este bloque estudiaremos la heterocedastidad de nuestros datos.
 
-En inferencia estadística, la varianza de los errores del modelo debe ser constante para todos los niveles de la variable predictora. Es decir, la dispersión de los datos alrededor de la línea de regresión es la misma en todo su recorrido. La violación de este supuesto se conoce como heterocedasticidad. 
+En inferencia estadística, la varianza de los errores del modelo debe ser constante para todos los niveles de la variable predictora.
+Es decir, la dispersión de los datos alrededor de la línea de regresión es la misma en todo su recorrido.
+La violación de este supuesto se conoce como heterocedasticidad.
 
-### 5.1. Ajusta un modelo múltiple para health_score en función de  bmi, activity_hours, sleep_hours y stress y representa un gráfico de residuos vs. valores ajustados.
+### 5.1. Ajusta un modelo múltiple para health_score en función de bmi, activity_hours, sleep_hours y stress y representa un gráfico de residuos vs. valores ajustados.
 
 ```{r}
 modelo_multiple=lm(health_score~bmi+activity_hours+sleep_hours+stress, data=health_df)
@@ -777,24 +780,26 @@ ggplot(datos_diag_hetero, aes(x = valores_ajustados, y = residuos)) +
   theme_classic(base_size = 10)
 ```
 
-Como podemos ver en el resumen de nuestro modelo, el índice de salud se ve afectado positivamente por las horas de actvidad física y de sueño y de forma negativa por el índice de masa corporal y el nivel de estres, con coeficientes $2,454$, $3,845$, $-2,453$ y $-0,241$ respectivamente. 
+Como podemos ver en el resumen de nuestro modelo, el índice de salud se ve afectado positivamente por las horas de actvidad física y de sueño y de forma negativa por el índice de masa corporal y el nivel de estres, con coeficientes $2,454$, $3,845$, $-2,453$ y $-0,241$ respectivamente.
 
 Por otro lado, al fijarnos en el coeficiente de detrminación $R^2$ ajustado, vemos que el modelo explica un $59,99\%$ de la variabilidad.
 
-Si a continuación nos fijamos en el garfico de residuos frente a valores ajustados podemos ver que la linea de tendencia (verde) es curva lo que evidencia una violación en el supuesto de linealidad del modelo. 
+Si a continuación nos fijamos en el garfico de residuos frente a valores ajustados podemos ver que la linea de tendencia (verde) es curva lo que evidencia una violación en el supuesto de linealidad del modelo.
 
-Además, si nos fijamos en la dispersión de los puntos a lo largo de eje de los valores ajustados se puede apreciar una ligera dispersión de estos, lo que podría marca una violación de la homocedastidad del modelo porque la varianza de los errores no es costante. 
+Además, si nos fijamos en la dispersión de los puntos a lo largo de eje de los valores ajustados se puede apreciar una ligera dispersión de estos, lo que podría marca una violación de la homocedastidad del modelo porque la varianza de los errores no es costante.
 
 ### 5.2. Aplica el test de Breusch–Pagan al modelo. ¿Se cumple la homocedasticidad?
 
-En el apartado anterior vimos que podría haber indicios de una violación de la homocedastidad de nuestro modelo. Para poder verificar si es cierta esta violación aplicaremos el test de Breusch-Pagan:
+En el apartado anterior vimos que podría haber indicios de una violación de la homocedastidad de nuestro modelo.
+Para poder verificar si es cierta esta violación aplicaremos el test de Breusch-Pagan:
 
 ```{r}
 suppressPackageStartupMessages(library(lmtest))
 bptest(modelo_multiple)
 ```
 
-En el test se marca un $\alpha = 0,05$ y en nuestro modelo tenemos un p-valor de $0,2236$. Por lo tanto, al ser este valor mayor que $\alpha$, aceptamos nuestra hipetesis nula (Ho) que rechaza el supuesto de heterocedastidad en nuestro modelo.
+En el test se marca un $\alpha = 0,05$ y en nuestro modelo tenemos un p-valor de $0,2236$.
+Por lo tanto, al ser este valor mayor que $\alpha$, aceptamos nuestra hipetesis nula (Ho) que rechaza el supuesto de heterocedastidad en nuestro modelo.
 
 ### 5.3. Calcula la varianza de los residuos en tres grupos de stress (bajo, medio, alto). ¿Es constante entre los grupos?
 
@@ -829,7 +834,6 @@ ggplot(datos_boxplot, aes(x = factor(grupos_estres), y = Residuos)) +
 
 ```
 
-
 ### 5.4. Realiza un gráfico de residuos frente a sleep_hours. ¿La varianza parece depender del sueño?
 
 ### 5.5. Ajusta el mismo modelo múltiple pero usando errores estándar robustos (HC). Compara con los errores estándar del modelo clásico.
@@ -846,17 +850,120 @@ ggplot(datos_boxplot, aes(x = factor(grupos_estres), y = Residuos)) +
 
 ## Bloque 6: Modelos GLM
 
-### 6.1. Ajusta un modelo de Poisson para: $hospital\_visits~age+comorbidities$ ¿Qué relación aparece entre la edad, las comorbilidades y las visitas hospitalarias?
+### 6.1. Ajusta un modelo de Poisson para: $hospital\_visits \sim age+comorbidities$ ¿Qué relación aparece entre la edad, las comorbilidades y las visitas hospitalarias?
+
+```{r}
+#| echo: false
+#| output: true
+# Entrenamos el modelo con el 80% de los datos
+indices_train_pois <- sample(seq_len(nrow(health_df)), size = 0.8 * nrow(health_df))
+train_pois <- health_df[indices_train_pois, ]
+test_pois <- health_df[-indices_train_pois, ]
+
+
+modelo_poisson <- glm(hospital_visits ~ age + comorbidities, family = poisson, data = train_pois)
+
+summary(modelo_poisson)
+s <- summary(modelo_poisson)
+
+cat("Coeficiente de comorbidities:", s$coefficients["comorbidities", "Estimate"], 
+    "y p-valor:", s$coefficients["comorbidities", "Pr(>|z|)"], "\n")
+
+cat("Coeficiente de age:", s$coefficients["age", "Estimate"], 
+    "y p-valor:", s$coefficients["age", "Pr(>|z|)"], "\n")
+```
+
+Observamos, por una parte, una variable significativa para el modelo, con un $p$-valor muy inferior a 0.05, que es la variable $comorbidities$.
+Además, esta presenta un coeficiente positivo, lo cual nos indica que según aumenta su valor, es decir, el número de patologías del paciente, también aumentan las visitas a los hospitales, como esperábamos obtener.
+
+La edad, en cambio, no parece ser estadísticamente significativa en el modelo, presentando un $p$-valor superior a 0.05 y un coeficiente mucho menor que el de la variable anterior.
 
 ### 6.2. Comprueba si existe sobre-dispersión en el modelo de Poisson.
 
+```{r}
+# Residuos y diagnósticos
+train_pois$residuos_pearson <- residuals(modelo_poisson, type = "pearson")
+train_pois$residuos_deviance <- residuals(modelo_poisson, type = "deviance")
+train_pois$valores_ajustados <- fitted(modelo_poisson)
+train_pois$leverage <- hatvalues(modelo_poisson)
+
+# Estadístico de dispersión
+pearson_stat <- sum(train_pois$residuos_pearson^2)
+df_residual <- modelo_poisson$df.residual
+dispersion_stat <- pearson_stat / df_residual
+
+cat("=== DIAGNÓSTICO DE SOBREDISPERSIÓN ===\n")
+cat("Estadístico de Pearson:", round(pearson_stat, 2), "\n")
+cat("Grados de libertad:", df_residual, "\n")
+cat("Estadístico de dispersión:", round(dispersion_stat, 3), "\n")
+
+if(dispersion_stat > 1.5) {
+  cat("CONCLUSIÓN: Hay evidencia de sobredispersión (φ > 1.5)\n")
+  cat("RECOMENDACIÓN: Considerar modelo binomial negativo\n")
+} else if(dispersion_stat > 1.2) {
+  cat("CONCLUSIÓN: Posible sobredispersión leve (φ > 1.2)\n")
+  cat("RECOMENDACIÓN: Verificar con modelo binomial negativo\n")
+} else {
+  cat("CONCLUSIÓN: No hay evidencia clara de sobredispersión\n")
+  cat("RECOMENDACIÓN: Modelo de Poisson es apropiado\n")
+}
+
+# Gráficos de diagnóstico
+p1 <- ggplot(train_pois, aes(x = valores_ajustados, y = residuos_deviance)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(se = FALSE, color = "red") +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(title = "Residuos Deviance vs Valores Ajustados",
+       x = "Valores Ajustados", y = "Residuos Deviance") +
+  theme_minimal()
+
+p2 <- ggplot(train_pois, aes(sample = residuos_deviance)) +
+  stat_qq() +
+  stat_qq_line(color = "red") +
+  labs(title = "Q-Q Plot de Residuos Deviance",
+       x = "Cuantiles Teóricos", y = "Cuantiles Muestra") +
+  theme_minimal()
+
+p3 <- ggplot(train_pois, aes(x = valores_ajustados, y = sqrt(abs(residuos_deviance)))) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(se = FALSE, color = "red") +
+  labs(title = "Escala-Localización",
+       x = "Valores Ajustados", y = "√|Residuos Deviance|") +
+  theme_minimal()
+
+p4 <- ggplot(train_pois, aes(x = leverage, y = residuos_deviance)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(se = FALSE, color = "red") +
+  labs(title = "Residuos vs Leverage",
+       x = "Leverage", y = "Residuos Deviance") +
+  theme_minimal()
+
+grid.arrange(p1, p2, p3, p4, ncol = 2)
+```
+
+Al realizar un diagnóstico del modelo, identificamos una sobredispersión leve, con un valor de $\phi > 1.2$, sugiriéndose así, el uso de un modelo de binomial negativa.
+
 ### 6.3. Ajusta un modelo de binomial negativa para las mismas variables. ¿Mejora el ajuste respecto al Poisson?
+
+```{r}
+#| echo: false
+#| output: true
+# Ajustar modelo binomial negativo para comparar
+modelo_nb <- glm.nb(hospital_visits ~ age + comorbidities, data = train_pois)
+
+# summary(modelo_nb)
+
+# AIC(modelo_poisson, modelo_nb)
+
+cat("AIC Poisson:", AIC(modelo_poisson), "| AIC NB:", AIC(modelo_nb), "\n")
+```
+Usando el criterio de Akaike (AIC), obtenemos para el modelo de binomial negativa un valor suficientemente menor que el del modelo de poisson para afirmar que este ofrece un mejor ajuste.
 
 ### 6.4. Compara la devianza residual y el AIC de los modelos de Poisson y NegBin.
 
-### 6.5. Ajusta un modelo de regresión logística para:
 
-disease_controlled\~bmi+activity_hours+sleep_hours+smoker Interpreta los odds ratios de cada predictor.
+
+### 6.5. Ajusta un modelo de regresión logística para: $disease\_controlled \sim bmi + activity\_hours+sleep\_hours+smoker$ Interpreta los odds ratios de cada predictor.
 
 ### 6.6. Representa la curva ROC del modelo logístico y calcula el AUC.
 
