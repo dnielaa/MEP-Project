@@ -801,7 +801,9 @@ bptest(modelo_multiple)
 En el test se marca un $\alpha = 0,05$ y en nuestro modelo tenemos un p-valor de $0,2236$.
 Por lo tanto, al ser este valor mayor que $\alpha$, aceptamos nuestra hipetesis nula (Ho) que rechaza el supuesto de heterocedastidad en nuestro modelo.
 
-### 5.3. Calcula la varianza de los residuos en tres grupos de stress (bajo, medio, alto). ¿Es constante entre los grupos?
+### 5.3. Calcula la varianza de los residuos en tres grupos de stress.
+
+En este apartado se dividen a los pacientes en tres grupos según sus niveles de estres en bajo, medio y alto y calculamos las varianzas de cada grupo.
 
 ```{r}
 # sacamos los residuos del modelo
@@ -834,7 +836,34 @@ ggplot(datos_boxplot, aes(x = factor(grupos_estres), y = Residuos)) +
 
 ```
 
+En la tabla podemos observar que la varianza de los grupos es $171,4323$, $125,6016$ y $143,1186$ para los grupos bajo, medio y alto respectivamente. Aunque los valores en general son parecidos en magnitud, podemos ver una diferencias entre ellos.
+
+Esta evidencia también la podemos ver en el boxplot: Donde el alto de la cajas es igual, lo que indica que la dispersión de los residuos es similar en los tres niveles de estrés. Por tanto, puede considerarse que la varianza de los errores es aproximadamente similar entre los grupos.
+
+Esta similitud nos puede indicar evidencias a favor del supuesto de homocedastidad en la varieble.
+
 ### 5.4. Realiza un gráfico de residuos frente a sleep_hours. ¿La varianza parece depender del sueño?
+
+```{r}
+# obtenemos los residuos
+residuos_sueño <- data.frame(
+  sleep_hours = modelo_multiple$model$sleep_hours,
+  residuos = residuals(modelo_multiple)
+)
+
+# hacemos la grafica
+ggplot(residuos_sueño, aes(x = sleep_hours, y = residuos)) +
+  geom_point(color = "aquamarine1", alpha = 0.7) +
+  geom_hline(yintercept = 0, color = "aquamarine4", linetype = "dashed") +
+  geom_smooth(method = "loess", se = FALSE, color = "aquamarine4", linewidth = 0.8, formula = y ~ x) +
+  labs(
+    title = "Residuos vs. sleep_hours",
+    x = "horas de sueño",
+    y = "Residuos"
+  ) +
+  theme_classic(base_size = 10)
+```
+
 
 ### 5.5. Ajusta el mismo modelo múltiple pero usando errores estándar robustos (HC). Compara con los errores estándar del modelo clásico.
 
