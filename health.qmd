@@ -663,9 +663,9 @@ Aunque el modelo simple sea rápido y económico de construir, puede omitir much
 ### 4.1. Ajusta el modelo: $health\_score \sim bmi+I(bmi2)$ y compáralo con el modelo lineal simple. ¿Mejora el ajuste?
 
 ```{r}
-modelo_cuadratico<- lm(health_score ~ bmi + I(bmi^2), data = health_df)
+modelo_cuadratico_bmi<- lm(health_score ~ bmi + I(bmi^2), data = health_df)
 summary(modelo_cuadratico)
-anova(modelo_hs_bmi, modelo_cuadratico)
+anova(modelo_hs_bmi, modelo_cuadratico_bmi)
 ```
 
 ------------------------------------------------------------------------
@@ -687,24 +687,24 @@ modelo_dicotomico <- lm(health_score ~ bmi + I(bmi^2) + factor(ifelse(
 data = health_df)
 summary(modelo_dicotomico)
 #para compararlos necesitamos que ambos usen las mismas observaciones por lo que usamos los datos imputados de las tres variables. Para comodidad se crea la tabla con los datos de todas las variables imputados
-health_df_imp = health_df
+datos_imp = health_df
 
-health_df_imp$bmi[is.na(health_df_imp$bmi)] = mean(health_df$bmi, na.rm = TRUE)
+datos_imp$bmi[is.na(datos_imp$bmi)] = mean(health_df$bmi, na.rm = TRUE)
 
-health_df_imp$health_score[is.na(health_df_imp$health_score)] = mean(health_df$health_score, na.rm = TRUE)
+datos_imp$health_score[is.na(datos_imp$health_score)] = mean(health_df$health_score, na.rm = TRUE)
 
-health_df_imp$sleep_hours[is.na(health_df_imp$sleep_hours)] = mean(health_df$sleep_hours, na.rm = TRUE)
+datos_imp$sleep_hours[is.na(datos_imp$sleep_hours)] = mean(health_df$sleep_hours, na.rm = TRUE)
 
 #creamos los modelos cuadratico y dicotomico imputados
 
-modelo_cuadratico_imp<- lm(health_score ~ bmi + I(bmi^2), data = health_df_imp)
+modelo_cuadratico_imp<- lm(health_score ~ bmi + I(bmi^2), data = datos_imp)
 
 summary(modelo_cuadratico_imp)
 
 modelo_dicotomico_imp <- lm(health_score ~ bmi + I(bmi^2) + factor(ifelse(
   sleep_hours < 6, "Menor que 6", "Mayor o igual que 6"
 )),
-data = health_df_imp)
+data = datos_imp)
 summary(modelo_dicotomico_imp)
 #comparamos
 anova(modelo_cuadratico_imp,modelo_dicotomico_imp)
@@ -733,17 +733,86 @@ ggplot(data =health_df, aes(x = stress, y = health_score)) +
 
 ### 4.5. Ajusta un spline sobre activity_hours y compáralo con el modelo lineal.
 
+---
+Para comparar el modelo lineal con el spline vamos a utilizar los datos imputados para que ambos cuenten con el mismo número de observaciones permitiendo así una comparación más consistente.
+---
+
 ```{r}
-modelo_spline <- lm(health_score ~ bs(activity_hours, df = 3), data = health_df)
+#Creamos el modelo spline
+modelo_spline <- lm(health_score ~ bs(activity_hours, df = 3), data = datos_imp)
+#modelo lineal sobre act de datos imputados
+modelo_hs_act<-lm(health_score ~ activity_hours, data = datos_imp)
+#comparación anova
+anova(modelo_spline,modelo_hs_act)
+
 ```
 
 ### 4.6. Crea un modelo piecewise en bmi (≤30 vs \>30) para explicar health_score. ¿Qué diferencias observas?
 
+```{r}
+modelo_hs_bmi_imp=lm(health_score~bmi, datos_imp) #modelo lineal bmi de datos imp
+#Creamos variable para tramo >30 y añadimos la nueva columna
+datos_imp$bmi_30 <- pmax(0, datos_imp$bmi - 30)
+#modelo picewise
+modelo_piecewise <- lm(health_score ~ bmi + bmi_30,
+                       data = datos_imp)
+#comparar mediante anova
+anova(modelo_hs_bmi_imp,modelo_piecewise)
+
+```
+
 ### 4.7. Evalúa el AIC entre modelos lineal, cuadrático y piecewise para bmi. ¿Cuál es preferible?
+
+```{r}
+#Lista de modelos
+modelos_bmi <- list("Lineal" = modelo_hs_bmi_imp,
+                "Cuadrático" = modelo_cuadratico_bmi,
+                "Piecewise" = modelo_piecewise)
+#Comparamos AIC
+comparacion_AIC<- sapply(modelos_bmi, AIC)
+
+#mostrar resultados
+print(round(comparacion_AIC, 3))
+#identificar el mejor
+mejor_AIC <- which.min(comparacion_AIC)
+#Lo imprimimos
+cat("Modelo preferible según AIC:",
+    names(comparacion_AIC)[mejor_AIC])
+```
 
 ### 4.8. Representa gráficamente las predicciones del modelo piecewise frente a las observaciones reales.
 
+```{r}
+#Predicciones del modelo picewise (nueva col)
+datos_imp$predicciones<-predict(modelo_piecewise)
+#Gráfico
+
+ggplot(data = datos_imp, aes(x = bmi, y = predicciones)) +
+  geom_point(alpha = 0.6, color = "blue") +
+  geom_abline(
+    slope = 1,
+    intercept = 0,
+    color = "red",
+    linetype = "dashed"
+  ) +
+  geom_smooth(method = "lm",
+              se = FALSE,
+              color = "orange") +
+  labs(title = "Predicciones Piecewise vs. Observaciones Reales", x = "bmi real", y = "bmi predicho") +
+  theme_minimal()
+```
+
 ### 4.9. Ajusta un modelo con transformación logarítmica$health\_score \sim log(cholesterol)$ e interpreta el coeficiente.
+
+```{r}
+#creamos el modelo
+modelo_log <- lm(health_score ~ log(cholesterol),
+                 data =datos_imp)
+
+summary(modelo_log)
+
+coef(modelo_log)
+```
 
 ### 4.10. Explica por qué, en el ámbito de la salud, es importante detectar y modelar efectos no lineales (ej. sueño, IMC, estrés).
 
@@ -836,9 +905,11 @@ ggplot(datos_boxplot, aes(x = factor(grupos_estres), y = Residuos)) +
 
 ```
 
-En la tabla podemos observar que la varianza de los grupos es $171,4323$, $125,6016$ y $143,1186$ para los grupos bajo, medio y alto respectivamente. Aunque los valores en general son parecidos en magnitud, podemos ver una diferencias entre ellos.
+En la tabla podemos observar que la varianza de los grupos es $171,4323$, $125,6016$ y $143,1186$ para los grupos bajo, medio y alto respectivamente.
+Aunque los valores en general son parecidos en magnitud, podemos ver una diferencias entre ellos.
 
-Esta evidencia también la podemos ver en el boxplot: Donde el alto de la cajas es igual, lo que indica que la dispersión de los residuos es similar en los tres niveles de estrés. Por tanto, puede considerarse que la varianza de los errores es aproximadamente similar entre los grupos.
+Esta evidencia también la podemos ver en el boxplot: Donde el alto de la cajas es igual, lo que indica que la dispersión de los residuos es similar en los tres niveles de estrés.
+Por tanto, puede considerarse que la varianza de los errores es aproximadamente similar entre los grupos.
 
 Esta similitud nos puede indicar evidencias a favor del supuesto de homocedastidad en la varieble.
 
@@ -863,7 +934,6 @@ ggplot(residuos_sueño, aes(x = sleep_hours, y = residuos)) +
   ) +
   theme_classic(base_size = 10)
 ```
-
 
 ### 5.5. Ajusta el mismo modelo múltiple pero usando errores estándar robustos (HC). Compara con los errores estándar del modelo clásico.
 
@@ -986,11 +1056,10 @@ modelo_nb <- glm.nb(hospital_visits ~ age + comorbidities, data = train_pois)
 
 cat("AIC Poisson:", AIC(modelo_poisson), "| AIC NB:", AIC(modelo_nb), "\n")
 ```
+
 Usando el criterio de Akaike (AIC), obtenemos para el modelo de binomial negativa un valor suficientemente menor que el del modelo de poisson para afirmar que este ofrece un mejor ajuste.
 
 ### 6.4. Compara la devianza residual y el AIC de los modelos de Poisson y NegBin.
-
-
 
 ### 6.5. Ajusta un modelo de regresión logística para: $disease\_controlled \sim bmi + activity\_hours+sleep\_hours+smoker$ Interpreta los odds ratios de cada predictor.
 
