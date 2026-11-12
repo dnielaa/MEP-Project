@@ -32,6 +32,8 @@ library(broom)
 library(gridExtra)
 library(splines)
 library(MASS)
+library(lmtest)
+library(sandwich)
 ```
 
 ## Introducción
@@ -143,7 +145,7 @@ A continuación queremos saber si hay una relación existente entre el índice d
 ```{r}
 ggplot(health_df, aes(x = bmi, y = health_score)) +
   geom_point(alpha = 0.7, color="#7FFFD4") +
-  geom_smooth(method = "loess", se = FALSE, color = "#458B74") +
+  geom_smooth(method = "lm", se = FALSE, color = "#458B74") +
   labs(title = "Relación entre índice de salud e índice de masa corporal",
        x = "indice de masa corporal", y = "indice de salud") +
   theme_minimal()
@@ -183,7 +185,7 @@ modelo_estudio=lm(health_score~activity_hours, health_df)
 
 ggplot(health_df, aes(x = activity_hours, y = health_score)) +
   geom_point(alpha = 0.7, color="#7FFFD4") +
-  geom_smooth(method = "loess", se = FALSE, color = "aquamarine4") +
+  geom_smooth(method = "lm", se = FALSE, color = "aquamarine4") +
   labs(title = "Relación entre horas de actividad e índice de salud",
        x = "horas de actividad", y = "indice de salud") +
   theme_minimal()
@@ -211,7 +213,7 @@ Como podemos ver en la gráfica, existe una correlación positiva entre ambas va
 
 \-**Linealidad**: Pese a que en la gráfica se puede estudiar una relación entre ambas variables, también podemos observar una violación en el supuesto de linealidad.
 Esta evidencia se ve en la recta que regresión, que presenta una curvatura,lo que indica que el aumento del índice de salud es más notable en niveles bajos de actividad física que en niveles más altos.
-Sin embargo, la herremienta fundamental para detectar esta violación es mediante la gráfica de residuos frente a los valores ajustados del modelo.
+Sin embargo, la herramienta fundamental para detectar esta violación es mediante la gráfica de residuos frente a los valores ajustados del modelo.
 En este caso podemos detectar un ligero patrón curvo, lo que nos índica que los residuos no son completamente aleatorios y que se guarda una relación con los predictores.
 
 Para poder corregir esta falta de linealidad se tendría que hacer una trasformación logaritmica sobre las variables y hacer el modelos con estas.
@@ -379,6 +381,7 @@ grafica_antes=ggplot(health_df, aes(x = sleep_hours)) +
 health_df_imputado1=health_df
 media_calculada1=mean(health_df$sleep_hours, na.rm = TRUE)
 health_df_imputado1$sleep_hours[is.na(health_df_imputado1$sleep_hours)]=media_calculada1
+
 #histograma despues de la imputacion
 grafica_despues=ggplot(health_df_imputado1, aes(x = sleep_hours)) +
   geom_histogram(fill = "aquamarine1", color = "aquamarine4") +
@@ -454,7 +457,7 @@ summary(modelo)
 ## grafica de regresión 
 ggplot(health_df_completo, aes(x = bmi, y = health_score)) +
   geom_point(alpha = 0.7, color="#7FFFD4") +
-  geom_smooth(method = "loess", se = FALSE, color = "aquamarine4") +
+  geom_smooth(method = "lm", se = FALSE, color = "aquamarine4") +
   labs(title = "Relación entre índice de masa corporal e índice de salud",
        x = "bmi", y = "indice de salud") +
   theme_minimal()
@@ -469,8 +472,6 @@ En concreto, medida que el índice de masa corporal aumenta en una unidad, el í
 Además este modelo resulta ser estadisticamente significativo, debido a que tenemos un p-valor pequeño un estadístico F grande.
 Sin embargo, el coeficiente de determinación $R^2$ nos indica que el modelo explica el $38,99\%$ de la variabilidad total, por lo que hay más variables de nuestro modelo que influyen en la variable `health_score`.
 
-Por otro lado debemos destacar la violación de linealidad en el modelo que se debería resolver con una transforamación en las variables.
-
 ### 2.10. Repite el modelo anterior pero con el dataset imputado..
 
 A continuación realizaremos otra vez el modelo de regresión sobre el dataset impotado.
@@ -482,7 +483,7 @@ summary(modelo)
 ## grafica de regresión 
 ggplot(health_df_imputado, aes(x = bmi, y = health_score)) +
   geom_point(alpha = 0.7, color="#7FFFD4") +
-  geom_smooth(method = "loess", se = FALSE, color = "aquamarine4") +
+  geom_smooth(method = "lm", se = FALSE, color = "aquamarine4") +
   labs(title = "Relación entre índice de masa corporal e índice de salud",
        x = "bmi", y = "indice de salud") +
   theme_minimal()
@@ -492,8 +493,6 @@ Al comparar ambos modelos, se observa que los coeficientes apenas varían.
 El coeficiente asociado a la variable `bmi` se mantiene identico, mientras que el intercepto pasa de 118,013 en nuestro modelo anterior a 117,975.
 Del mismo modo, el coeficiente de determinación $R^2$ disminuye ligeramente de $38,99\%$ a $38,49\%$.
 Estas diferencias son mínimas debido a que la cantidad de datos faltantes era muy reducida.
-
-Por otra parte, al observar el gráfico de dispersión, se asigue apreciando que la relación entre bmi y health_score podría no ser completamente lineal.
 
 ## Bloque 3: Regresion lineal simple y multiple
 
@@ -695,6 +694,12 @@ datos_imp$health_score[is.na(datos_imp$health_score)] = mean(health_df$health_sc
 
 datos_imp$sleep_hours[is.na(datos_imp$sleep_hours)] = mean(health_df$sleep_hours, na.rm = TRUE)
 
+datos_imp$activity_hours[is.na(datos_imp$activity_hours)] = mean(health_df$activity_hours, na.rm = TRUE)
+
+datos_imp$stress[is.na(datos_imp$stress)] = mean(health_df$stress, na.rm = TRUE)
+
+datos_imp$cholesterol[is.na(datos_imp$cholesterol)] = mean(health_df$cholesterol, na.rm = TRUE)
+
 #creamos los modelos cuadratico y dicotomico imputados
 
 modelo_cuadratico_imp<- lm(health_score ~ bmi + I(bmi^2), data = datos_imp)
@@ -824,10 +829,10 @@ En inferencia estadística, la varianza de los errores del modelo debe ser const
 Es decir, la dispersión de los datos alrededor de la línea de regresión es la misma en todo su recorrido.
 La violación de este supuesto se conoce como heterocedasticidad.
 
-### 5.1. Ajusta un modelo múltiple para health_score en función de bmi, activity_hours, sleep_hours y stress y representa un gráfico de residuos vs. valores ajustados.
+### 5.1. y 5.2. Ajusta un modelo múltiple para health_score en función de bmi, activity_hours, sleep_hours y stress y ver si se cumple una violación en el supuesto de homocedatsidad.
 
 ```{r}
-modelo_multiple=lm(health_score~bmi+activity_hours+sleep_hours+stress, data=health_df)
+modelo_multiple=lm(health_score~bmi+activity_hours+sleep_hours+stress, data=datos_imp)
 summary(modelo_multiple)
 
 #grafica de valores ajustados y residuos
@@ -849,25 +854,28 @@ ggplot(datos_diag_hetero, aes(x = valores_ajustados, y = residuos)) +
   theme_classic(base_size = 10)
 ```
 
-Como podemos ver en el resumen de nuestro modelo, el índice de salud se ve afectado positivamente por las horas de actvidad física y de sueño y de forma negativa por el índice de masa corporal y el nivel de estres, con coeficientes $2,454$, $3,845$, $-2,453$ y $-0,241$ respectivamente.
+Como podemos ver en el resumen de nuestro modelo, el índice de salud se ve afectado positivamente por las horas de actvidad física y de sueño y de forma negativa por el índice de masa corporal y el nivel de estres, con coeficientes $3,87451$, $2,41502$, $-2,44519$ y $-0,23804$ respectivamente.
 
-Por otro lado, al fijarnos en el coeficiente de detrminación $R^2$ ajustado, vemos que el modelo explica un $59,99\%$ de la variabilidad.
+Por otro lado, al fijarnos en el coeficiente de detrminación $R^2$ ajustado, vemos que el modelo explica un $59,5\%$ de la variabilidad.
 
-Si a continuación nos fijamos en el garfico de residuos frente a valores ajustados podemos ver que la linea de tendencia (verde) es curva lo que evidencia una violación en el supuesto de linealidad del modelo.
+Si a continuación nos fijamos en la dispersión de los puntos a lo largo de eje de los valores ajustados se puede apreciar una ligera dispersión de estos, lo que podría marca una violación de la homocedastidad del modelo porque la varianza de los errores no es costante.
 
-Además, si nos fijamos en la dispersión de los puntos a lo largo de eje de los valores ajustados se puede apreciar una ligera dispersión de estos, lo que podría marca una violación de la homocedastidad del modelo porque la varianza de los errores no es costante.
-
-### 5.2. Aplica el test de Breusch–Pagan al modelo. ¿Se cumple la homocedasticidad?
-
-En el apartado anterior vimos que podría haber indicios de una violación de la homocedastidad de nuestro modelo.
 Para poder verificar si es cierta esta violación aplicaremos el test de Breusch-Pagan:
 
 ```{r}
-suppressPackageStartupMessages(library(lmtest))
-bptest(modelo_multiple)
+bp_test=bptest(modelo_multiple)
+cat("Test de Breusch-Pagan para homocedasticidad:\n")
+
+cat("p-valor:", round(bp_test$p.value, 4), "\n")
+
+if(bp_test$p.value > 0.05) {
+  cat("Conclusión: No se rechaza homocedasticidad (p > 0.05)\n\n")
+} else {
+  cat("Conclusión: Se rechaza homocedasticidad (p ≤ 0.05)\n\n")
+}
 ```
 
-En el test se marca un $\alpha = 0,05$ y en nuestro modelo tenemos un p-valor de $0,2236$.
+En el test se marca un $\alpha = 0,05$ y en nuestro modelo tenemos un p-valor de $0,29$.
 Por lo tanto, al ser este valor mayor que $\alpha$, aceptamos nuestra hipetesis nula (Ho) que rechaza el supuesto de heterocedastidad en nuestro modelo.
 
 ### 5.3. Calcula la varianza de los residuos en tres grupos de stress.
@@ -879,8 +887,7 @@ En este apartado se dividen a los pacientes en tres grupos según sus niveles de
 residuos=residuals(modelo_multiple)
 # dividimos la variable estres en grupos de bajo medio y alto 
 nombres=c("bajo", "medio", "alto")
-datos_modelo=modelo_multiple$model
-grupos_estres=cut(datos_modelo$stress, breaks=3, labels=nombres, include.lowest=TRUE)
+grupos_estres=cut(datos_imp$stress, breaks=3, labels=nombres, include.lowest=TRUE)
 
 #calculamos las varianzas de los residuos de los grupos 
 varianzas=tapply(residuos,grupos_estres,var,na.rm = TRUE)
@@ -905,7 +912,7 @@ ggplot(datos_boxplot, aes(x = factor(grupos_estres), y = Residuos)) +
 
 ```
 
-En la tabla podemos observar que la varianza de los grupos es $171,4323$, $125,6016$ y $143,1186$ para los grupos bajo, medio y alto respectivamente.
+En la tabla podemos observar que la varianza de los grupos es $167,8568$, $128,3403$ y $148,2056$ para los grupos bajo, medio y alto respectivamente.
 Aunque los valores en general son parecidos en magnitud, podemos ver una diferencias entre ellos.
 
 Esta evidencia también la podemos ver en el boxplot: Donde el alto de la cajas es igual, lo que indica que la dispersión de los residuos es similar en los tres niveles de estrés.
@@ -937,7 +944,29 @@ ggplot(residuos_sueño, aes(x = sleep_hours, y = residuos)) +
 
 ### 5.5. Ajusta el mismo modelo múltiple pero usando errores estándar robustos (HC). Compara con los errores estándar del modelo clásico.
 
+Cuando se realiza un modelo de inferencia estadística que viola el supuesto de homocedastidad del modelo, uno de los métodos más usados para su correción es usando **errores estandar robustos**. 
+
+Este método calcula la matriz de varianzas-covarianzas de los coeficientes bajo el supuesto de que todos los errores presentan la misma varianza. Cuando este supuesto se incumple, la fórmula clásica subestima o sobreestima la verdadera variabilidad muestral.
+
+Hay distintos tipos de estimadores (desde HC0 hasta HC4), en este caso hemos decidido usar el estimador HC3 debido a que es el que se usa normalmente y es el más recomendado.
+
+```{r}
+modelo_multiple=lm(health_score~bmi+activity_hours+sleep_hours+stress, data=datos_imp)
+coeftest(modelo_multiple, vcov = vcovHC(modelo_multiple, type="HC3"))
+```
+
+Al comparar el modelo clásico con el modelo HC, podemos observar como los estimadores de la variables no cambian, pero si lo hace el error estandar, los t-valores y p-valores. 
+
+En el caso del error estandar, en este nuevo modelo han aumentado ligeramente con respecto al modelo anterior. Por lo que la estimación sería un poco menos precisa. Como consecuencia el t-valor y p-valor de las variables han cambiado.
+
+Debido a que anteriormente vimos que no se cumplía una violación en el supuesto de homocedastidad en nuestro modelo, es normal ver que los errores estandar de las variables apenas hayan cambiado. 
+
 ### 5.6. Aplica una transformación logarítmica al predictor cholesterol y vuelve a ajustar el modelo. ¿Mejora la homocedasticidad?
+
+```{r}
+
+```
+
 
 ### 5.7. Estudia gráficamente si la heterocedasticidad es más acusada en pacientes con mayor estrés o con menor sueño.
 
