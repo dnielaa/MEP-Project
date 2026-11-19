@@ -739,7 +739,7 @@ ggplot(data =health_df, aes(x = stress, y = health_score)) +
 ### 4.5. Ajusta un spline sobre activity_hours y compáralo con el modelo lineal.
 
 ---
-Para comparar el modelo lineal con el spline vamos a utilizar los datos imputados para que ambos cuenten con el mismo número de observaciones permitiendo así una comparación más consistente.
+Para comparar el modelo lineal con el spline vamos a utilizar los datos imputados (llamada `datos_imp`), para que ambos cuenten con el mismo número de observaciones permitiendo así una comparación más consistente.
 ---
 
 ```{r}
@@ -829,7 +829,7 @@ En inferencia estadística, la varianza de los errores del modelo debe ser const
 Es decir, la dispersión de los datos alrededor de la línea de regresión es la misma en todo su recorrido.
 La violación de este supuesto se conoce como heterocedasticidad.
 
-### 5.1. y 5.2. Ajusta un modelo múltiple para health_score en función de bmi, activity_hours, sleep_hours y stress y ver si se cumple una violación en el supuesto de homocedatsidad.
+### 5.1. y 5.2. Ajusta un modelo múltiple para health_score en función de bmi, activity_hours, sleep_hours y stress y ver si se cumple una violación en el supuesto de homocedatsidad. {#5.1}
 
 ```{r}
 modelo_multiple=lm(health_score~bmi+activity_hours+sleep_hours+stress, data=datos_imp)
@@ -944,9 +944,10 @@ ggplot(residuos_sueño, aes(x = sleep_hours, y = residuos)) +
 
 ### 5.5. Ajusta el mismo modelo múltiple pero usando errores estándar robustos (HC). Compara con los errores estándar del modelo clásico.
 
-Cuando se realiza un modelo de inferencia estadística que viola el supuesto de homocedastidad del modelo, uno de los métodos más usados para su correción es usando **errores estandar robustos**. 
+Cuando se realiza un modelo de inferencia estadística que viola el supuesto de homocedastidad del modelo, uno de los métodos más usados para su correción es usando **errores estandar robustos**.
 
-Este método calcula la matriz de varianzas-covarianzas de los coeficientes bajo el supuesto de que todos los errores presentan la misma varianza. Cuando este supuesto se incumple, la fórmula clásica subestima o sobreestima la verdadera variabilidad muestral.
+Este método calcula la matriz de varianzas-covarianzas de los coeficientes bajo el supuesto de que todos los errores presentan la misma varianza.
+Cuando este supuesto se incumple, la fórmula clásica subestima o sobreestima la verdadera variabilidad muestral.
 
 Hay distintos tipos de estimadores (desde HC0 hasta HC4), en este caso hemos decidido usar el estimador HC3 debido a que es el que se usa normalmente y es el más recomendado.
 
@@ -955,19 +956,76 @@ modelo_multiple=lm(health_score~bmi+activity_hours+sleep_hours+stress, data=dato
 coeftest(modelo_multiple, vcov = vcovHC(modelo_multiple, type="HC3"))
 ```
 
-Al comparar el modelo clásico con el modelo HC, podemos observar como los estimadores de la variables no cambian, pero si lo hace el error estandar, los t-valores y p-valores. 
+Al comparar el modelo clásico con el modelo HC, podemos observar como los estimadores de la variables no cambian, pero si lo hace el error estandar, los t-valores y p-valores.
 
-En el caso del error estandar, en este nuevo modelo han aumentado ligeramente con respecto al modelo anterior. Por lo que la estimación sería un poco menos precisa. Como consecuencia el t-valor y p-valor de las variables han cambiado.
+En el caso del error estandar, en este nuevo modelo han aumentado ligeramente con respecto al modelo anterior.
+Por lo que la estimación sería un poco menos precisa.
+Como consecuencia el t-valor y p-valor de las variables han cambiado.
 
-Debido a que anteriormente vimos que no se cumplía una violación en el supuesto de homocedastidad en nuestro modelo, es normal ver que los errores estandar de las variables apenas hayan cambiado. 
+Debido a que anteriormente vimos que no se cumplía una violación en el supuesto de homocedastidad en nuestro modelo, es normal ver que los errores estandar de las variables apenas hayan cambiado.
 
 ### 5.6. Aplica una transformación logarítmica al predictor cholesterol y vuelve a ajustar el modelo. ¿Mejora la homocedasticidad?
 
+En este bloque hemos realizado un modelo de regresión multiple usando los predictores `activity_hours`, `sleep_hours` y `stress`; sin embargo para este apartado añadiremos la variable `cholesterol` transformada mediante la función logaritmica.
+
+Para observar como cambia homocedatidad entre modelos, primero realizaremos el modelo sin la variable trasformada y después con la transformación.
+
 ```{r}
+## modelo sin transformar
+
+modelo_multiple_chol=lm(health_score~bmi+activity_hours+sleep_hours+stress+cholesterol, data=datos_imp)
+summary(modelo_multiple_chol)
+
+#grafica de valores ajustados y residuos
+datos_diag_hetero <- data.frame(
+  residuos = residuals(modelo_multiple_chol),
+  valores_ajustados = fitted(modelo_multiple_chol),
+  residuos_std_sqrt = sqrt(abs(rstandard(modelo_multiple_chol)))
+)
+
+ggplot(datos_diag_hetero, aes(x = valores_ajustados, y = residuos)) +
+  geom_point(color = "aquamarine1", alpha = 0.7) +
+  geom_hline(yintercept = 0, color = "aquamarine4", linetype = "dashed") +
+  geom_smooth(method = "loess", se = FALSE, color = "aquamarine4", linewidth = 0.8, formula = y ~ x) +
+  labs(
+    title = "Residuos vs. Valores Ajustados con variable colesterol sin transformar",
+    x = "Valores Ajustados",
+    y = "Residuos"
+  ) +
+  theme_classic(base_size = 10)
 
 ```
 
+Como podemos observar en la gráfica de residuos frente a valores ajustados, la nube de puntos no tiene una forma de embudo muy clara y se parece a la gráfica del modelo del apartado @5.1, en la que vimos que no habia una violación en la homocedastidad en el modelo.
 
+Como consecuencia, al hacer estas transformaciones sin la presencia de un supuesto de violación, lo que podriamos generar es un problema en nuestro modelo.
+
+```{r}
+## modelo transformado
+
+modelo_multiple_traschol=lm(health_score~bmi+activity_hours+sleep_hours+stress+log(cholesterol), data=datos_imp)
+summary(modelo_multiple_traschol)
+
+#grafica de valores ajustados y residuos
+datos_diag_hetero <- data.frame(
+  residuos = residuals(modelo_multiple_traschol),
+  valores_ajustados = fitted(modelo_multiple_traschol),
+  residuos_std_sqrt = sqrt(abs(rstandard(modelo_multiple_traschol)))
+)
+
+ggplot(datos_diag_hetero, aes(x = valores_ajustados, y = residuos)) +
+  geom_point(color = "aquamarine1", alpha = 0.7) +
+  geom_hline(yintercept = 0, color = "aquamarine4", linetype = "dashed") +
+  geom_smooth(method = "loess", se = FALSE, color = "aquamarine4", linewidth = 0.8, formula = y ~ x) +
+  labs(
+    title = "Residuos vs. Valores Ajustados con variable colesterol transformada",
+    x = "Valores Ajustados",
+    y = "Residuos"
+  ) +
+  theme_classic(base_size = 10)
+```
+
+En nuestro caso,  la transformación no la provocado ninguna violación en nuestro modelo 
 ### 5.7. Estudia gráficamente si la heterocedasticidad es más acusada en pacientes con mayor estrés o con menor sueño.
 
 ### 5.8. Discute cómo afecta la heterocedasticidad a la validez de los intervalos de confianza y los tests de significación.
