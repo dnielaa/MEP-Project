@@ -1148,7 +1148,6 @@ Usando el criterio de Akaike (AIC), obtenemos para el modelo de binomial negativ
 
 ### 6.4. Compara la devianza residual y el AIC de los modelos de Poisson y NegBin.
 
-<<<<<<< HEAD
 ```{r}
 
 # Residuos y diagnósticos
@@ -1211,8 +1210,6 @@ p4 <- ggplot(train_pois, aes(x = leverage, y = residuos_deviance)) +
 grid.arrange(p1, p2, p3, p4, ncol = 2)
 ```
 
-=======
->>>>>>> origin
 ### 6.5. Ajusta un modelo de regresión logística para: $disease\_controlled \sim bmi + activity\_hours+sleep\_hours+smoker$ Interpreta los odds ratios de cada predictor.
 
 ### 6.6. Representa la curva ROC del modelo logístico y calcula el AUC.
