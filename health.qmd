@@ -1086,6 +1086,7 @@ En concreto en la gráfica `sleep_hours`, la dispersión es ligeramente mayor en
 ### 5.8. Discute cómo afecta la heterocedasticidad a la validez de los intervalos de confianza y los tests de significación.
 
 
+
 ### 5.9. Explica por qué podría ser razonable, en ciertos casos, usar un GLM con varianza distinta a la normal en vez de un modelo lineal.
 
 ### 5.10. Resume qué estrategia te parece más adecuada para manejar la heterocedasticidad en este dataset de salud.
