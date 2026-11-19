@@ -1204,6 +1204,68 @@ Usando el criterio de Akaike (AIC), obtenemos para el modelo de binomial negativ
 
 ### 6.4. Compara la devianza residual y el AIC de los modelos de Poisson y NegBin.
 
+```{r}
+
+# Residuos y diagnósticos
+train_pois$residuos_pearson <- residuals(modelo_poisson, type = "pearson")
+train_pois$residuos_deviance <- residuals(modelo_poisson, type = "deviance")
+train_pois$valores_ajustados <- fitted(modelo_poisson)
+train_pois$leverage <- hatvalues(modelo_poisson)
+
+# Estadístico de dispersión
+pearson_stat <- sum(train_pois$residuos_pearson^2)
+df_residual <- modelo_poisson$df.residual
+dispersion_stat <- pearson_stat / df_residual
+
+cat("=== DIAGNÓSTICO DE SOBREDISPERSIÓN ===\n")
+cat("Estadístico de Pearson:", round(pearson_stat, 2), "\n")
+cat("Grados de libertad:", df_residual, "\n")
+cat("Estadístico de dispersión:", round(dispersion_stat, 3), "\n")
+
+if(dispersion_stat > 1.5) {
+  cat("CONCLUSIÓN: Hay evidencia de sobredispersión (φ > 1.5)\n")
+  cat("RECOMENDACIÓN: Considerar modelo binomial negativo\n")
+} else if(dispersion_stat > 1.2) {
+  cat("CONCLUSIÓN: Posible sobredispersión leve (φ > 1.2)\n")
+  cat("RECOMENDACIÓN: Verificar con modelo binomial negativo\n")
+} else {
+  cat("CONCLUSIÓN: No hay evidencia clara de sobredispersión\n")
+  cat("RECOMENDACIÓN: Modelo de Poisson es apropiado\n")
+}
+
+# Gráficos de diagnóstico
+p1 <- ggplot(train_pois, aes(x = valores_ajustados, y = residuos_deviance)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(se = FALSE, color = "red") +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(title = "Residuos Deviance vs Valores Ajustados",
+       x = "Valores Ajustados", y = "Residuos Deviance") +
+  theme_minimal()
+
+p2 <- ggplot(train_pois, aes(sample = residuos_deviance)) +
+  stat_qq() +
+  stat_qq_line(color = "red") +
+  labs(title = "Q-Q Plot de Residuos Deviance",
+       x = "Cuantiles Teóricos", y = "Cuantiles Muestra") +
+  theme_minimal()
+
+p3 <- ggplot(train_pois, aes(x = valores_ajustados, y = sqrt(abs(residuos_deviance)))) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(se = FALSE, color = "red") +
+  labs(title = "Escala-Localización",
+       x = "Valores Ajustados", y = "√|Residuos Deviance|") +
+  theme_minimal()
+
+p4 <- ggplot(train_pois, aes(x = leverage, y = residuos_deviance)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(se = FALSE, color = "red") +
+  labs(title = "Residuos vs Leverage",
+       x = "Leverage", y = "Residuos Deviance") +
+  theme_minimal()
+
+grid.arrange(p1, p2, p3, p4, ncol = 2)
+```
+
 ### 6.5. Ajusta un modelo de regresión logística para: $disease\_controlled \sim bmi + activity\_hours+sleep\_hours+smoker$ Interpreta los odds ratios de cada predictor.
 
 ### 6.6. Representa la curva ROC del modelo logístico y calcula el AUC.
