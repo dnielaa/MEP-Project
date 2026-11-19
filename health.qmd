@@ -34,6 +34,7 @@ library(splines)
 library(MASS)
 library(lmtest)
 library(sandwich)
+library(car)
 ```
 
 ## Introducción
@@ -1025,10 +1026,65 @@ ggplot(datos_diag_hetero, aes(x = valores_ajustados, y = residuos)) +
   theme_classic(base_size = 10)
 ```
 
-En nuestro caso,  la transformación no la provocado ninguna violación en nuestro modelo 
+En nuestro caso, la transformación no la provocado ninguna violación en nuestro modelo. Sin embargo, podemos ver una variación en los estimadores de las variables.
+
 ### 5.7. Estudia gráficamente si la heterocedasticidad es más acusada en pacientes con mayor estrés o con menor sueño.
 
+En este apartado estudiaremos si hay heterocedastidad en las varaibles estrés y sueño en nuestro modelo (sin la varible `cholesterol`).
+
+```{r}
+datos_modelo <- modelo_multiple$model
+
+ggplot(datos_modelo, aes(x = stress, y = rstandard(modelo_multiple))) +
+  geom_point(
+    color="aquamarine2",
+    fill = "aquamarine1",
+    shape = 21,
+    alpha = 0.6,
+    size = 2
+  ) +
+  geom_smooth(
+    method = "loess",
+    se = FALSE,
+    color = "aquamarine4",
+    linewidth = 1
+  ) +
+  labs(
+    title = "Grafica de residuos de la variable stress",
+    x = "Nivel de estrés",
+    y = "Residuos estandarizados"
+  ) +
+  theme_classic(base_size = 12)
+
+ggplot(datos_modelo, aes(x = sleep_hours, y = rstandard(modelo_multiple))) +
+  geom_point(
+    color="aquamarine2",
+    fill = "aquamarine1",
+    shape = 21,
+    alpha = 0.6,
+    size = 2
+  ) +
+  geom_smooth(
+    method = "loess",
+    se = FALSE,
+    color = "aquamarine4",
+    linewidth = 1
+  ) +
+  labs(
+    title = "Grafica de residuos de la variable sleep_hours",
+    x = "Horas de sueño",
+    y = "Residuos estandarizados"
+  ) +
+  theme_classic(base_size = 12)
+
+```
+
+Al comparar entre las dos gráficas, podemos ver que ambas no presentan una violación en el supuesto de homocedastidad, pero podríamos ver que la tendencia a la dispersión es un poco más acusada en pacientes con menos horas de sueño que en aquellos que presentan valores más altos de estrés, sin embargo ambas relaciones son muy debiles.
+
+En concreto en la gráfica `sleep_hours`, la dispersión es ligeramente mayor en las cinco horas de sueño, mientras que en la gráfica de `stress` la dispersión es bastante parecida a lo largo del eje x si no tomamo en cuenta algunos outliers como el que esta al nivel $26$.
+
 ### 5.8. Discute cómo afecta la heterocedasticidad a la validez de los intervalos de confianza y los tests de significación.
+
 
 ### 5.9. Explica por qué podría ser razonable, en ciertos casos, usar un GLM con varianza distinta a la normal en vez de un modelo lineal.
 
