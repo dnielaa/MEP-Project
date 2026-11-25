@@ -1346,15 +1346,68 @@ grid.arrange(p1, p2, p3, p4, ncol = 2)
 
 ### 7.1. Ajusta un modelo lineal para: $health\_score~bmi*activity\_hours$ ¿Cómo se interpreta la interacción entre IMC y actividad física?
 
+```{r}
+modelo_it=lm(health_score~bmi*activity_hours, data=datos_imp)
+summary(modelo_it)
+```
+
+En el modelo se puede ver como por cada unidad de aumento de el índice de peso corporal, el puntaje de salud disminuye $-2.210$ unidades, mientras que si aumenta las horas de actividad del paciente el puntaje del salud de este aumenta $5.420$ unidades.
+
+Por otro lado, si vemos la iteración entre ambas variables predictoras podemos ver que si el indice de peso corporal del paciente aumenta, pero al mismo tiempo realiza más horas de ejercicio, el puntaje de salud del paciente disminuye $-0.057$ de unidades menos que si no realizase ejercicio.
+
 ### 7.2. Representa gráficamente la interacción anterior con curvas de health_score frente a bmi para distintos niveles de activity_hours.
+
+Dividimos las horas de actividad en pocas, moderadas y altas
+
+```{r}
+# creamos los grupos de horas de actividad
+datos_imp$ej_grupo <- cut(datos_imp$activity_hours, 
+                            breaks = 3, 
+                            labels = c("Pocas", "Moderada", "Altas"))
+
+# hacemos las grafica
+ggplot(datos_imp, aes(x = bmi, y = health_score, color = ej_grupo)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE, linewidth = 1.2) +
+  labs(title = "Interacción bmi × activity_hours",
+       subtitle = "El efecto del bmi varía según las horas de actividad física",
+       x = "bmi", y = "puntaje de salud", color = "horas de actividad") +
+  theme_minimal()
+```
 
 ### 7.3. Ajusta un modelo logístico para: $disease\_controlled~sleep\_hours*stress$. Interpreta el efecto combinado del sueño y el estrés en el control de la enfermedad.
 
+```{r}
+modelo_logistico <- glm(disease_controlled ~ sleep_hours*stress, data = datos_imp, family = binomial(link = "logit"))
+
+summary(modelo_logistico)
+```
+
 ### 7.4. Representa gráficamente la interacción anterior mostrando cómo cambia la probabilidad de tener la enfermedad controlada según el nivel de sueño para distintos valores de estrés.
+
+Usamos la agrupacion del bloque 5 
+```{r}
+ggplot(datos_imp, aes(x = sleep_hours, y = disease_controlled , color = grupos_estres)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE, linewidth = 1.2) +
+  labs(title = "Interacción sleep_hours × stress",
+       x = "sleep_hours", y = "disease_controlled", color = "nivel de estres") +
+  theme_minimal()
+```
+
 
 ### 7.5. Ajusta un modelo de binomial negativa para: $hospital\_visits~age*comorbidities$. ¿Cómo influye la edad en el efecto de las comorbilidades sobre las visitas hospitalarias?
 
+```{r}
+
+```
+
+
 ### 7.6. Discute por qué, en el ámbito de la salud, las interacciones son especialmente relevantes (ej. el efecto de la actividad depende del IMC, o el impacto del estrés depende de las horas de sueño).
+
+```{r}
+
+```
 
 ## Bloque 8: Variables categóricas
 
