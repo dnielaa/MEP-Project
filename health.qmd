@@ -137,7 +137,8 @@ ggplot(health_df, aes(x = factor(region), y = health_score)) +
   theme_minimal()
 ```
 
-En el gráfico se observa que las medianas son bastante similares, situándose aproximadamente entre 55 y 58 puntos. La dispersión intercuartílica también parece comparable entre regiones, por lo que el nivel central del índice de salud es parecido en todas las regiones.
+En el gráfico se observa que las medianas son bastante similares, situándose aproximadamente entre 55 y 58 puntos.
+La dispersión intercuartílica también parece comparable entre regiones, por lo que el nivel central del índice de salud es parecido en todas las regiones.
 
 Sin embargo, podemos identificar varios valores atípicos inferiores, especialmente en las regiones centro, islas y el norte, correspondientes a pacientes con índices de salud muy bajos.
 
@@ -212,7 +213,9 @@ ggplot(datos_diagnostico, aes(x = valores_ajustados, y = residuos)) +
 
 Como podemos ver en la gráfica, existe una relación positiva entre ambas variables, donde a medida que aumentan las horas actividad de un paciente, también aumentará su índice de salud.
 
--**Linealidad**: Para detectar posibles inclupimientos en el supuesto linealidad del modelo, se ha representado el gráfico de valores ajustados frente a los residuos. Como puede observarse, aparece un ligero patrón curvo en la nube de puntos, lo que podría evidenciar una falta de linealidad en el modelo. Sin embargo, esta curva no es demasiado pronuncida, por lo que no puede afirmarse que exista dicha violación. 
+\-**Linealidad**: Para detectar posibles inclupimientos en el supuesto linealidad del modelo, se ha representado el gráfico de valores ajustados frente a los residuos.
+Como puede observarse, aparece un ligero patrón curvo en la nube de puntos, lo que podría evidenciar una falta de linealidad en el modelo.
+Sin embargo, esta curva no es demasiado pronuncida, por lo que no puede afirmarse que exista dicha violación.
 
 ### 1.8. Realiza un boxplot de health_score por fumador.
 
@@ -322,7 +325,8 @@ tabla_na=data.frame(
 tabla_na
 ```
 
-El $0,2096\%$ de los valores de nuestra base de datos son nulos. Por otro lado, la tabla nos muestra que el $0,92\%$ de los valores de cada una de las variables analizadas son nulos.
+El $0,2096\%$ de los valores de nuestra base de datos son nulos.
+Por otro lado, la tabla nos muestra que el $0,92\%$ de los valores de cada una de las variables analizadas son nulos.
 
 Ambos porcentajes son muy bajo si se tiene el cuenta que la base de datos cuenta con casi mil registros, por lo tanto la presencia de valores nulos puede no resultar, al principio, un problema.
 
@@ -427,13 +431,15 @@ grafica_media=ggplot(health_df_imputado3, aes(x = stress)) +
 grafica_mediana+grafica_media
 ```
 
-La diferencia entre imputar mediante la media o la mediana depende de la distribución de la variable. La mediana es más robusta frente a valores extremos, por lo que suele ser preferible cuando existen asimetrías u observaciones atípicas. 
+La diferencia entre imputar mediante la media o la mediana depende de la distribución de la variable.
+La mediana es más robusta frente a valores extremos, por lo que suele ser preferible cuando existen asimetrías u observaciones atípicas.
 
 Como se vió anteriormente, ambas medidas son similares, por lo que los resultados de ambas imputaciones serán prácticamente equivalentes.
 
 ### 2.7. Realiza una imputación condicional: sustituye los valores faltantes de cholesterol por la media de pacientes del mismo grupo de sex.
 
-A continuación se realizará la imputación de la variable `cholesterol` mediante la media de cada sexo. De esta forma, los valores ausentes de las mujeres se reemplazan por la media de colesterol de las mujeres y los de los hombres por la media de colesterol de los hombres.
+A continuación se realizará la imputación de la variable `cholesterol` mediante la media de cada sexo.
+De esta forma, los valores ausentes de las mujeres se reemplazan por la media de colesterol de las mujeres y los de los hombres por la media de colesterol de los hombres.
 
 Este método suele ser más adecuado que una imputación global si existen diferencias entre grupos.
 
@@ -497,9 +503,11 @@ ggplot(health_df_completo, aes(x = bmi, y = health_score)) +
 Como se pudo calcular en apartados anteriores, la variable `bmi` presenta $9$ valores faltantes, mientras que la variable `health_score` no contiene ninguno.
 Por lo tanto, al hacer el modelo de regresión completo no se han usado nueve observaciones.
 
-Los resultado del modelo muestran como existe una relación negativa entre ambas variables. En concreto, a medida que el índice de masa corporal aumenta en una unidad, el índice de salud disminuye en $-2,443$ unidades.
+Los resultado del modelo muestran como existe una relación negativa entre ambas variables.
+En concreto, a medida que el índice de masa corporal aumenta en una unidad, el índice de salud disminuye en $-2,443$ unidades.
 
-Además, este modelo resulta ser estadisticamente significativo, debido a que tenemos un p-valor pequeño un estadístico F grande. Sin embargo, el coeficiente de determinación $R^2$ nos indica que el modelo explica el $38,99\%$ de la variabilidad total, por lo que hay más variables de nuestro modelo que influyen en la variable `health_score`.
+Además, este modelo resulta ser estadisticamente significativo, debido a que tenemos un p-valor pequeño un estadístico F grande.
+Sin embargo, el coeficiente de determinación $R^2$ nos indica que el modelo explica el $38,99\%$ de la variabilidad total, por lo que hay más variables de nuestro modelo que influyen en la variable `health_score`.
 
 ### 2.10. Repite el modelo anterior pero con el dataset imputado.
 
@@ -520,7 +528,8 @@ ggplot(health_df_imputado, aes(x = bmi, y = health_score)) +
 
 Al comparar ambos modelos, se observa que los coeficientes apenas varían.
 
-El coeficiente asociado a la variable `bmi` se mantiene identico, mientras que el intercepto pasa de $118,013$ en nuestro modelo anterior a $117,975$. Del mismo modo, el coeficiente de determinación $R^2$ disminuye ligeramente de $38,99\%$ a $38,49\%$.
+El coeficiente asociado a la variable `bmi` se mantiene identico, mientras que el intercepto pasa de $118,013$ en nuestro modelo anterior a $117,975$.
+Del mismo modo, el coeficiente de determinación $R^2$ disminuye ligeramente de $38,99\%$ a $38,49\%$.
 
 Estas diferencias son mínimas debido a que como se vio en el apartados anteriores el dataset se mantiene parcticamente identico al imputarlo, debido a la poca proporción de valores faltantes.
 
@@ -699,6 +708,15 @@ anova(modelo_hs_bmi, modelo_cuadratico_bmi)
 
 ------------------------------------------------------------------------
 
+---
+Se ha ajustado el modelo incorporando el término BMI^2
+El coeficiente de BMI^2 es negativo (-0.27) y su p-valor es menor que 0.05 por lo que es estadísticamente significativo que indica la existencia de una relación no lineal entre BMI y healthscore con una curvatura cóncava hacia abajo.
+
+El modelo explica el 58.54% de la variablidad de healthscore de la muestra.
+
+Para comparar el modelo lineal simple con el modelo cuadrádico se ha realizado un contrste ANOVA obteniendo un estadístico F de 454.4. Como el p-valor de éste es menor a 0.05 se rechaza la hipótesis nula y se concluye que la incorporación del término BMI^2 mejora el ajuste del modelo. En consecuencia, se prefiere el modelo cuadrático al modelo lineal simple
+---
+
 ------------------------------------------------------------------------
 
 ### 4.2. Representa la relación entre health_score y age. ¿Observas una forma cuadrática (descenso tras cierta edad)?
@@ -706,6 +724,10 @@ anova(modelo_hs_bmi, modelo_cuadratico_bmi)
 ```{r}
 ggplot(health_df, aes(x = age, y = health_score)) + geom_point(alpha = 0.7, color="blue") + geom_smooth(method = "lm",formula = y~x+I(x^2), se = TRUE, color = "red") + labs(title = "Relación entre índice de salud y edad", x = "edad", y = "indice de salud") + theme_minimal()
 ```
+
+---
+Tras la representación, se observa una ligera forma de U invertida. El índice de salud aumenta suavemente con la edad y posteriormente disminuye. Sin embargo, la curva es casi horizontal y los puntos presentan una gran dispersión por lo que la relación parece débil.
+---
 
 ### 4.3. Introduce una variable dicotómica para sleep_hours (\<6h vs ≥6h) y ajústala como predictor de health_score. ¿Qué impacto tiene el descanso insuficiente?
 
@@ -905,7 +927,8 @@ if(bp_test$p.value > 0.05) {
 }
 ```
 
-En el test se marca un $\alpha = 0,05$ y en el test se la cañculado un p-valor de $0,29$. Por lo tanto, al ser este valor mayor que $\alpha$, aceptamos la hipetesis nula (Ho), que rechaza el supuesto de heterocedastidad en el modelo.
+En el test se marca un $\alpha = 0,05$ y en el test se la cañculado un p-valor de $0,29$.
+Por lo tanto, al ser este valor mayor que $\alpha$, aceptamos la hipetesis nula (Ho), que rechaza el supuesto de heterocedastidad en el modelo.
 
 ### 5.3. Calcula la varianza de los residuos en tres grupos de stress.
 
@@ -975,7 +998,8 @@ Al representar los residuos frente a las horas de sueño, no se observa un patr�
 
 Cuando se realiza un modelo de inferencia estadística en que existe heterocedastidad, uno de los métodos más usados para su correción es usar **errores estandar robustos**.
 
-Este método estima la matriz de varianzas-covarianzas de los coeficientes bajo el supuesto de que todos los errores presentan la misma varianza. Cuando este supuesto se incumple, la fórmula clásica subestima o sobreestima la verdadera variabilidad muestral.
+Este método estima la matriz de varianzas-covarianzas de los coeficientes bajo el supuesto de que todos los errores presentan la misma varianza.
+Cuando este supuesto se incumple, la fórmula clásica subestima o sobreestima la verdadera variabilidad muestral.
 
 Hay distintos tipos de estimadores (desde HC0 hasta HC4), en este caso se ha decidido usar el estimador HC3 debido a que es el que se usa normalmente y es el más recomendado.
 
@@ -986,7 +1010,8 @@ coeftest(modelo_multiple, vcov = vcovHC(modelo_multiple, type="HC3"))
 
 Al comparar el modelo clásico con el modelo HC, se puede observar como los estimadores de la variables no cambian, pero si lo hace el error estandar, los t-valores y p-valores.
 
-En el caso del error estandar, en este nuevo modelo han aumentado ligeramente con respecto al modelo anterior, por lo que la estimación sería un poco menos precisa. Como consecuencia el t-valor y p-valor de las variables han cambiado.
+En el caso del error estandar, en este nuevo modelo han aumentado ligeramente con respecto al modelo anterior, por lo que la estimación sería un poco menos precisa.
+Como consecuencia el t-valor y p-valor de las variables han cambiado.
 
 Debido a que anteriormente se vio que no se cumplía una violación en el supuesto de homocedastidad en nuestro modelo, es normal ver que los errores estandar de las variables apenas hayan cambiado.
 
@@ -1051,7 +1076,8 @@ ggplot(datos_diag_hetero, aes(x = valores_ajustados, y = residuos)) +
   theme_classic(base_size = 10)
 ```
 
-En nuestro caso, la transformación no la provocado ninguna violación en nuestro modelo. Sin embargo, podemos ver una variación en los estimadores de las variables.
+En nuestro caso, la transformación no la provocado ninguna violación en nuestro modelo.
+Sin embargo, podemos ver una variación en los estimadores de las variables.
 
 ### 5.7. Estudia gráficamente si la heterocedasticidad es más acusada en pacientes con mayor estrés o con menor sueño.
 
@@ -1110,15 +1136,23 @@ En concreto en la gráfica `sleep_hours`, la dispersión es ligeramente mayor en
 
 ### 5.8. Discute cómo afecta la heterocedasticidad a la validez de los intervalos de confianza y los tests de significación.
 
-La heterocedasticidad no introduce sesgo en las estimaciones de los coeficientes de regresión obtenidos mediante mínimos cuadrados ordinarios. Sin embargo, provoca que los errores estándar clásicos sean incorrectos. Como consecuencia, los intervalos de confianza pueden ser demasiado estrechos o demasiado amplios y los contrastes de significación basados en t y F pueden conducir a conclusiones erróneas acerca de la relevancia de las variables explicativas.
+La heterocedasticidad no introduce sesgo en las estimaciones de los coeficientes de regresión obtenidos mediante mínimos cuadrados ordinarios.
+Sin embargo, provoca que los errores estándar clásicos sean incorrectos.
+Como consecuencia, los intervalos de confianza pueden ser demasiado estrechos o demasiado amplios y los contrastes de significación basados en t y F pueden conducir a conclusiones erróneas acerca de la relevancia de las variables explicativas.
 
 ### 5.9. Explica por qué podría ser razonable, en ciertos casos, usar un GLM con varianza distinta a la normal en vez de un modelo lineal.
 
-En algunos problemas la variable respuesta no sigue una distribución normal ni presenta varianza constante. En estos casos puede ser más apropiado utilizar un Modelo Lineal Generalizado (GLM). Por ejemplo, para variables binarias se utiliza la regresión logística, para recuentos la regresión de Poisson y para variables positivas con varianza creciente una distribución Gamma. Estos modelos permiten adaptar simultáneamente la distribución de la respuesta y la relación entre la media y la varianza, proporcionando inferencias más adecuadas que las obtenidas mediante regresión lineal clásica.
+En algunos problemas la variable respuesta no sigue una distribución normal ni presenta varianza constante.
+En estos casos puede ser más apropiado utilizar un Modelo Lineal Generalizado (GLM).
+Por ejemplo, para variables binarias se utiliza la regresión logística, para recuentos la regresión de Poisson y para variables positivas con varianza creciente una distribución Gamma.
+Estos modelos permiten adaptar simultáneamente la distribución de la respuesta y la relación entre la media y la varianza, proporcionando inferencias más adecuadas que las obtenidas mediante regresión lineal clásica.
 
 ### 5.10. Resume qué estrategia te parece más adecuada para manejar la heterocedasticidad en este dataset de salud.
 
-En este conjunto de datos no existe evidencia suficiente de una heterocedasticidad importante. El test de Breusch-Pagan no resulta significativo y las gráficas de diagnóstico muestran una dispersión relativamente constante de los residuos. Por ello, el modelo lineal clásico parece adecuado. No obstante, como medida de robustez, puede ser recomendable reportar también los errores estándar HC3, ya que las conclusiones obtenidas apenas difieren y ofrecen protección frente a posibles desviaciones moderadas del supuesto de homocedasticidad.
+En este conjunto de datos no existe evidencia suficiente de una heterocedasticidad importante.
+El test de Breusch-Pagan no resulta significativo y las gráficas de diagnóstico muestran una dispersión relativamente constante de los residuos.
+Por ello, el modelo lineal clásico parece adecuado.
+No obstante, como medida de robustez, puede ser recomendable reportar también los errores estándar HC3, ya que las conclusiones obtenidas apenas difieren y ofrecen protección frente a posibles desviaciones moderadas del supuesto de homocedasticidad.
 
 ## Bloque 6: Modelos GLM
 
