@@ -1344,36 +1344,40 @@ grid.arrange(p1, p2, p3, p4, ncol = 2)
 
 ## Bloque 7: Iteracciones
 
-### 7.1. Ajusta un modelo lineal para: $health\_score~bmi*activity\_hours$ ¿Cómo se interpreta la interacción entre IMC y actividad física?
+En los modelos de regresión es muy común las presencia de iteracciones entre las variables, que miden como cambia el efecto de una variable según el nivel de otra variable.
+
+En este bloque se realizarán varios modelos de regresión con iteracción entre las variables para ver sus efecto conjunto y como se pueden analizar estos resultados graficamente.
+
+### 7.1. y 7.2 Ajusta un modelo lineal para las variables health_score= bmi*activity_hours y representa graficamente dicha iteracción.
+
+En este apartado se ha realizado un modelo de regresión lineal con la variable respuesta `health_score` y como variables predictoras `bmi` y `activity_hours` junto con sus iteraciones.
 
 ```{r}
 modelo_it=lm(health_score~bmi*activity_hours, data=datos_imp)
 summary(modelo_it)
 ```
 
-En el modelo se puede ver como por cada unidad de aumento de el índice de peso corporal, el puntaje de salud disminuye $-2.210$ unidades, mientras que si aumenta las horas de actividad del paciente el puntaje del salud de este aumenta $5.420$ unidades.
+Como se puede observar, el modelo explica un $55,27\%$ de la variabilidad total, donde por cada unidad de aumento de el índice de peso corporal, el puntaje de salud disminuye en $-2.210$ unidades, mientras que si las horas de actividad del paciente aumentan, este aumentarán en $5.420$ unidades.
 
-Por otro lado, si vemos la iteración entre ambas variables predictoras podemos ver que si el indice de peso corporal del paciente aumenta, pero al mismo tiempo realiza más horas de ejercicio, el puntaje de salud del paciente disminuye $-0.057$ de unidades menos que si no realizase ejercicio.
+Por otro lado, si se observa la iteración entre ambas variables predictoras podemos ver que si el indice de peso corporal (`bmi`) del paciente aumenta, pero al mismo tiempo realiza más horas de ejercicio, el puntaje de salud del paciente disminuye en menor medida que si se mantienen las horas de actividad física contantes en $-0.057$ unidades. Sin embargo, $Pr(>|t|)=0,191$, lo que nos indica que esta iteracción no es estadisticamente significativa.
 
-### 7.2. Representa gráficamente la interacción anterior con curvas de health_score frente a bmi para distintos niveles de activity_hours.
-
-Dividimos las horas de actividad en pocas, moderadas y altas
+A continuación se ha realizado la gráfica que representa la interacción `health_score` frente a `bmi` para distintos niveles de `activity_hours`, donde se ha dividido la variable en tres grupos: "pocas horas", "horas moderadas" y "muchas horas".
 
 ```{r}
 # creamos los grupos de horas de actividad
-datos_imp$ej_grupo <- cut(datos_imp$activity_hours, 
-                            breaks = 3, 
-                            labels = c("Pocas", "Moderada", "Altas"))
+datos_imp$ej_grupo <- cut(datos_imp$activity_hours, breaks = 3, 
+  labels = c("Pocas horas", "horas moderada", "muchas horas"))
 
 # hacemos las grafica
 ggplot(datos_imp, aes(x = bmi, y = health_score, color = ej_grupo)) +
   geom_point(alpha = 0.6) +
   geom_smooth(method = "lm", formula = y ~ x, se = FALSE, linewidth = 1.2) +
   labs(title = "Interacción bmi × activity_hours",
-       subtitle = "El efecto del bmi varía según las horas de actividad física",
        x = "bmi", y = "puntaje de salud", color = "horas de actividad") +
   theme_minimal()
 ```
+
+Pese a que en la gráfica que se ve la las rectas tienen pendientes diferentes, lo que indicaría la presencia de una iteracción significativa, el resumen numérico del modelo indica que no es el caso. Esto podría deberse a que hay un ruido aleatorio en el dataset o que el test no tiene sufuenciente poder predictivo, lo que explicaría el $R^2$ ajustado bajo.
 
 ### 7.3. Ajusta un modelo logístico para: $disease\_controlled~sleep\_hours*stress$. Interpreta el efecto combinado del sueño y el estrés en el control de la enfermedad.
 
@@ -1387,11 +1391,22 @@ summary(modelo_logistico)
 
 Usamos la agrupacion del bloque 5 
 ```{r}
-ggplot(datos_imp, aes(x = sleep_hours, y = disease_controlled , color = grupos_estres)) +
-  geom_point(alpha = 0.6) +
-  geom_smooth(method = "lm", formula = y ~ x, se = FALSE, linewidth = 1.2) +
-  labs(title = "Interacción sleep_hours × stress",
-       x = "sleep_hours", y = "disease_controlled", color = "nivel de estres") +
+ggplot(datos_imp,
+       aes(x = sleep_hours,
+           y = disease_controlled,
+           color = grupos_estres)) +
+  geom_jitter(height = 0.05, width = 0, alpha = 0.3) +
+  stat_smooth(method = "glm",
+              method.args = list(family = binomial),
+              formula = y ~ x,
+              se = FALSE,
+              linewidth = 1.2) +
+  labs(
+    title = "Interacción entre horas de sueño y nivel de estrés",
+    x = "Horas de sueño",
+    y = "Probabilidad de enfermedad controlada",
+    color = "Nivel de estrés"
+  ) +
   theme_minimal()
 ```
 
@@ -1399,15 +1414,12 @@ ggplot(datos_imp, aes(x = sleep_hours, y = disease_controlled , color = grupos_e
 ### 7.5. Ajusta un modelo de binomial negativa para: $hospital\_visits~age*comorbidities$. ¿Cómo influye la edad en el efecto de las comorbilidades sobre las visitas hospitalarias?
 
 ```{r}
-
+modelo_bin <- glm.nb(hospital_visits ~ age*comorbidities, data = datos_imp)
+summary(modelo_bin)
 ```
-
 
 ### 7.6. Discute por qué, en el ámbito de la salud, las interacciones son especialmente relevantes (ej. el efecto de la actividad depende del IMC, o el impacto del estrés depende de las horas de sueño).
 
-```{r}
-
-```
 
 ## Bloque 8: Variables categóricas
 
